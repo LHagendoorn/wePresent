@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- general styles for the action bar -->
+    <style name="MyActionBar"
+        parent= "android:Widget.Holo.ActionBar.TabBar">
+
+        <item name="android:background">#65A73A</item>
+
+
+
+    </style>
+</resources>
