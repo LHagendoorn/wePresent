@@ -3,9 +3,7 @@
     <!-- general styles for the action bar -->
     <style name="MyActionBar"
         parent= "android:Widget.Holo.ActionBar.TabBar">
-
-        <item name="android:background">##ff65a73a</item>
-
+        <item name="android:background">#ff65a73a</item>
     </style>
 
     <style name="MyCustomTheme" parent="@android:style/Theme.Holo.Light">
@@ -13,7 +11,15 @@
     </style>
 
     <style name="MyActionBarTheme" parent="@android:style/Widget.Holo.Light.ActionBar">
+
         <item name="android:background">#FF075804</item>
+        
+    </style>
+
+    <style name="NoActionBar" parent="@android:style/Theme.Holo.Light">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+
     </style>
 
 </resources>

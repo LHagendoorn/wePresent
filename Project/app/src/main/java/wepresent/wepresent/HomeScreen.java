@@ -51,6 +51,7 @@ public class HomeScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
+
         final View controlsView = findViewById(R.id.fullscreen_content_controls);
         final View contentView = findViewById(R.id.fullscreen_content);
 
