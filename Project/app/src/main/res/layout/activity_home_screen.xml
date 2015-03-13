@@ -25,26 +25,46 @@
             android:background="@color/black_overlay" android:orientation="horizontal"
             tools:ignore="UselessParent">
 
-            <TableLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"></TableLayout>
-
-            <Button android:id="@+id/dummy_button" style="?metaButtonBarButtonStyle"
-                android:layout_width="0dp" android:layout_height="wrap_content"
-                android:layout_weight="1" android:text="@string/dummy_button" />
-
         </LinearLayout>
 
         <TextView
-            android:layout_width="307dp"
-            android:layout_height="202dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Fuck Yeah Text"
-            android:id="@+id/textView"
-            android:layout_gravity="left|top"
-            android:textStyle="bold"
-            android:textSize="50sp" />
+            android:text="@string/verplTekst"
+            android:id="@+id/text1"
+            android:layout_gravity="left|top" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/text2"
+            android:layout_gravity="right|top" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/butText"
+            android:id="@+id/button"
+            android:onClick="moveMessage"
+            android:layout_gravity="center" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/butText2"
+            android:id="@+id/button2"
+            android:onClick="plaotjeTover"
+            android:layout_gravity="center_horizontal|bottom" />
+
     </FrameLayout>
     </FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/textView"
+        android:layout_gravity="right|bottom" />
 </FrameLayout>

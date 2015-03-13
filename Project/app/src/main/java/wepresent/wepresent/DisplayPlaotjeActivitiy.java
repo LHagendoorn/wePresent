@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.TextView;
 
 
 /**
@@ -19,14 +18,12 @@ import android.widget.TextView;
  *
  * @see SystemUiHider
  */
-public class HomeScreen extends Activity {
-
-    public final static String EXTRA_MESSAGE = "wepresent.wepresent.MESSAGE";
+public class DisplayPlaotjeActivitiy extends Activity {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
      */
-    private static final boolean AUTO_HIDE = false;
+    private static final boolean AUTO_HIDE = true;
 
     /**
      * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
@@ -38,7 +35,7 @@ public class HomeScreen extends Activity {
      * If set, will toggle the system UI visibility upon interaction. Otherwise,
      * will show the system UI visibility upon interaction.
      */
-    private static final boolean TOGGLE_ON_CLICK = false;
+    private static final boolean TOGGLE_ON_CLICK = true;
 
     /**
      * The flags to pass to {@link SystemUiHider#getInstance}.
@@ -53,8 +50,9 @@ public class HomeScreen extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_screen);
 
+        setContentView(R.layout.activity_display_plaotje_activitiy);
+        Intent intent = getIntent();
 
         final View controlsView = findViewById(R.id.fullscreen_content_controls);
         final View contentView = findViewById(R.id.fullscreen_content);
@@ -116,7 +114,7 @@ public class HomeScreen extends Activity {
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        //findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
     }
 
     @Override
@@ -160,33 +158,5 @@ public class HomeScreen extends Activity {
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
-    }
-
-    /**
-     * Moves message to other text unit
-     */
-    public void moveMessage(View view){
-        TextView text1 = (TextView) findViewById(R.id.text1);
-        TextView text2 = (TextView) findViewById(R.id.text2);
-        String message = text1.getText().toString();
-        if(!message.equals("")){
-            text2.setText(message);
-            text1.setText("");
-        } else {
-            message = text2.getText().toString();
-            text1.setText(message);
-            text2.setText("");
-        }
-    }
-
-    /**
-     * Shows plaotje
-     * @param view
-     */
-    public void plaotjeTover(View view){
-        Intent intent = new Intent(this, DisplayPlaotjeActivitiy.class);
-        String message = ((TextView) findViewById(R.id.text1)).getText().toString();
-        intent.putExtra("EXTRA_MESSAGE", message);
-        startActivity(intent);
     }
 }
