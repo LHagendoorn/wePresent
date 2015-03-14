@@ -1,10 +1,8 @@
 <resources>
     <string name="app_name">wePresent</string>
     <string name="verplTekst">Fuck yea Text!</string>
-    <string name="butText">Fuck yea Beweging!</string>
-    <string name="butText2">Fuck yea PLaatje!</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="registerText">Register</string>
+    <string name="loginText">Log In</string>
 
     <string name="title_activity_display_plaotje_activitiy">DisplayPlaotjeActivitiy</string>
 </resources>

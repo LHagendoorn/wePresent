@@ -164,7 +164,7 @@ public class HomeScreen extends Activity {
 
     /**
      * Moves message to other text unit
-     */
+
     public void moveMessage(View view){
         TextView text1 = (TextView) findViewById(R.id.text1);
         TextView text2 = (TextView) findViewById(R.id.text2);
@@ -179,14 +179,18 @@ public class HomeScreen extends Activity {
         }
     }
 
+     */
+
     /**
      * Shows plaotje
      * @param view
-     */
+
     public void plaotjeTover(View view){
         Intent intent = new Intent(this, DisplayPlaotjeActivitiy.class);
         String message = ((TextView) findViewById(R.id.text1)).getText().toString();
         intent.putExtra("EXTRA_MESSAGE", message);
         startActivity(intent);
     }
+
+    */
 }
