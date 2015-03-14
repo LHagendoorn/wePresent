@@ -7,9 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d7446230-ed11-46dc-8ee3-6052dc7466e7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Project/app/src/main/java/wepresent/wepresent/HomeScreen.java" afterPath="$PROJECT_DIR$/Project/app/src/main/java/wepresent/wepresent/HomeScreen.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Project/app/src/main/res/layout/activity_home_screen.xml" afterPath="$PROJECT_DIR$/Project/app/src/main/res/layout/activity_home_screen.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Project/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/Project/app/src/main/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="wePresent.iws" />
@@ -663,7 +660,11 @@
       <created>1426068248995</created>
       <updated>1426068248995</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="GUI HomeScreen af, functionaliteit en RegisterScreen nog doen">
+      <created>1426363726754</created>
+      <updated>1426363726754</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -719,7 +720,8 @@
     <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;Conflicts:&#10;&#9;Project/app/src/main/res/layout/activity_home_screen.xml&#10;" />
     <MESSAGE value="Kijk eens even hier naar" />
     <MESSAGE value="Probeer dit eens" />
-    <option name="LAST_COMMIT_MESSAGE" value="Probeer dit eens" />
+    <MESSAGE value="GUI HomeScreen af, functionaliteit en RegisterScreen nog doen" />
+    <option name="LAST_COMMIT_MESSAGE" value="GUI HomeScreen af, functionaliteit en RegisterScreen nog doen" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
