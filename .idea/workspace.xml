@@ -6,7 +6,7 @@
     </shared>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7446230-ed11-46dc-8ee3-6052dc7466e7" name="Default" comment="GUI HomeScreen af, functionaliteit en RegisterScreen nog doen">
+    <list default="true" id="d7446230-ed11-46dc-8ee3-6052dc7466e7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="wePresent.iws" />
@@ -672,7 +672,11 @@
       <created>1426363788024</created>
       <updated>1426363788024</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="GUI HomeScreen af, functionaliteit en RegisterScreen nog doen">
+      <created>1426363979663</created>
+      <updated>1426363979663</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
