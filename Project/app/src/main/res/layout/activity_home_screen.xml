@@ -20,7 +20,9 @@
         android:layout_alignParentLeft="true"
         android:background="#ff0f8c07"
         android:layout_centerInParent="true"
-        android:layout_marginLeft="10dp" />
+        android:layout_marginLeft="10dp"
+        android:textSize="20dp"
+        android:height="50dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -29,11 +31,12 @@
         android:id="@+id/login"
         android:onClick="plaotjeTover"
         android:width="170dp"
-        android:height="12dp"
+        android:height="50dp"
         android:background="#ff0f8c07"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp" />
+        android:layout_marginRight="10dp"
+        android:textSize="20dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -44,7 +47,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="45dp"
         android:width="300dp"
-        android:background="#ff0f8c07" />
+        android:background="#ff0f8c07"
+        android:height="50dp"
+        android:textSize="20dp" />
 
     <EditText
         android:layout_width="wrap_content"
