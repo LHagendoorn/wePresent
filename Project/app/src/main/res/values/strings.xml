@@ -3,4 +3,14 @@
     <string name="verplTekst">Fuck yea Text!</string>
     <string name="registerText">Register</string>
     <string name="loginText">Log In</string>
+
+    <string name="title_activity_home_screenv2">HomeScreenv2</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="title_activity_testvoordeleuk">testvoordeleuk</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 </resources>

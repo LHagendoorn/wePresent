@@ -6,7 +6,7 @@
         <item name="android:background">#ff65a73a</item>
     </style>
 
-    <style name="MyCustomTheme" parent="@android:style/Theme.Holo.Light">
+    <style name="MyCustomTheme" parent="Theme.AppCompat.Light">
         <item name="android:actionBarStyle">@style/MyActionBarTheme</item>
     </style>
 

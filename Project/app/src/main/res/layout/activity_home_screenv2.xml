@@ -1,0 +1,90 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="#ff65a73a" tools:context=".HomeScreenv2"
+    >
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/registerText"
+        android:id="@+id/register"
+        android:onClick="plaotjeTover"
+        android:width="170dp"
+        android:layout_alignParentLeft="true"
+        android:background="#ff0f8c07"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="10dp"
+        android:textSize="20dp"
+        android:height="50dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/loginText"
+        android:id="@+id/login"
+        android:onClick="plaotjeTover"
+        android:width="170dp"
+        android:height="50dp"
+        android:background="#ff0f8c07"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:textSize="20dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Join Session"
+        android:id="@+id/button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="45dp"
+        android:width="300dp"
+        android:background="#ff0f8c07"
+        android:height="50dp"
+        android:textSize="20dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/userName"
+        android:background="#ffffff"
+        android:width="300dp"
+        android:height="50dp"
+        android:textSize="25dp"
+        android:textColorHint="#8d7f7f7f"
+        android:textColor="#ff000000"
+        android:hint="Username"
+        android:layout_above="@+id/register"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="96dp"
+        android:paddingLeft="15dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/passWord"
+        android:layout_above="@+id/register"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="32dp"
+        android:background="#ffffff"
+        android:width="300dp"
+        android:textColor="#ff000000"
+        android:textColorHint="#8d7f7f7f"
+        android:hint="Password"
+        android:textSize="25dp"
+        android:fontFamily="@string/loginText"
+        android:paddingLeft="15dp" />
+
+</RelativeLayout>
