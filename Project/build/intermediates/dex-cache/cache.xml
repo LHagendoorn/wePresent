@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\Jos\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="C:\Users\Jos\Documents\GitHub\wePresent\Project\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-fec8777fc88a484af3d2817f60436a2ab5429e51.jar" />
+    </item>
+    <item
+        jar="C:\Users\Jos\Documents\GitHub\wePresent\Project\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="C:\Users\Jos\Documents\GitHub\wePresent\Project\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-da966fa56c90e278148a06a2e73a17d7e8c1674a.jar" />
+    </item>
+    <item
+        jar="C:\Users\Jos\Documents\GitHub\wePresent\Project\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="C:\Users\Jos\Documents\GitHub\wePresent\Project\app\build\intermediates\pre-dexed\debug\classes-fae9d37b9f2036a312b9ce939fd3cb5d604b2656.jar" />
+    </item>
+    <item
+        jar="C:\Users\Jos\Documents\GitHub\wePresent\Project\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="C:\Users\Jos\Documents\GitHub\wePresent\Project\app\build\intermediates\pre-dexed\debug\classes-7b538a6a1ed31818f4ba36192fd3e280f774aafe.jar" />
+    </item>
+
+</items>
