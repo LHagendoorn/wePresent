@@ -16,13 +16,16 @@
         android:text="@string/registerText"
         android:id="@+id/register"
         android:onClick="plaotjeTover"
-        android:width="170dp"
+        android:width="140dp"
         android:layout_alignParentLeft="true"
         android:background="#ff0f8c07"
         android:layout_centerInParent="true"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="20dp"
         android:textSize="20dp"
-        android:height="50dp" />
+        android:height="50dp"
+        android:layout_alignParentEnd="false"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_marginRight="100dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -30,13 +33,14 @@
         android:text="@string/loginText"
         android:id="@+id/login"
         android:onClick="plaotjeTover"
-        android:width="170dp"
+        android:width="140dp"
         android:height="50dp"
         android:background="#ff0f8c07"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
-        android:textSize="20dp" />
+        android:layout_marginRight="20dp"
+        android:textSize="20dp"
+        android:layout_marginLeft="100dp" />
 
     <Button
         android:layout_width="wrap_content"
