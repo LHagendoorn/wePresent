@@ -1,5 +1,7 @@
 .idea/
 .gradle/
+Project/.gradle/
+Project/.idea/
 
 #################
 ## Eclipse
