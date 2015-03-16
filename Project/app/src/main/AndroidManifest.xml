@@ -20,9 +20,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DisplayPlaotjeActivitiy"
+            android:name="RegisterActivitiy"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_display_plaotje_activitiy"
+            android:label="@string/registerText"
             android:theme="@style/FullscreenTheme" >
         </activity>
     </application>
