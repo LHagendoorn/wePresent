@@ -15,6 +15,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="45dp"
+        android:onClick="register"
         android:width="300dp"
         android:background="#ff0f8c07"
         android:height="50dp"
