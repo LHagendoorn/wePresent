@@ -20,6 +20,10 @@
             android:name=".RegisterActivity"
             android:label="@string/title_activity_register" >
         </activity>
+        <activity
+            android:name=".SlidesActivity"
+            android:label="SlidesActivity" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
