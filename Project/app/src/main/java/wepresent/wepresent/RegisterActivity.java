@@ -64,7 +64,7 @@ public class RegisterActivity extends ActionBarActivity {
          *      }
          *
          * if (false){
-         * message.setText("wrong email adress")
+         * message.setText("wrong email address")
          * }
          */
     }
