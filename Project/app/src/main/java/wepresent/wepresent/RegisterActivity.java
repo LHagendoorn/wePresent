@@ -4,7 +4,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import android.view.View;
+import android.widget.TextView;
 
 public class RegisterActivity extends ActionBarActivity {
 
@@ -35,5 +36,21 @@ public class RegisterActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Moves message to other text unit
+     */
+    public void moveMessage(View view){
+        TextView message = (TextView) findViewById(R.id.errorMessage);
+        TextView password = (TextView) findViewById(R.id.passWord);
+        TextView verification = (TextView) findViewById(R.id.verPass);
+
+        String yourPassword = password.getText().toString();
+        String verifyPassword = verification.getText().toString();
+
+        if(!password.equals(verification)){
+            message.setText("Passwords do not match");
+        }
     }
 }
