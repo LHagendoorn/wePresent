@@ -2,11 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="wepresent.wepresent" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.NoTitleBar">
+        android:theme="@android:style/Theme.NoTitleBar" >
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main" >
@@ -20,8 +22,15 @@
             android:name=".RegisterActivity"
             android:label="@string/title_activity_register" >
         </activity>
-    </application>
+        <activity
+            android:name=".QuestionView"
+            android:label="@string/title_activity_question_view" >
+        </activity>
+        <activity
+            android:name=".QuizView"
+            android:label="@string/title_activity_quiz_view" >
+        </activity>
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    </application>
 
 </manifest>
