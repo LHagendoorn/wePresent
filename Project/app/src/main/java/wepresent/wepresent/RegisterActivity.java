@@ -5,7 +5,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import android.view.View;
+import android.widget.TextView;
 
 public class RegisterActivity extends Activity {
 
@@ -36,5 +37,36 @@ public class RegisterActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Moves message to other text unit
+     */
+    public void moveMessage(View view){
+        TextView message = (TextView) findViewById(R.id.errorMessage);
+        TextView username = (TextView) findViewById(R.id.userName);
+        TextView email = (TextView) findViewById(R.id.email);
+        TextView password = (TextView) findViewById(R.id.passWord);
+        TextView verification = (TextView) findViewById(R.id.verPass);
+        String yourUsername = username.getText().toString();
+        String yourEmail = email.getText().toString();
+        String yourPassword = password.getText().toString();
+        String verifyPassword = verification.getText().toString();
+
+        if(!yourPassword.equals(verifyPassword)){
+            message.setText("Passwords do not match");
+        }
+        /**
+         * retrieve list with userNames []
+         * for (int i = 0; i<userNames.length; i++){
+         *  if yourUsername.equals(userNames[i]){
+         *      message.setText("user name already in use!"
+         *      }
+         *      }
+         *
+         * if (false){
+         * message.setText("wrong email address")
+         * }
+         */
     }
 }

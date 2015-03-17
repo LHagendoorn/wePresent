@@ -17,15 +17,14 @@
         android:id="@+id/register"
         android:onClick="gotoRegister"
         android:width="140dp"
-        android:layout_alignParentLeft="true"
         android:background="#ff0f8c07"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="20dp"
         android:textSize="20dp"
         android:height="50dp"
-        android:layout_alignParentEnd="false"
         android:layout_alignWithParentIfMissing="false"
-        android:layout_marginRight="100dp" />
+        android:layout_marginRight="150dp"
+        android:layout_below="@+id/passWord"
+        android:layout_alignStart="@+id/passWord"
+        android:layout_marginTop="38dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -36,11 +35,10 @@
         android:width="140dp"
         android:height="50dp"
         android:background="#ff0f8c07"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
         android:textSize="20dp"
-        android:layout_marginLeft="100dp" />
+        android:layout_alignBaseline="@+id/register"
+        android:layout_alignBottom="@+id/register"
+        android:layout_alignEnd="@+id/passWord" />
 
     <Button
         android:layout_width="wrap_content"
@@ -68,10 +66,10 @@
         android:textColorHint="#8d7f7f7f"
         android:textColor="#ff000000"
         android:hint="Username"
-        android:layout_above="@+id/register"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="96dp"
-        android:paddingLeft="15dp" />
+        android:paddingLeft="15dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/passWord"
+        android:layout_marginTop="40dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -79,9 +77,6 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/passWord"
-        android:layout_above="@+id/register"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="32dp"
         android:background="#ffffff"
         android:width="300dp"
         android:textColor="#ff000000"
@@ -89,6 +84,9 @@
         android:hint="Password"
         android:textSize="25dp"
         android:fontFamily="@string/loginText"
-        android:paddingLeft="15dp" />
+        android:paddingLeft="15dp"
+        android:layout_below="@+id/userName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="36dp" />
 
 </RelativeLayout>
