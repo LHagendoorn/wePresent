@@ -1,14 +1,23 @@
 package wepresent.wepresent;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class RegisterActivity extends Activity {
+import wepresent.wepresent.mappers.AsyncTaskReport;
+import wepresent.wepresent.mappers.Mapper;
+import wepresent.wepresent.mappers.RegisterMapper;
+
+public class RegisterActivity extends Activity implements AsyncTaskReport {
+
+    private String errorMessage;
+
+    private RegisterMapper registerMapper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +51,7 @@ public class RegisterActivity extends Activity {
     /**
      * Moves message to other text unit
      */
-    public void moveMessage(View view){
-        TextView message = (TextView) findViewById(R.id.errorMessage);
+    public void register(View view){
         TextView username = (TextView) findViewById(R.id.userName);
         TextView email = (TextView) findViewById(R.id.email);
         TextView password = (TextView) findViewById(R.id.passWord);
@@ -52,21 +60,45 @@ public class RegisterActivity extends Activity {
         String yourEmail = email.getText().toString();
         String yourPassword = password.getText().toString();
         String verifyPassword = verification.getText().toString();
+        String androidId = "ANDROIDIDCOMESHERE";
 
         if(!yourPassword.equals(verifyPassword)){
-            message.setText("Passwords do not match");
+            showErrorMessage("Your passwords do not match");
+        } else {
+            registerMapper = new RegisterMapper(this);
+            registerMapper.start(yourUsername, yourPassword, yourEmail, androidId);
         }
-        /**
-         * retrieve list with userNames []
-         * for (int i = 0; i<userNames.length; i++){
-         *  if yourUsername.equals(userNames[i]){
-         *      message.setText("user name already in use!"
-         *      }
-         *      }
-         *
-         * if (false){
-         * message.setText("wrong email address")
-         * }
-         */
+    }
+
+    public void showErrorMessage(String errorMessage) {
+        TextView message = (TextView) findViewById(R.id.errorMessage);
+        message.setText(errorMessage);
+    }
+
+    public void done(Mapper.MapperSort mapper) {
+        if(registerMapper.isRegisterSuccesful()) {
+            // TODO: Redirect to hub; send userID along -> registerMapper.getUserId()
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        } else {
+            // Check what error message occurs
+            switch (registerMapper.getErrorCode()) {
+                case 1:
+                    this.errorMessage = "This username is already in use";
+                    break;
+                case 2:
+                    this.errorMessage = "This emailaddress is already in use";
+                    break;
+                case 3:
+                    this.errorMessage = "There was an internal error, please try again later";
+                    break;
+                default:
+                    this.errorMessage = "Unknown error";
+                    break;
+            }
+
+            // Show the error message
+            showErrorMessage(this.errorMessage);
+        }
     }
 }
