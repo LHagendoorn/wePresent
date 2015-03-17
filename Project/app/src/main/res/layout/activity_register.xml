@@ -84,7 +84,7 @@
         android:layout_marginTop="37dp"
         android:background="#ffffff"
         android:fontFamily="@string/loginText"
-        android:hint="e-Mail"
+        android:hint="E-mail"
         android:textColorHint="#8d7f7f7f"
         android:textColor="#ff000000"
         android:width="300dp"
