@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:text="@string/registerText"
         android:id="@+id/register"
-        android:onClick="plaotjeTover"
+        android:onClick="gotoRegister"
         android:width="140dp"
         android:layout_alignParentLeft="true"
         android:background="#ff0f8c07"
