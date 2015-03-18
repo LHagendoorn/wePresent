@@ -63,9 +63,12 @@ public class RegisterActivity extends Activity implements AsyncTaskReport {
         String yourEmail = email.getText().toString();
         String yourPassword = password.getText().toString();
         String verifyPassword = verification.getText().toString();
-        String androidId = getUniquePsuedoID();
+        String androidId = "test";
 
-        if(!yourPassword.equals(verifyPassword)){
+        if (yourUsername.equals("") || yourEmail.equals("") || yourPassword.equals("") || verifyPassword.equals("")){
+            showErrorMessage("Please fill in all fields");
+        }
+        else if(!yourPassword.equals(verifyPassword)){
             showErrorMessage("Your passwords do not match");
         } else {
             registerMapper = new RegisterMapper(this);
@@ -112,7 +115,7 @@ public class RegisterActivity extends Activity implements AsyncTaskReport {
 
     public void showErrorMessage(String errorMessage) {
         TextView message = (TextView) findViewById(R.id.errorMessage);
-        message.setText(errorMessage);
+        Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
     }
 
     public void done(Mapper.MapperSort mapper) {
