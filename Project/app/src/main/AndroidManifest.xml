@@ -30,6 +30,7 @@
             android:name=".QuizView"
             android:label="@string/title_activity_quiz_view" >
         </activity>
+        <activity
             android:name=".SlidesActivity"
             android:label="SlidesActivity" >
         </activity>
