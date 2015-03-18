@@ -11,6 +11,7 @@
         android:theme="@android:style/Theme.NoTitleBar" >
         <activity
             android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"
             android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,9 +31,7 @@
             android:name=".QuizView"
             android:label="@string/title_activity_quiz_view" >
         </activity>
-            android:name=".SlidesActivity"
-            android:label="SlidesActivity" >
-        </activity>
+
     </application>
 
 </manifest>

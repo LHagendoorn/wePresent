@@ -42,15 +42,19 @@ public class MainActivity extends Activity implements AsyncTaskReport {
     }
 
     private void proceedLogin() {
-        loginMapper = new MainMapper(this);
-        loginMapper.start(input_username.getText().toString(), input_password.getText().toString(), "");
+        if(input_username.getText().toString().equals("") || input_password.getText().toString().equals("")){
+            Toast.makeText(getApplicationContext(), "Please enter a username and password", Toast.LENGTH_LONG).show();
+        } else {
+            loginMapper = new MainMapper(this);
+            loginMapper.start(input_username.getText().toString(), input_password.getText().toString(), "");
+        }
     }
 
     public void done(Mapper.MapperSort mapper) {
         if(loginMapper.isLoginsuccesful()) {
-            Toast.makeText(getApplicationContext(), "Correcte login gegevens verstuurd", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Correct login data send", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(getApplicationContext(), "Niet mogelijk om in te loggen", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Cannot login", Toast.LENGTH_LONG).show();
         }
     }
 

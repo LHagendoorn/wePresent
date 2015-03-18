@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:text="@string/loginText"
         android:id="@+id/login"
-        android:onClick="plaotjeTover"
+        android:onClick="proceedLogin"
         android:width="140dp"
         android:height="50dp"
         android:background="#ff0f8c07"
