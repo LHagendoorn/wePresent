@@ -43,16 +43,16 @@ public class SlidesActivity extends Activity  {
         for (int i = 0; i < 4; i++) { // TODO yet to be used on an image set. Also requires server communication
             ImageButton imageButton = new ImageButton(this);
             imageButton.setId(i);
-            imageButton.setImageResource(R.drawable.blapp); // Insert image
+            imageButton.setImageResource(R.drawable.test); // Insert image (simple 16:9 image for now)
             imageButton.setLayoutParams(lpView); // Adjust image button size
             imageButton.setScaleType(ImageView.ScaleType.CENTER_INSIDE); // Scale of image in button
             linLayout.addView(imageButton, lpView);
             imageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(View v) { // On click event, brings to slide view activity
                     Intent intent = new Intent(getApplicationContext(), SlideViewActivity.class);
                     System.out.println(v.getId());
-                    intent.putExtra("SlideNumber",v.getId());
+                    intent.putExtra("SlideNumber",v.getId()); // Send extra variable
                     startActivity(intent);
                 }
             });
