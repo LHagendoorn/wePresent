@@ -49,21 +49,21 @@ public class QuizView extends Activity {
         Button buttonB = (Button) findViewById(R.id.optionB);
         Button buttonC = (Button) findViewById(R.id.optionC);
         if (view.getId() == R.id.optionA){
-            buttonA.setBackgroundColor(Color.parseColor("##9FF781"));
+            buttonA.setBackgroundColor(Color.parseColor("#9FF781"));
             buttonB.setBackgroundColor(Color.parseColor("#ff0f8c07"));
             buttonC.setBackgroundColor(Color.parseColor("#ff0f8c07"));
             Pressed = "A";
         }
         if (view.getId() == R.id.optionB) {
             buttonA.setBackgroundColor(Color.parseColor("#ff0f8c07"));
-            buttonB.setBackgroundColor(Color.parseColor("##9FF781"));
+            buttonB.setBackgroundColor(Color.parseColor("#9FF781"));
             buttonC.setBackgroundColor(Color.parseColor("#ff0f8c07"));
             Pressed = "B";
         }
         if (view.getId() == R.id.optionC){
             buttonA.setBackgroundColor(Color.parseColor("#ff0f8c07"));
             buttonB.setBackgroundColor(Color.parseColor("#ff0f8c07"));
-            buttonC.setBackgroundColor(Color.parseColor("##9FF781"));
+            buttonC.setBackgroundColor(Color.parseColor("#9FF781"));
             Pressed = "C";
         }
     }
