@@ -11,8 +11,8 @@
         android:theme="@android:style/Theme.NoTitleBar" >
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"
-            android:label="@string/title_activity_main" >
+            android:label="@string/title_activity_main"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,13 +33,16 @@
         </activity>
         <activity
             android:name=".SlidesActivity"
-            android:label="SlidesActivity">
+            android:label="SlidesActivity" >
         </activity>
         <activity
             android:name=".SlideViewActivity"
-            android:label="SlideViewActivity">
+            android:label="SlideViewActivity" >
         </activity>
-
+        <activity
+            android:name=".HubActivity"
+            android:label="@string/title_activity_hub" >
+        </activity>
     </application>
 
 </manifest>
