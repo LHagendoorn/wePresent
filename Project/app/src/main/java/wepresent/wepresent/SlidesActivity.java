@@ -1,6 +1,8 @@
 package wepresent.wepresent;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.Point;
@@ -19,7 +21,7 @@ import android.view.ViewGroup.LayoutParams;
 
 import java.io.File;
 
-public class SlidesActivity extends Activity {
+public class SlidesActivity extends Activity  {
 
     private LinearLayout linLayout;
 
@@ -38,12 +40,22 @@ public class SlidesActivity extends Activity {
 
         LayoutParams lpView = new LayoutParams(width, height); // 16:9 format based on screen size
 
-        for (int i = 0; i < 4; i++) { // Need yet to be used on an image set. Also requires onclick() events
+        for (int i = 0; i < 4; i++) { // TODO yet to be used on an image set. Also requires server communication
             ImageButton imageButton = new ImageButton(this);
+            imageButton.setId(i);
             imageButton.setImageResource(R.drawable.blapp); // Insert image
             imageButton.setLayoutParams(lpView); // Adjust image button size
             imageButton.setScaleType(ImageView.ScaleType.CENTER_INSIDE); // Scale of image in button
             linLayout.addView(imageButton, lpView);
+            imageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getApplicationContext(), SlideViewActivity.class);
+                    System.out.println(v.getId());
+                    intent.putExtra("SlideNumber",v.getId());
+                    startActivity(intent);
+                }
+            });
         }
     }
 }
