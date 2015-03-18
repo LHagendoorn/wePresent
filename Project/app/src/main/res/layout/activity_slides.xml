@@ -12,22 +12,9 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:id="@+id/linearLayout">
 
-            <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:id="@+id/imageButton" />
-
-            <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:id="@+id/imageButton2" />
-
-            <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:id="@+id/imageButton3" />
         </LinearLayout>
     </ScrollView>
 </FrameLayout>
