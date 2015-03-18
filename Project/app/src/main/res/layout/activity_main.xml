@@ -58,13 +58,13 @@
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/userName"
         android:background="#ffffff"
         android:width="300dp"
-        android:height="50dp"
+        android:height="40dp"
         android:textSize="25dp"
         android:textColorHint="#8d7f7f7f"
         android:textColor="#ff000000"
@@ -73,11 +73,14 @@
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/passWord"
         android:layout_marginTop="40dp"
-        android:maxLines="1" />
+        android:maxLines="1"
+        android:maxHeight="40dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="5dp" />
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/passWord"
@@ -92,7 +95,11 @@
         android:layout_below="@+id/userName"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="36dp"
-        android:maxLines="1" />
+        android:maxLines="1"
+        android:maxHeight="40dp"
+        android:height="50dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="5dp" />
 
     <ListView
         android:layout_width="300dp"
