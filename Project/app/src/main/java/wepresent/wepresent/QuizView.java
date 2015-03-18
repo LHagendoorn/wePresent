@@ -1,13 +1,19 @@
 package wepresent.wepresent;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 
 public class QuizView extends Activity {
+
+    String Pressed = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,5 +42,35 @@ public class QuizView extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void pressed(View view){
+        Button buttonA = (Button) findViewById(R.id.optionA);
+        Button buttonB = (Button) findViewById(R.id.optionB);
+        Button buttonC = (Button) findViewById(R.id.optionC);
+        if (view.getId() == R.id.optionA){
+            buttonA.setBackgroundColor(Color.parseColor("##9FF781"));
+            buttonB.setBackgroundColor(Color.parseColor("#ff0f8c07"));
+            buttonC.setBackgroundColor(Color.parseColor("#ff0f8c07"));
+            Pressed = "A";
+        }
+        if (view.getId() == R.id.optionB) {
+            buttonA.setBackgroundColor(Color.parseColor("#ff0f8c07"));
+            buttonB.setBackgroundColor(Color.parseColor("##9FF781"));
+            buttonC.setBackgroundColor(Color.parseColor("#ff0f8c07"));
+            Pressed = "B";
+        }
+        if (view.getId() == R.id.optionC){
+            buttonA.setBackgroundColor(Color.parseColor("#ff0f8c07"));
+            buttonB.setBackgroundColor(Color.parseColor("#ff0f8c07"));
+            buttonC.setBackgroundColor(Color.parseColor("##9FF781"));
+            Pressed = "C";
+        }
+    }
+
+    public void submit(View view) {
+        Button buttonOK = (Button) findViewById(R.id.optionD);
+        Toast toast = Toast.makeText(getApplicationContext(), Pressed, Toast.LENGTH_SHORT);
+        toast.show();
     }
 }

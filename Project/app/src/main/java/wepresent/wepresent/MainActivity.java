@@ -126,4 +126,6 @@ public class MainActivity extends Activity implements AsyncTaskReport {
         // Finally, combine the values we have found by using the UUID class to create a unique identifier
         return new UUID(m_szDevIDShort.hashCode(), serial.hashCode()).toString();
     }
+
+
 }
