@@ -120,9 +120,11 @@ public class RegisterActivity extends Activity implements AsyncTaskReport {
 
     public void done(Mapper.MapperSort mapper) {
         if(registerMapper.isRegisterSuccesful()) {
-            // TODO: Redirect to hub; send userID along -> registerMapper.getUserId()
+            // TODO: Redirect to hub
+            int registeredID = registerMapper.getUserId();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+            intent.putExtra("ID", registeredID);
         } else {
             // Check what error message occurs
             switch (registerMapper.getErrorCode()) {
