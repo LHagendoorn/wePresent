@@ -12,6 +12,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+// Google Cloud Messaging
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+// End Google Cloud Messaging
+
 import java.util.UUID;
 
 import wepresent.wepresent.mappers.AsyncTaskReport;
@@ -26,10 +37,33 @@ public class MainActivity extends Activity implements AsyncTaskReport {
     private String androidId;
     private Button loginButton;
 
+    // Google Cloud Messaging
+    private GCMClientManager pushClientManager;
+    String PROJECT_NUMBER = "422250236441";
+
+    String uniqueDeviceId;
+    // End Google Cloud Messaging
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Google Cloud Messaging
+        pushClientManager = new GCMClientManager(this, PROJECT_NUMBER);
+        pushClientManager.registerIfNeeded(new GCMClientManager.RegistrationCompletedHandler() {
+           @Override
+            public void onSuccess(String registrationId, boolean isNewRegistration) {
+               Toast.makeText(MainActivity.this, registrationId, Toast.LENGTH_SHORT).show();
+               uniqueDeviceId = registrationId;
+           }
+
+            @Override
+            public void onFailure(String ex) {
+                super.onFailure(ex);
+            }
+        });
+        // End Google Cloud Messaging
 
         input_username = (EditText) findViewById(R.id.userName);
         input_password = (EditText) findViewById(R.id.passWord);
