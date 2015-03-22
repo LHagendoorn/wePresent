@@ -15,7 +15,7 @@ import java.util.List;
  * Created by Chris on 16-Mar-15.
  */
 public class MainMapper extends Mapper {
-    private String username, password;
+    private String username, password, androidId;
     private boolean loginsuccesful;
 
     public MainMapper(Activity activity) {
@@ -25,6 +25,7 @@ public class MainMapper extends Mapper {
     public void start(String username, String password, String androidId) {
         setUsername(username);
         setPassword(password);
+        setAndroidId(androidId);
         execute();
     }
 
@@ -34,7 +35,7 @@ public class MainMapper extends Mapper {
 
         nameValuePairs.add(new BasicNameValuePair("Username", getUsername()));
         nameValuePairs.add(new BasicNameValuePair("Password", getPassword()));
-        nameValuePairs.add(new BasicNameValuePair("AndroidID", "TEST"));
+        nameValuePairs.add(new BasicNameValuePair("AndroidID", getAndroidId()));
 
         return nameValuePairs;
     }
@@ -80,6 +81,10 @@ public class MainMapper extends Mapper {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public String getAndroidId() { return androidId; }
+
+    public void setAndroidId(String androidId) { this.androidId = androidId; }
 
     public boolean isLoginsuccesful() {
         return loginsuccesful;

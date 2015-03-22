@@ -54,7 +54,6 @@ public class MainActivity extends Activity implements AsyncTaskReport {
         pushClientManager.registerIfNeeded(new GCMClientManager.RegistrationCompletedHandler() {
            @Override
             public void onSuccess(String registrationId, boolean isNewRegistration) {
-               Toast.makeText(MainActivity.this, registrationId, Toast.LENGTH_SHORT).show();
                uniqueDeviceId = registrationId;
            }
 
@@ -85,7 +84,7 @@ public class MainActivity extends Activity implements AsyncTaskReport {
             Toast.makeText(getApplicationContext(), "Please enter a username and password", Toast.LENGTH_LONG).show();
         } else {
             loginMapper = new MainMapper(this);
-            loginMapper.start(input_username.getText().toString(), input_password.getText().toString(), "");
+            loginMapper.start(input_username.getText().toString(), input_password.getText().toString(), uniqueDeviceId);
         }
     }
 
@@ -121,6 +120,7 @@ public class MainActivity extends Activity implements AsyncTaskReport {
 
     public void gotoRegister(View view){
         Intent intent = new Intent(this, RegisterActivity.class);
+        intent.putExtra("AndroidID", uniqueDeviceId);
         startActivity(intent);
     }
 
