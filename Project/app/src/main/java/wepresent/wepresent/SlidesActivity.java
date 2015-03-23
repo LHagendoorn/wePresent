@@ -11,6 +11,7 @@ import android.graphics.pdf.PdfRenderer;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.util.DisplayMetrics;
+import android.util.Pair;
 import android.view.Display;
 import android.view.View;
 import android.widget.Button;
@@ -18,18 +19,44 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.Toast;
 
 import java.io.File;
+import java.util.ArrayList;
 
-public class SlidesActivity extends Activity  {
+import wepresent.wepresent.mappers.AsyncTaskReport;
+import wepresent.wepresent.mappers.Mapper;
+import wepresent.wepresent.mappers.SlidesMapper;
+
+public class SlidesActivity extends Activity implements AsyncTaskReport {
 
     private LinearLayout linLayout;
+    private SlidesMapper slidesMapper;
+    private Integer sessionId;
+    private ArrayList<Pair> slides;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slides);
 
+        // TODO: Get session ID from previous class
+        sessionId = 1;
+
+        slidesMapper = new SlidesMapper(this);
+        slidesMapper.start(sessionId);
+    }
+
+    public void done(Mapper.MapperSort mapper) {
+        if(slidesMapper.isSlidesSuccesful()) {
+            slides = slidesMapper.getSlides();
+            Toast.makeText(getApplicationContext(), "Slides retrieved", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "Slides not available for this session", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void displaySlides() {
         linLayout = (LinearLayout) findViewById(R.id.linearLayout); // Layout where buttons are inserted
 
         Display display = getWindowManager().getDefaultDisplay();
@@ -39,6 +66,7 @@ public class SlidesActivity extends Activity  {
         int height = (int) (width * 0.5625);
 
         LayoutParams lpView = new LayoutParams(width, height); // 16:9 format based on screen size
+
 
         for (int i = 0; i < 4; i++) { // TODO yet to be used on an image set. Also requires server communication
             ImageButton imageButton = new ImageButton(this);
