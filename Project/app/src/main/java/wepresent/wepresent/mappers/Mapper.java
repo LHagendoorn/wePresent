@@ -168,6 +168,6 @@ public abstract class Mapper extends AsyncTask<Object, Boolean, String> {
     }
 
     public enum MapperSort {
-        MAPPER, MAINMAPPER, HINTMAPPER, TASKMAPPER, TASKDONEMAPPER
+        MAPPER, MAINMAPPER, HINTMAPPER, TASKMAPPER, TASKDONEMAPPER, SESSIONMAPPER
     }
 }
