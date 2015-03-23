@@ -71,7 +71,7 @@ public class RegisterMapper extends Mapper {
 
     @Override
     public MapperSort getMapperSort() {
-        return MapperSort.MAINMAPPER;
+        return MapperSort.REGISTERMAPPER;
     }
 
     public String getPassword() {
