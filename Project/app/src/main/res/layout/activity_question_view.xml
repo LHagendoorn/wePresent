@@ -8,11 +8,13 @@
     android:background="#65A73A">
 
     <ListView
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/questionList"
-        android:background="#65A73A"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"/>
+        android:divider="#000000"
+        android:dividerHeight="3dp"
+        android:background="#65A73A"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 
 public class QuestionView extends Activity {
 
@@ -37,4 +39,5 @@ public class QuestionView extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
