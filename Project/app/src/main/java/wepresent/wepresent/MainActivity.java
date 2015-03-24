@@ -57,7 +57,8 @@ public class MainActivity extends Activity implements AsyncTaskReport {
         pushClientManager.registerIfNeeded(new GCMClientManager.RegistrationCompletedHandler() {
             @Override
             public void onSuccess(String registrationId, boolean isNewRegistration) {
-               uniqueDeviceId = registrationId;
+                uniqueDeviceId = registrationId;
+                Toast.makeText(getApplicationContext(), uniqueDeviceId, Toast.LENGTH_LONG).show();
             }
 
             @Override
