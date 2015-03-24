@@ -8,6 +8,7 @@ import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.pdf.PdfRenderer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.util.DisplayMetrics;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Map;
 
 import wepresent.wepresent.mappers.AsyncTaskReport;
 import wepresent.wepresent.mappers.Mapper;
@@ -33,7 +35,7 @@ public class SlidesActivity extends Activity implements AsyncTaskReport {
     private LinearLayout linLayout;
     private SlidesMapper slidesMapper;
     private Integer sessionId;
-    private ArrayList<Pair> slides;
+    private ArrayList<Map<String, String>> slides;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,7 @@ public class SlidesActivity extends Activity implements AsyncTaskReport {
     public void done(Mapper.MapperSort mapper) {
         if(slidesMapper.isSlidesSuccesful()) {
             slides = slidesMapper.getSlides();
+            displaySlides();
             Toast.makeText(getApplicationContext(), "Slides retrieved", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(getApplicationContext(), "Slides not available for this session", Toast.LENGTH_LONG).show();
@@ -67,11 +70,12 @@ public class SlidesActivity extends Activity implements AsyncTaskReport {
 
         LayoutParams lpView = new LayoutParams(width, height); // 16:9 format based on screen size
 
+        // For each slide
+        for ( Map<String, String> slide : slides ) { // TODO yet to be used on an image set. Also requires server communication
 
-        for (int i = 0; i < 4; i++) { // TODO yet to be used on an image set. Also requires server communication
             ImageButton imageButton = new ImageButton(this);
-            imageButton.setId(i);
-            imageButton.setImageResource(R.drawable.test); // Insert image (simple 16:9 image for now)
+            imageButton.setId(Integer.parseInt(slide.get("id")));
+            imageButton.setImageURI(Uri.parse(slide.get("SlideURL"))); // Insert image (simple 16:9 image for now)
             imageButton.setLayoutParams(lpView); // Adjust image button size
             imageButton.setScaleType(ImageView.ScaleType.CENTER_INSIDE); // Scale of image in button
             linLayout.addView(imageButton, lpView);
