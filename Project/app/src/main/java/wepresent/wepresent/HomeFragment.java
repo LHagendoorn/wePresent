@@ -25,6 +25,8 @@ public class HomeFragment extends Fragment implements MaterialTabListener {
     MaterialTabHost tabHost;
     ViewPager pager;
     ViewPagerAdapter pagerAdapter;
+    SlidesActivity slidesAct;
+    QuestionView questAct;
 
     /** FAB */
     //AddFloatingActionButton addButton;
@@ -93,6 +95,7 @@ public class HomeFragment extends Fragment implements MaterialTabListener {
 
     @Override
     public void onTabSelected(MaterialTab materialTab) {
+        System.out.println("materialTab.getPostition() " + materialTab.getPosition());
         pager.setCurrentItem(materialTab.getPosition());
     }
 
@@ -125,6 +128,28 @@ public class HomeFragment extends Fragment implements MaterialTabListener {
          * @return the fragment at position {@code num}
          */
         public Fragment getItem(int num) {
+            Fragment frag;
+            System.out.println("WELL THIS HAPPENED: " + num);
+            switch(num){
+                case 0:
+                    if (slidesAct == null) {
+                        frag = new QuestionView();
+                    } else {
+                        frag = slidesAct;
+                    }
+                break;
+                case 1:
+                    if (questAct == null) {
+                        frag = new QuestionView();
+                    } else {
+                        frag = questAct;
+                    }
+                break;
+                case 2:
+                    frag = new HomeFragment();
+                break;
+            }
+
             return new SlidesActivity();
         }
 

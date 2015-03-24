@@ -1,11 +1,15 @@
 package wepresent.wepresent;
 
 import android.app.Activity;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -18,15 +22,16 @@ import java.util.List;
 import java.util.Map;
 
 
-public class QuestionView extends Activity {
+public class QuestionView extends Fragment {
 
     // We get the ListView component from the layout
-    ListView lv = (ListView) findViewById(R.id.questionList);
+    ListView lv;// = (ListView) getView().findViewById(R.id.questionList);
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_question_view);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.activity_question_view, container, false);
+        lv = (ListView) v.findViewById(R.id.questionList);
         initList();
 
 
@@ -38,16 +43,21 @@ public class QuestionView extends Activity {
         // The row layout that is used during the row creation
         // The keys used to retrieve the data
         // The View id used to show the data. The key number and the view id must match
-        SimpleAdapter simpleAdpt = new SimpleAdapter(this, planetsList, android.R.layout.simple_list_item_1, new String[] {"planet"}, new int[] {android.R.id.text1});
+        SimpleAdapter simpleAdpt = new SimpleAdapter(getActivity(), planetsList, android.R.layout.simple_list_item_1, new String[] {"planet"}, new int[] {android.R.id.text1});
 
         lv.setAdapter(simpleAdpt);
+        return v;
     }
 
-
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //setContentView(R.layout.activity_question_view);
+        }
+
+/*    public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_question_view, menu);
+        getActivity().getMenuInflater().inflate(R.menu.menu_question_view, menu);
         return true;
     }
 
@@ -64,7 +74,7 @@ public class QuestionView extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     // The data to show
     List<Map<String, String>> planetsList = new ArrayList<Map<String,String>>();
