@@ -52,6 +52,9 @@ public class MainActivity extends Activity implements AsyncTaskReport {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        sessionMapper = new SessionMapper(this);
+        sessionMapper.start();
+
         // Google Cloud Messaging
         pushClientManager = new GCMClientManager(this, PROJECT_NUMBER);
         pushClientManager.registerIfNeeded(new GCMClientManager.RegistrationCompletedHandler() {
@@ -80,17 +83,6 @@ public class MainActivity extends Activity implements AsyncTaskReport {
             }
 
         });
-
-        /*
-        sessionMapper = new SessionMapper(this);
-        sessionMapper.start();
-        String[] sessions = new String[2];
-        sessions[0] = "a";
-        sessions[1] = "b";
-        ListView listSession = (ListView) findViewById(R.id.sessionList);
-        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sessions);
-        listSession.setAdapter(itemsAdapter);
-        */
     }
 
     private void proceedLogin() {
@@ -104,10 +96,25 @@ public class MainActivity extends Activity implements AsyncTaskReport {
 
 
     public void done(Mapper.MapperSort mapper) {
-        if(loginMapper.isLoginsuccesful()) {
-            Toast.makeText(getApplicationContext(), "Correct login data send", Toast.LENGTH_LONG).show();
+        if(!mapper.equals(sessionMapper.getMapperSort())) {
+            if (loginMapper.isLoginsuccesful()) {
+                Toast.makeText(getApplicationContext(), "Correct login data send", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "Cannot login", Toast.LENGTH_LONG).show();
+            }
         } else {
-            Toast.makeText(getApplicationContext(), "Cannot login", Toast.LENGTH_LONG).show();
+            String[] sessions;
+            if(sessionMapper.isGetSuccessful()){
+                sessions = sessionMapper.getSessionNames();
+            } else {
+                System.out.println("shitsbrokenlol");
+                sessions = new String[]{"shit is kapot yo"};
+            }
+
+            ListView listSession = (ListView) findViewById(R.id.sessionList);
+            ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sessions);
+            listSession.setAdapter(itemsAdapter);
+
         }
     }
 

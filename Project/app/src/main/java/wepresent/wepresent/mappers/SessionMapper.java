@@ -17,7 +17,7 @@ import java.util.List;
 public class SessionMapper extends Mapper{
     private String[] SessionNames;
     private Integer[] SessionIds;
-    private boolean getSuccesful;
+    private boolean getSuccessful;
 
     public SessionMapper(Activity activity) {
         super(activity);
@@ -41,12 +41,12 @@ public class SessionMapper extends Mapper{
         return "http://wepresent.tk/api/getSessions";
     }
 
-    public boolean isGetSuccesful() {
-        return getSuccesful;
+    public boolean isGetSuccessful() {
+        return getSuccessful;
     }
 
-    public void setGetSuccesful(boolean getSuccesful) {
-        this.getSuccesful = getSuccesful;
+    public void setGetSuccessful(boolean getSuccessful) {
+        this.getSuccessful = getSuccessful;
     }
 
     /**
@@ -57,16 +57,16 @@ public class SessionMapper extends Mapper{
     public void processData(String result) {
         try {
             JSONObject SessionObject = new JSONObject(result);
-            setGetSuccesful(SessionObject.getBoolean("Successful"));
+            setGetSuccessful(SessionObject.getBoolean("Successful"));
 
-            if ( isGetSuccesful() ) {
+            if ( isGetSuccessful() ) {
                 JSONArray Sessions = SessionObject.getJSONArray("ActiveSessions");
                 SessionNames = new String[Sessions.length()];
                 SessionIds = new Integer[Sessions.length()];
 
                 for (int i = 0; i < Sessions.length(); i++){
                     SessionIds[i] = Sessions.getJSONObject(i).getInt("SessionID");
-                    SessionNames[i] = Sessions.getJSONObject(i).getString("name");
+                    SessionNames[i] = Sessions.getJSONObject(i).getString("Name");
                 }
             }
 
