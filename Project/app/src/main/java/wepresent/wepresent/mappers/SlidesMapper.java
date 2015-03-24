@@ -1,6 +1,7 @@
 package wepresent.wepresent.mappers;
 
 import android.app.Activity;
+import android.support.v4.app.Fragment;
 import android.util.Pair;
 
 import org.apache.http.NameValuePair;
@@ -27,6 +28,10 @@ public class SlidesMapper extends Mapper {
 
     public SlidesMapper(Activity activity) {
         super(activity);
+    }
+
+    public SlidesMapper(Fragment frag) {
+        super(frag);
     }
 
     public void start(Integer sessionId) {

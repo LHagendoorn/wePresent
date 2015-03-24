@@ -2,6 +2,7 @@ package wepresent.wepresent.mappers;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import org.apache.http.HttpResponse;
@@ -23,8 +24,10 @@ import java.util.List;
 public abstract class Mapper extends AsyncTask<Object, Boolean, String> {
     protected String c_pass = "VecreSAf3CRa3rE";
     private Activity mActivity;
+    private Fragment mFrag;
     private boolean isDone;
     private String response;
+    private boolean isActivity;
 
     /**
      * Constructs a mapper object.
@@ -35,10 +38,17 @@ public abstract class Mapper extends AsyncTask<Object, Boolean, String> {
         if (!(activity instanceof AsyncTaskReport)) {
             throw new IllegalArgumentException("Activity does not implement AsyncTaskReport interface");
         }
-
+        isActivity = true;
         mActivity = activity;
     }
 
+    protected Mapper(Fragment frag) {
+        if (!(frag instanceof AsyncTaskReport)) {
+            throw new IllegalArgumentException("Activity does not implement AsyncTaskReport interface");
+        }
+        isActivity = false;
+        mFrag = frag;
+    }
     /**
      * Return the found value of the tag
      *
@@ -146,11 +156,19 @@ public abstract class Mapper extends AsyncTask<Object, Boolean, String> {
      */
     public void callDone() {
         if (!isDone) {
-            getActivity().runOnUiThread(new Runnable() {
-                public void run() {
-                    ((AsyncTaskReport) getActivity()).done(getMapperSort());
-                }
-            });
+            if (isActivity) {
+                getActivity().runOnUiThread(new Runnable() {
+                    public void run() {
+                        ((AsyncTaskReport) getActivity()).done(getMapperSort());
+                    }
+                });
+            } else {
+                getFragment().getActivity().runOnUiThread(new Runnable() {
+                    public void run() {
+                        ((AsyncTaskReport) getFragment()).done(getMapperSort());
+                    }
+                });
+            }
         }
         isDone = true;
     }
@@ -159,9 +177,13 @@ public abstract class Mapper extends AsyncTask<Object, Boolean, String> {
         return mActivity;
     }
 
+    public Fragment getFragment() {return mFrag; }
+
     public void setActivity(Activity activity) {
         mActivity = activity;
     }
+
+    public void setmFragment(Fragment frag) { mFrag = frag; }
 
     public String getResponse() {
         return response;

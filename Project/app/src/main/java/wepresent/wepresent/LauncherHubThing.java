@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 import it.neokree.materialnavigationdrawer.elements.MaterialSection;
 import it.neokree.materialnavigationdrawer.elements.listeners.MaterialSectionListener;
+import wepresent.wepresent.mappers.AsyncTaskReport;
+import wepresent.wepresent.mappers.Mapper;
 
 public class LauncherHubThing extends MaterialNavigationDrawer implements MaterialSectionListener {
 
@@ -58,4 +60,8 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
         return true;
     }
 
+    /*@Override
+    public void done(Mapper.MapperSort mapper) {
+
+    }*/
 }

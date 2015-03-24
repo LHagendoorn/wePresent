@@ -125,7 +125,7 @@ public class HomeFragment extends Fragment implements MaterialTabListener {
          * @return the fragment at position {@code num}
          */
         public Fragment getItem(int num) {
-            return new HomeListFragment();
+            return new SlidesActivity();
         }
 
         /**

@@ -139,7 +139,7 @@ public class MainActivity extends Activity implements AsyncTaskReport {
     }
 
     public void gotoSlides(View view) {
-        Intent intent = new Intent(this, SlidesActivity.class);
+        Intent intent = new Intent(this, LauncherHubThing.class);
         startActivity(intent);
     }
 

@@ -38,8 +38,8 @@
             android:label="@string/title_activity_quiz_view" >
         </activity>
         <activity
-            android:name=".SlidesActivity"
-            android:label="SlidesActivity">
+            android:name=".LauncherHubThing"
+            android:label="LauncherHubThing">
         </activity>
         <activity
             android:name=".SlideViewActivity"
