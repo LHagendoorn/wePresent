@@ -15,6 +15,17 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme.Base" >
+        <receiver
+            android:name=".GCMBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="com.codepath.android.gcm" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".GCMMessageHandler" />
+
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"

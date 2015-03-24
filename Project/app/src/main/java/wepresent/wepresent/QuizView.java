@@ -15,10 +15,17 @@ public class QuizView extends Activity {
 
     String Pressed = "";
 
+    boolean MCQuestion = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quiz_view);
+        if (MCQuestion) {
+            setContentView(R.layout.activity_quiz_view);
+        }
+        else {
+            setContentView(R.layout.activity_open_quiz_view);
+        }
     }
 
 
