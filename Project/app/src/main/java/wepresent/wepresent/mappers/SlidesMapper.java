@@ -11,7 +11,9 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Chris on 16-Mar-15.
@@ -19,7 +21,7 @@ import java.util.List;
 public class SlidesMapper extends Mapper {
     private Integer sessionId;
     private Integer errorCode;
-    private ArrayList<Pair> slides;
+    private ArrayList<Map<String, String>> slides;
     private boolean slidesSuccesful;
     private JSONArray slidesRetrieved;
 
@@ -73,10 +75,14 @@ public class SlidesMapper extends Mapper {
         String tmpSlideUrl;
         Integer arrayLength = slidesRetrieved.length();
         JSONObject tmpSlide;
-        slides = new ArrayList<Pair>();
+        slides = new ArrayList<>();
+        Map<String, String> slideInfo = new HashMap<>();
 
         for ( int i = 0; i < arrayLength; i++ ) {
             try {
+                // Clear the slideInfo
+                slideInfo.clear();
+
                 // Split it in parts
                 tmpSlide = slidesRetrieved.getJSONObject(i);
 
@@ -84,8 +90,12 @@ public class SlidesMapper extends Mapper {
                 tmpSlideId = tmpSlide.getInt("id");
                 tmpSlideUrl = tmpSlide.getString("SlideURL");
 
+                // Add it to the slideInfo array
+                slideInfo.put("id", tmpSlideId.toString());
+                slideInfo.put("SlideURL", tmpSlideUrl);
+
                 // Add it to the ArrayList<ID, SlideURL>
-                slides.add(new Pair(tmpSlideId, tmpSlideUrl));
+                slides.add(slideInfo);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -113,7 +123,7 @@ public class SlidesMapper extends Mapper {
         this.slidesSuccesful = slidesSuccesful;
     }
 
-    public ArrayList<Pair> getSlides() {
+    public ArrayList<Map<String, String>> getSlides() {
         return slides;
     }
 
