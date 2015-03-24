@@ -8,8 +8,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 // Google Cloud Messaging
@@ -28,10 +30,12 @@ import java.util.UUID;
 import wepresent.wepresent.mappers.AsyncTaskReport;
 import wepresent.wepresent.mappers.MainMapper;
 import wepresent.wepresent.mappers.Mapper;
+import wepresent.wepresent.mappers.SessionMapper;
 
 public class MainActivity extends Activity implements AsyncTaskReport {
 
     private MainMapper loginMapper;
+    private SessionMapper sessionMapper;
     private EditText input_username;
     private EditText input_password;
     private Button loginButton;
@@ -75,6 +79,17 @@ public class MainActivity extends Activity implements AsyncTaskReport {
             }
 
         });
+
+        /*
+        sessionMapper = new SessionMapper(this);
+        sessionMapper.start();
+        String[] sessions = new String[2];
+        sessions[0] = "a";
+        sessions[1] = "b";
+        ListView listSession = (ListView) findViewById(R.id.sessionList);
+        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sessions);
+        listSession.setAdapter(itemsAdapter);
+        */
     }
 
     private void proceedLogin() {
@@ -85,6 +100,7 @@ public class MainActivity extends Activity implements AsyncTaskReport {
             loginMapper.start(input_username.getText().toString(), input_password.getText().toString(), uniqueDeviceId);
         }
     }
+
 
     public void done(Mapper.MapperSort mapper) {
         if(loginMapper.isLoginsuccesful()) {
