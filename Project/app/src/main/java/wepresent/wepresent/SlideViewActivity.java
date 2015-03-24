@@ -12,7 +12,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class SlideViewActivity extends Activity  {
+import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
+import it.neokree.materialnavigationdrawer.elements.MaterialSection;
+
+public class SlideViewActivity extends MaterialNavigationDrawer {
 
     private LinearLayout linLayout;
     private ImageView imageView;
@@ -28,7 +31,7 @@ public class SlideViewActivity extends Activity  {
 
         Bundle extras = getIntent().getExtras(); // Obtain passed variable
         if (extras != null) {
-            value = extras.getInt("SlideNumber");
+            value = extras.getInt("SlideID");
         }
 
         Display display = getWindowManager().getDefaultDisplay();
@@ -45,5 +48,10 @@ public class SlideViewActivity extends Activity  {
 
         textView = (TextView) findViewById(R.id.slideViewNotes);
         textView.setText("Notes of slides #" + Integer.toString(value));
+    }
+
+    @Override
+    public void init(Bundle bundle) {
+
     }
 }

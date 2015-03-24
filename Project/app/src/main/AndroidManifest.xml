@@ -52,6 +52,10 @@
             android:name=".SlideViewActivity"
             android:label="SlideViewActivity">
         </activity>
+        <activity
+            android:name=".SlideView"
+            android:label="SlideView">
+        </activity>
 
     </application>
 

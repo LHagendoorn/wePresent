@@ -81,12 +81,11 @@ public class SlidesMapper extends Mapper {
         Integer arrayLength = slidesRetrieved.length();
         JSONObject tmpSlide;
         slides = new ArrayList<>();
-        Map<String, String> slideInfo = new HashMap<>();
 
         for ( int i = 0; i < arrayLength; i++ ) {
             try {
                 // Clear the slideInfo
-                slideInfo.clear();
+                Map<String, String> slideInfo = new HashMap<>();
 
                 // Split it in parts
                 tmpSlide = slidesRetrieved.getJSONObject(i);

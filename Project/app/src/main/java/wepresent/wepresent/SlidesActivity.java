@@ -28,6 +28,10 @@ import android.widget.LinearLayout;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Toast;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
+import com.android.volley.toolbox.Volley;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
@@ -71,32 +75,41 @@ public class SlidesActivity extends Fragment implements AsyncTaskReport {
     }
 
     private void displaySlides() {
-        linLayout = (LinearLayout) getView().findViewById(R.id.linearLayout); // Layout where buttons are inserted
+        //TODO Misschien niet het geheugen van de telefoon gebruiken om de slides te cachen, but then again; I DON'T CARE
+        // Get where the images should go
+        linLayout = (LinearLayout) getView().findViewById(R.id.linearLayout);
 
+        //TODO Zorg ervoor dat de hele breedte van het scherm gebruikt wordt, wellicht ook nog een padding?
         WindowManager wm = (WindowManager) getView().getContext().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         int width = size.x;
         int height = (int) (width * 0.5625);
-
-        LayoutParams lpView = new LayoutParams(width, height); // 16:9 format based on screen size
+        LayoutParams lpView = new LayoutParams(width, height);
 
         // For each slide
-        for ( Map<String, String> slide : slides ) { // TODO yet to be used on an image set. Also requires server communication
+        for ( Map<String, String> slide : slides ) {
+            //Create the image loader
+            ImageLoader.ImageCache imageCache = new BitmapLruCache();
+            ImageLoader imageLoader = new ImageLoader(Volley.newRequestQueue(getView().getContext()), imageCache);
 
-            ImageButton imageButton = new ImageButton(this.getActivity());
-            imageButton.setId(Integer.parseInt(slide.get("id")));
-            imageButton.setImageURI(Uri.parse(slide.get("SlideURL"))); // Insert image (simple 16:9 image for now)
-            imageButton.setLayoutParams(lpView); // Adjust image button size
-            imageButton.setScaleType(ImageView.ScaleType.CENTER_INSIDE); // Scale of image in button
-            linLayout.addView(imageButton, lpView);
-            imageButton.setOnClickListener(new View.OnClickListener() {
+            //Set the image
+            NetworkImageView image = new NetworkImageView(getView().getContext());
+            image.setImageUrl(slide.get("SlideURL"), imageLoader);
+            image.setFitsSystemWindows(true);
+            image.setId(Integer.parseInt(slide.get("id")));
+
+            // Add it to the view
+            linLayout.addView(image, lpView);
+
+            // Add a listener
+            image.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) { // On click event, brings to slide view activity
-                    Intent intent = new Intent(getActivity().getApplicationContext(), SlideViewActivity.class);
-                    System.out.println(v.getId());
-                    intent.putExtra("SlideNumber",v.getId()); // Send extra variable
+                public void onClick(View v) {
+                    // Go to the slideView activity
+                    Intent intent = new Intent(getActivity(), SlideView.class);
+                    intent.putExtra("SlideID", v.getId());
                     startActivity(intent);
                 }
             });

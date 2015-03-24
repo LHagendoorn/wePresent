@@ -33,7 +33,8 @@ import wepresent.wepresent.mappers.Mapper;
 import wepresent.wepresent.mappers.SessionMapper;
 
 public class MainActivity extends Activity implements AsyncTaskReport {
-
+    //TODO Check for uniqueDeviceId, otherwise ABORT, ABORT!!!
+    //TODO Lock in portrait mode
     private MainMapper loginMapper;
     private SessionMapper sessionMapper;
     private EditText input_username;
@@ -61,7 +62,6 @@ public class MainActivity extends Activity implements AsyncTaskReport {
             @Override
             public void onSuccess(String registrationId, boolean isNewRegistration) {
                 uniqueDeviceId = registrationId;
-                Toast.makeText(getApplicationContext(), uniqueDeviceId, Toast.LENGTH_LONG).show();
             }
 
             @Override
