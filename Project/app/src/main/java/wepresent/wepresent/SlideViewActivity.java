@@ -7,8 +7,10 @@ import android.os.Bundle;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
@@ -17,47 +19,80 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
+import com.android.volley.toolbox.Volley;
+
 import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 import it.neokree.materialnavigationdrawer.elements.MaterialSection;
+import wepresent.wepresent.mappers.AsyncTaskReport;
+import wepresent.wepresent.mappers.Mapper;
+import wepresent.wepresent.mappers.SingleSlideMapper;
+import wepresent.wepresent.mappers.SlidesMapper;
 
-public class SlideViewActivity extends Fragment {
+public class SlideViewActivity extends ActionBarActivity implements AsyncTaskReport {
 
     private LinearLayout linLayout;
     private ImageView imageView;
     private TextView textView;
+    private SingleSlideMapper slideMapper;
     private int value = 0;
+    private int sessionId, slideId;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_slide_view, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_slide_view);
+
+        // Set title
+        setTitle("Slide notes");
+
+        // Back button
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // Get the extras
+        Bundle intentInfo = getIntent().getExtras();
+        sessionId = intentInfo.getInt("SessionID");
+        slideId = intentInfo.getInt("SlideID");
+
+        // Start the mapper
+        slideMapper = new SingleSlideMapper(this);
+        slideMapper.start(sessionId, slideId);
+    }
+
+    public void done(Mapper.MapperSort mapper) {
+
+        if(slideMapper.isSlideSuccesful()){
+            // Get the slide info
+            String slideUrl = slideMapper.getSlideUrl();
+            String slideNotes = slideMapper.getSlideNotes();
+
+            // Create the image loader
+            ImageLoader.ImageCache imageCache = new BitmapLruCache();
+            ImageLoader imageLoader = new ImageLoader(Volley.newRequestQueue(this), imageCache);
+
+            NetworkImageView image = (NetworkImageView) findViewById(R.id.slideViewImage);
+            image.setImageUrl(slideUrl, imageLoader);
+            image.setFitsSystemWindows(true);
+
+            TextView text = (TextView) findViewById(R.id.slideViewNotes);
+            text.setText(slideNotes);
+        } else {
+            System.out.println("shitsbrokenlol");
+        }
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_slide_view);
-
-        linLayout = (LinearLayout) getView().findViewById(R.id.slideViewLayout); // Layout containing stuff
-
-        Bundle extras = getActivity().getIntent().getExtras(); // Obtain passed variable
-        if (extras != null) {
-            value = extras.getInt("SlideID");
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
         }
 
-        Display display = getActivity().getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int width = size.x;
-        int height = (int) (width * 0.5625);
-
-        imageView = (ImageView) getView().findViewById(R.id.slideViewImage); // TODO obtain proper image and notes for selected slide
-        LayoutParams lp = imageView.getLayoutParams();
-        lp.width = width;
-        lp.height = height;
-        imageView.requestLayout(); // Scale to 16:9 format based on size of screen
-
-        textView = (TextView) getView().findViewById(R.id.slideViewNotes);
-        textView.setText("Notes of slides #" + Integer.toString(value));
+        return super.onOptionsItemSelected(item);
     }
 
     

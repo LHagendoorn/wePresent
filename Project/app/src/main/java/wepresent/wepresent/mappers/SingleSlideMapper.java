@@ -14,15 +14,15 @@ import java.util.List;
  * Created by Chris on 16-Mar-15.
  */
 public class SingleSlideMapper extends Mapper {
-    private String sessionId, slideId, slideUrl, notes;
-    private Integer errorCode;
+    private String slideUrl, notes;
+    private Integer errorCode, sessionId, slideId;
     private boolean slideSuccesful;
 
     public SingleSlideMapper(Activity activity) {
         super(activity);
     }
 
-    public void start(String sessionId, String slideId) {
+    public void start(Integer sessionId, Integer slideId) {
         setSessionId(sessionId);
         setSlideId(slideId);
         execute();
@@ -32,8 +32,8 @@ public class SingleSlideMapper extends Mapper {
     public List<NameValuePair> createPostData() {
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 
-        nameValuePairs.add(new BasicNameValuePair("SlideID", getSlideId()));
-        nameValuePairs.add(new BasicNameValuePair("SessionID", getSessionId()));
+        nameValuePairs.add(new BasicNameValuePair("SlideID", getSlideId().toString()));
+        nameValuePairs.add(new BasicNameValuePair("SessionID", getSessionId().toString()));
 
         return nameValuePairs;
     }
@@ -71,11 +71,11 @@ public class SingleSlideMapper extends Mapper {
         return MapperSort.SINGLESLIDEMAPPER;
     }
 
-    public String getSessionId() {
+    public Integer getSessionId() {
         return sessionId;
     }
 
-    public void setSessionId(String sessionId) {
+    public void setSessionId(Integer sessionId) {
         this.sessionId = sessionId;
     }
 
@@ -87,11 +87,11 @@ public class SingleSlideMapper extends Mapper {
 
     public void setSlideNotes(String notes) { this.notes = notes; }
 
-    public String getSlideId() {
+    public Integer getSlideId() {
         return slideId;
     }
 
-    public void setSlideId(String slideId) {
+    public void setSlideId(Integer slideId) {
         this.slideId = slideId;
     }
 

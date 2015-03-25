@@ -103,13 +103,14 @@ public class SlidesActivity extends Fragment implements AsyncTaskReport {
             // Add it to the view
             linLayout.addView(image, lpView);
 
-            //TODO start een fragment ipv een activity, zodat je tabladen blijven
+            //TODO start een fragment ipv een activity, zodat je tabbladen blijven
             // Add a listener
             image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // Go to the slideView activity
-                    Intent intent = new Intent(getActivity(), SlideView.class);
+                    Intent intent = new Intent(getActivity(), SlideViewActivity.class);
+                    intent.putExtra("SessionID", sessionId);
                     intent.putExtra("SlideID", v.getId());
                     startActivity(intent);
                 }

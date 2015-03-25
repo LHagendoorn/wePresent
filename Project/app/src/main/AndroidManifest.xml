@@ -50,11 +50,8 @@
         </activity>
         <activity
             android:name=".SlideViewActivity"
-            android:label="SlideViewActivity">
-        </activity>
-        <activity
-            android:name=".SlideView"
-            android:label="SlideView">
+            android:label="SlideViewActivity"
+            android:theme="@style/AppTheme.Base.NoNavigation">
         </activity>
 
     </application>
