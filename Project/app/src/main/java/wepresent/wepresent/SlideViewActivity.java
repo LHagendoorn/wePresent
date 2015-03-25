@@ -60,7 +60,7 @@ public class SlideViewActivity extends Fragment {
         textView.setText("Notes of slides #" + Integer.toString(value));
     }
 
-    
+
     public void init(Bundle bundle) {
 
     }

@@ -28,6 +28,7 @@ public class HomeFragment extends Fragment implements MaterialTabListener {
     ViewPagerAdapter pagerAdapter;
     SlidesActivity slidesAct;
     QuestionView questAct;
+    QuizView quizAct;
 
     /** FAB */
     //AddFloatingActionButton addButton;
@@ -50,6 +51,10 @@ public class HomeFragment extends Fragment implements MaterialTabListener {
 
         // Add action button
         //addButton = (AddFloatingActionButton)rootView.findViewById(R.id.add_button);
+
+        slidesAct = new SlidesActivity();
+        questAct = new QuestionView();
+        quizAct = new QuizView();
 
         return rootView;
     }
@@ -133,27 +138,16 @@ public class HomeFragment extends Fragment implements MaterialTabListener {
             System.out.println("WELL THIS HAPPENED: " + num);
             switch(num){
                 case 0:
-                    //System.out.print("slidesAct ID: " + slidesAct.getId());
-                    /*if (slidesAct.getId() == null) {
-                        slidesAct = new SlidesActivity();
-                        slidesInit = true;
-                    } else {
-                        frag = slidesAct;
-                    }*/
+                    frag = slidesAct;
                 break;
                 case 1:
-//                    if (questInit == false) {
-//                        questAct = new QuestionView();
-//                        questInit = true;
-//                    } else {
-//                        frag = questAct;
-//                    }
+                    frag = questAct;
                 break;
                 case 2:
-//                    frag = new QuestionView();
+                    frag = quizAct;
                 break;
             }
-            return new SlidesActivity();
+            return frag;
         }
 
         /**
