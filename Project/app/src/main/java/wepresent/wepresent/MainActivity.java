@@ -45,6 +45,7 @@ public class MainActivity extends Activity implements AsyncTaskReport {
     private EditText input_username;
     private EditText input_password;
     private Button loginButton;
+    private String[] sessions;
 
     // Google Cloud Messaging
     private GCMClientManager pushClientManager;
@@ -109,7 +110,6 @@ public class MainActivity extends Activity implements AsyncTaskReport {
                 Toast.makeText(getApplicationContext(), "Cannot login", Toast.LENGTH_LONG).show();
             }
         } else {
-            String[] sessions;
             if(sessionMapper.isGetSuccessful()){
                 sessions = sessionMapper.getSessionNames();
             } else {
@@ -154,6 +154,13 @@ public class MainActivity extends Activity implements AsyncTaskReport {
 
     public void gotoSlides(View view) {
         Intent intent = new Intent(this, LauncherHubThing.class);
+        ListView listSession = (ListView) findViewById(R.id.sessionList);
+        for(int i = 0; i < sessions.length; i++){
+            if(listSession.getSelectedItem().toString().equals(sessions[i])){
+                intent.putExtra("SessionID", sessionMapper.getSessionIds()[i]);
+                System.out.println("SessionID = "+intent.getStringExtra("SessionID"));
+            }
+        }
         startActivity(intent);
     }
 

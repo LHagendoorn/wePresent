@@ -6,21 +6,25 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <permission android:name="wepresent.wepresent.gcm.permission.C2D_MESSAGE"
+
+    <permission
+        android:name="wepresent.wepresent.gcm.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
+
     <uses-permission android:name="wepresent.wepresent.gcm.permission.C2D_MESSAGE" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme.Base"
-        android:screenOrientation="portrait">
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme.Base" >
         <receiver
             android:name=".GCMBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
                 <category android:name="com.codepath.android.gcm" />
             </intent-filter>
         </receiver>
@@ -29,8 +33,8 @@
 
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"
-            android:label="@string/title_activity_main" >
+            android:label="@string/title_activity_main"
+            android:windowSoftInputMode="adjustPan|stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,17 +51,20 @@
         </activity>
         <activity
             android:name=".LauncherHubThing"
-            android:label="LauncherHubThing">
+            android:label="LauncherHubThing" >
         </activity>
         <activity
             android:name=".SlideViewActivity"
-            android:label="SlideViewActivity">
+            android:label="SlideViewActivity" >
         </activity>
         <activity
             android:name=".SlideView"
-            android:label="SlideView">
+            android:label="SlideView" >
         </activity>
-
+        <activity
+            android:name=".SessionActivity"
+            android:label="@string/title_activity_session" >
+        </activity>
     </application>
 
 </manifest>
