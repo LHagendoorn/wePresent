@@ -17,8 +17,8 @@
     <string name="title_activity_quiz_view">QuizView</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
-
-<!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_crash">CrashActivity</string>
+    <string name="oei">The app has crashed. Please check your internet connection and try again. If the problem persists, send an email to gaatjeniksaankut@hotmail.com</string>
 
 </resources>
