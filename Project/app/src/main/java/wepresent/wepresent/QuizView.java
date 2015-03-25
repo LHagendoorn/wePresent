@@ -26,7 +26,7 @@ public class QuizView extends Activity {
         else {
             setContentView(R.layout.activity_open_quiz_view);
         }
-    }
+}
 
 
     @Override

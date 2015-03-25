@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -112,7 +113,7 @@ public class HomeFragment extends Fragment implements MaterialTabListener {
     /**
      * The adapter that fills the tabhost
      */
-    private class ViewPagerAdapter extends FragmentStatePagerAdapter {
+    private class ViewPagerAdapter extends FragmentPagerAdapter {
 
         /**
          * Constructor
@@ -128,28 +129,30 @@ public class HomeFragment extends Fragment implements MaterialTabListener {
          * @return the fragment at position {@code num}
          */
         public Fragment getItem(int num) {
-            Fragment frag;
+            Fragment frag = null;
             System.out.println("WELL THIS HAPPENED: " + num);
             switch(num){
                 case 0:
-                    if (slidesAct == null) {
-                        frag = new QuestionView();
+                    //System.out.print("slidesAct ID: " + slidesAct.getId());
+                    /*if (slidesAct.getId() == null) {
+                        slidesAct = new SlidesActivity();
+                        slidesInit = true;
                     } else {
                         frag = slidesAct;
-                    }
+                    }*/
                 break;
                 case 1:
-                    if (questAct == null) {
-                        frag = new QuestionView();
-                    } else {
-                        frag = questAct;
-                    }
+//                    if (questInit == false) {
+//                        questAct = new QuestionView();
+//                        questInit = true;
+//                    } else {
+//                        frag = questAct;
+//                    }
                 break;
                 case 2:
-                    frag = new HomeFragment();
+//                    frag = new QuestionView();
                 break;
             }
-
             return new SlidesActivity();
         }
 
