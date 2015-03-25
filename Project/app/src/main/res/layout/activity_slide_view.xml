@@ -19,8 +19,7 @@
                 android:layout_height="250dip"
                 android:id="@+id/slideViewImage"
                 android:layout_gravity="center_horizontal|top"
-                android:scaleType="centerInside"
-                android:background="@drawable/test" />
+                android:scaleType="centerInside" />
 
             <TextView
                 android:layout_width="wrap_content"

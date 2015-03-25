@@ -103,6 +103,7 @@ public class SlidesActivity extends Fragment implements AsyncTaskReport {
             // Add it to the view
             linLayout.addView(image, lpView);
 
+            //TODO start een fragment ipv een activity, zodat je tabladen blijven
             // Add a listener
             image.setOnClickListener(new View.OnClickListener() {
                 @Override
