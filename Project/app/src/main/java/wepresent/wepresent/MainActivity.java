@@ -1,6 +1,10 @@
 package wepresent.wepresent;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -8,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,6 +45,7 @@ public class MainActivity extends Activity implements AsyncTaskReport {
     private EditText input_username;
     private EditText input_password;
     private Button loginButton;
+    private String[] sessions;
 
     // Google Cloud Messaging
     private GCMClientManager pushClientManager;
@@ -51,10 +57,8 @@ public class MainActivity extends Activity implements AsyncTaskReport {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         setContentView(R.layout.activity_main);
-
-        sessionMapper = new SessionMapper(this);
-        sessionMapper.start();
 
         // Google Cloud Messaging
         pushClientManager = new GCMClientManager(this, PROJECT_NUMBER);
@@ -71,6 +75,9 @@ public class MainActivity extends Activity implements AsyncTaskReport {
         });
         // End Google Cloud Messaging
 
+        sessionMapper = new SessionMapper(this);
+        sessionMapper.start();
+
         input_username = (EditText) findViewById(R.id.userName);
         input_password = (EditText) findViewById(R.id.passWord);
 
@@ -83,7 +90,7 @@ public class MainActivity extends Activity implements AsyncTaskReport {
             }
 
         });
-    }
+        }
 
     private void proceedLogin() {
         if(input_username.getText().toString().equals("") || input_password.getText().toString().equals("")){
@@ -103,7 +110,6 @@ public class MainActivity extends Activity implements AsyncTaskReport {
                 Toast.makeText(getApplicationContext(), "Cannot login", Toast.LENGTH_LONG).show();
             }
         } else {
-            String[] sessions;
             if(sessionMapper.isGetSuccessful()){
                 sessions = sessionMapper.getSessionNames();
             } else {
@@ -148,7 +154,21 @@ public class MainActivity extends Activity implements AsyncTaskReport {
 
     public void gotoSlides(View view) {
         Intent intent = new Intent(this, LauncherHubThing.class);
+        ListView listSession = (ListView) findViewById(R.id.sessionList);
+        for(int i = 0; i < sessions.length; i++){
+            if(listSession.getSelectedItem().toString().equals(sessions[i])){
+                intent.putExtra("SessionID", sessionMapper.getSessionIds()[i]);
+                System.out.println("SessionID = "+intent.getStringExtra("SessionID"));
+            }
+        }
         startActivity(intent);
+    }
+
+    public boolean isOnline(){
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return (netInfo != null && netInfo.isConnected());
     }
 
 }

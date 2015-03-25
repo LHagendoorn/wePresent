@@ -108,8 +108,9 @@
         android:id="@+id/sessionList"
         android:layout_above="@+id/button"
         android:layout_centerHorizontal="true"
+        android:choiceMode="singleChoice"
+        android:listSelector="#666666"
         android:background="#ffffff"
-        android:layout_marginBottom="40dp"
-        android:choiceMode="singleChoice" />
+        android:layout_marginBottom="40dp" />
 
 </RelativeLayout>
