@@ -55,8 +55,8 @@ public class SlidesActivity extends Fragment implements AsyncTaskReport {
         // TODO: Get session ID from previous class
         sessionId = 1;
 
-        slidesMapper = new SlidesMapper(this);
-        slidesMapper.start(sessionId);
+        //slidesMapper = new SlidesMapper(this);
+        //slidesMapper.start(sessionId);
     }
 
     @Override
@@ -72,6 +72,13 @@ public class SlidesActivity extends Fragment implements AsyncTaskReport {
         } else {
             Toast.makeText(getActivity().getApplicationContext(), "Slides not available for this session", Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void onResume(){
+        super.onResume();
+        //TODO zorg dat je al gecachede plaatjes displayed inplaats van alles gewoon weer opnieuw op te halen
+        slidesMapper = new SlidesMapper(this);
+        slidesMapper.start(sessionId);
     }
 
     private void displaySlides() {

@@ -95,7 +95,7 @@ public class SlideViewActivity extends ActionBarActivity implements AsyncTaskRep
         return super.onOptionsItemSelected(item);
     }
 
-    
+
     public void init(Bundle bundle) {
 
     }
