@@ -1,5 +1,6 @@
 package wepresent.wepresent;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
@@ -9,7 +10,7 @@ import wepresent.wepresent.MainActivity;
 /**
  * Created by Chris on 24-Mar-15.
  */
-public class SlideView extends MaterialNavigationDrawer {
+public class SlideView extends Activity {
     HomeFragment homeFragment;
     @Override
     public void init(Bundle bundle) {

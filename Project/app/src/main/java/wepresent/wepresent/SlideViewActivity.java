@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -15,7 +16,7 @@ import android.widget.TextView;
 import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 import it.neokree.materialnavigationdrawer.elements.MaterialSection;
 
-public class SlideViewActivity extends MaterialNavigationDrawer {
+public class SlideViewActivity extends Fragment {
 
     private LinearLayout linLayout;
     private ImageView imageView;
