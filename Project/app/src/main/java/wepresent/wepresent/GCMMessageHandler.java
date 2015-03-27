@@ -1,7 +1,9 @@
 package wepresent.wepresent;
 
 import android.app.IntentService;
+import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -33,23 +35,28 @@ public class GCMMessageHandler extends IntentService {
         createNotification(56, R.drawable.notification_icon, title, body);
         // Notify receiver the intent is completed
         GCMBroadcastReceiver.completeWakefulIntent(intent);
-
-        //TODO: Go to quiz question stuff and get question enzo
     }
 
     // Creates notification based on title and body received
     private void createNotification(int nId, int iconRes, String title, String body) {
+        //TODO: Go to quiz question stuff and get question enzo
+        Intent intent = new Intent(this, QuizView.class);
+        int requestID = (int) System.currentTimeMillis();
+        int flags = PendingIntent.FLAG_CANCEL_CURRENT;
+        PendingIntent pIntent = PendingIntent.getActivity(this, requestID, intent, flags);
+
         Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon);
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
+        Notification mBuilder = new NotificationCompat.Builder(
                 this).setSmallIcon(iconRes)
                 .setContentTitle(title)
                 .setContentText(body)
-                .setLargeIcon(bm);
+                .setLargeIcon(bm)
+                .setContentIntent(pIntent).build();
 
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         // mId allows you to update the notification later on.
-        mNotificationManager.notify(nId, mBuilder.build());
+        mNotificationManager.notify(nId, mBuilder);
     }
 
 }
