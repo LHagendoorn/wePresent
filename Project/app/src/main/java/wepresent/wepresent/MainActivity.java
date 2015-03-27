@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 // Google Cloud Messaging
@@ -46,6 +47,7 @@ public class MainActivity extends Activity implements AsyncTaskReport {
     private EditText input_password;
     private Button loginButton;
     private String[] sessions;
+    public int selectedSession;
 
     // Google Cloud Messaging
     private GCMClientManager pushClientManager;
@@ -117,8 +119,15 @@ public class MainActivity extends Activity implements AsyncTaskReport {
                 sessions = new String[]{"shit is kapot yo"};
             }
 
-            ListView listSession = (ListView) findViewById(R.id.sessionList);
+            final ListView listSession = (ListView) findViewById(R.id.sessionList);
             ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sessions);
+            listSession.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                    TextView textView = (TextView) view.findViewById(R.id.list_content);
+//                    String text = textView.getText().toString();
+                    selectedSession = sessionMapper.getSessionIds()[position];
+                    System.out.println("sessionID: " + selectedSession);
+                }});
             listSession.setAdapter(itemsAdapter);
 
         }
@@ -155,14 +164,8 @@ public class MainActivity extends Activity implements AsyncTaskReport {
     public void gotoSlides(View view) {
         Intent intent = new Intent(this, LauncherHubThing.class);
         ListView listSession = (ListView) findViewById(R.id.sessionList);
-        for(int i = 0; i < sessions.length; i++){
-            System.out.println("Blijkbaar heeft Jos dit verpest: " + listSession.getSelectedItem().toString());
-            if(listSession.getSelectedItem().toString().equals(sessions[i])){
-                System.out.println("Misschien heeft Jos dit verpest: " + sessionMapper.getSessionIds());
-                intent.putExtra("SessionID", sessionMapper.getSessionIds()[i]);
-                System.out.println("SessionID = "+intent.getStringExtra("SessionID"));
-            }
-        }
+        intent.putExtra("SessionID", selectedSession);
+        System.out.println("SessionID = "+intent.getIntExtra("SessionID",0));
         startActivity(intent);
     }
 

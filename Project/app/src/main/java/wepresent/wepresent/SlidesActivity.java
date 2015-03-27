@@ -54,7 +54,7 @@ public class SlidesActivity extends Fragment implements AsyncTaskReport {
 
         Bundle b = getArguments();
         sessionId = b.getInt("SessionID");
-
+        System.out.println("In the slidesActivity my sessionID is: " + sessionId);
         slidesMapper = new SlidesMapper(this);
         slidesMapper.start(sessionId);
     }
@@ -69,7 +69,7 @@ public class SlidesActivity extends Fragment implements AsyncTaskReport {
             slides = slidesMapper.getSlides();
             displaySlides();
             Toast.makeText(getActivity().getApplicationContext(), "Slides retrieved", Toast.LENGTH_LONG).show();
-        } else {
+        } else { //TODO hij kan ze heus wel vinden, hij moet gewoon niet zo zeuren
             Toast.makeText(getActivity().getApplicationContext(), "Slides not available for this session", Toast.LENGTH_LONG).show();
         }
     }
@@ -110,7 +110,6 @@ public class SlidesActivity extends Fragment implements AsyncTaskReport {
             // Add it to the view
             linLayout.addView(image, lpView);
 
-            //TODO start een fragment ipv een activity, zodat je tabbladen blijven
             // Add a listener
             image.setOnClickListener(new View.OnClickListener() {
                 @Override
