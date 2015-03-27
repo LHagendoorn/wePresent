@@ -57,7 +57,7 @@ public class MainActivity extends Activity implements AsyncTaskReport {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
+        //Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         setContentView(R.layout.activity_main);
 
         // Google Cloud Messaging
@@ -156,7 +156,9 @@ public class MainActivity extends Activity implements AsyncTaskReport {
         Intent intent = new Intent(this, LauncherHubThing.class);
         ListView listSession = (ListView) findViewById(R.id.sessionList);
         for(int i = 0; i < sessions.length; i++){
+            System.out.println("Blijkbaar heeft Jos dit verpest: " + listSession.getSelectedItem().toString());
             if(listSession.getSelectedItem().toString().equals(sessions[i])){
+                System.out.println("Misschien heeft Jos dit verpest: " + sessionMapper.getSessionIds());
                 intent.putExtra("SessionID", sessionMapper.getSessionIds()[i]);
                 System.out.println("SessionID = "+intent.getStringExtra("SessionID"));
             }

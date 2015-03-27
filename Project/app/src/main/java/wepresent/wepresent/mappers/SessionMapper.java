@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class SessionMapper extends Mapper{
     private String[] SessionNames;
-    private Integer[] SessionIds;
+    private int[] SessionIds;
     private boolean getSuccessful;
 
     public SessionMapper(Activity activity) {
@@ -62,7 +62,7 @@ public class SessionMapper extends Mapper{
             if ( isGetSuccessful() ) {
                 JSONArray Sessions = SessionObject.getJSONArray("ActiveSessions");
                 SessionNames = new String[Sessions.length()];
-                SessionIds = new Integer[Sessions.length()];
+                SessionIds = new int[Sessions.length()];
 
                 for (int i = 0; i < Sessions.length(); i++){
                     SessionIds[i] = Sessions.getJSONObject(i).getInt("SessionID");
@@ -82,7 +82,7 @@ public class SessionMapper extends Mapper{
         return MapperSort.SESSIONMAPPER;
     }
 
-    public Integer[] getSessionIds() {
+    public int[] getSessionIds() {
         return SessionIds;
     }
 

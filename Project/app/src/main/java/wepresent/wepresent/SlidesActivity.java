@@ -44,7 +44,7 @@ public class SlidesActivity extends Fragment implements AsyncTaskReport {
 
     private LinearLayout linLayout;
     private SlidesMapper slidesMapper;
-    private Integer sessionId;
+    private int sessionId;
     private ArrayList<Map<String, String>> slides;
 
     @Override
@@ -52,11 +52,11 @@ public class SlidesActivity extends Fragment implements AsyncTaskReport {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_slides);
 
-        // TODO: Get session ID from previous class
-        sessionId = 1;
+        Bundle b = getArguments();
+        sessionId = b.getInt("SessionID");
 
-        //slidesMapper = new SlidesMapper(this);
-        //slidesMapper.start(sessionId);
+        slidesMapper = new SlidesMapper(this);
+        slidesMapper.start(sessionId);
     }
 
     @Override

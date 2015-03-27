@@ -15,9 +15,7 @@ import it.neokree.materialtabs.MaterialTab;
 import it.neokree.materialtabs.MaterialTabHost;
 import it.neokree.materialtabs.MaterialTabListener;
 
-/**
- * Created by Ruud on 11-3-2015.
- */
+
 public class HomeFragment extends Fragment implements MaterialTabListener {
     /** Main View. */
     View rootView;
@@ -29,6 +27,7 @@ public class HomeFragment extends Fragment implements MaterialTabListener {
     SlidesActivity slidesAct;
     QuestionView questAct;
     QuizView quizAct;
+    int sessionID;
 
     /** FAB */
     //AddFloatingActionButton addButton;
@@ -51,8 +50,9 @@ public class HomeFragment extends Fragment implements MaterialTabListener {
 
         // Add action button
         //addButton = (AddFloatingActionButton)rootView.findViewById(R.id.add_button);
-
+        Bundle b = getArguments();
         slidesAct = new SlidesActivity();
+        slidesAct.setArguments(b);
         questAct = new QuestionView();
         quizAct = new QuizView();
 

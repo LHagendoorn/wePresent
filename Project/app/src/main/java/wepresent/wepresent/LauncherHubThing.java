@@ -1,5 +1,6 @@
 package wepresent.wepresent;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
@@ -19,8 +20,14 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
     @Override
     public void init(Bundle savedInstanceState) {
         // Create home fragment
+        Intent in = getIntent();
+        int sessionID = in.getIntExtra("SessionID",0);
+        Bundle sessBundle = new Bundle();
+        sessBundle.putInt("SessionID", sessionID);
         homeFragment = new HomeFragment();
+        homeFragment.setArguments(sessBundle);
         setupNavigationDrawer();
+        setDrawerHeaderImage(R.drawable.notification_icon);
     }
 
     /**
