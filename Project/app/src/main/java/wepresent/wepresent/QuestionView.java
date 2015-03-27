@@ -11,10 +11,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,14 +28,40 @@ import java.util.Map;
 public class QuestionView extends Fragment {
 
     // We get the ListView component from the layout
-    ListView lv;// = (ListView) getView().findViewById(R.id.questionList);
+    ////ListView lv;// = (ListView) getView().findViewById(R.id.questionList);
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_question_view, container, false);
-        lv = (ListView) v.findViewById(R.id.questionList);
+        View v = inflater.inflate(R.layout.activity_question_view2, container, false);
+        ////lv = (ListView) v.findViewById(R.id.questionList);
         initList();
+        LinearLayout ll = (LinearLayout) v.findViewById(R.id.linearLayout);
+
+        //TODO Server communication with a mapper, functionality.
+        for (int i =0; i<5; i++){
+            RelativeLayout rv = new RelativeLayout(v.getContext());
+            ll.addView(rv);
+
+            ToggleButton tb = new ToggleButton(v.getContext());
+            rv.addView(tb);
+            tb.setText(Integer.toString(i));
+            tb.setTextOff(Integer.toString(i));
+            tb.setTextOn(Integer.toString(i));
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) tb.getLayoutParams();
+            params.addRule(RelativeLayout.ALIGN_PARENT_END);
+            tb.setLayoutParams(params);
+
+            TextView tv = new TextView(v.getContext());
+            tv.setText("Question " + Integer.toString(i) +  " goes here");
+            rv.addView(tv);
+            params = (RelativeLayout.LayoutParams) tv.getLayoutParams();
+            params.addRule(RelativeLayout.ALIGN_PARENT_START);
+            params.addRule(RelativeLayout.START_OF, tb.getId());
+            params.addRule(RelativeLayout.CENTER_IN_PARENT, 2);
+            tv.setLayoutParams(params);
+
+        }
 
 
 
@@ -43,9 +72,9 @@ public class QuestionView extends Fragment {
         // The row layout that is used during the row creation
         // The keys used to retrieve the data
         // The View id used to show the data. The key number and the view id must match
-        SimpleAdapter simpleAdpt = new SimpleAdapter(getActivity(), planetsList, android.R.layout.simple_list_item_1, new String[] {"planet"}, new int[] {android.R.id.text1});
+        ////SimpleAdapter simpleAdpt = new SimpleAdapter(getActivity(), planetsList, android.R.layout.simple_list_item_1, new String[] {"planet"}, new int[] {android.R.id.text1});
 
-        lv.setAdapter(simpleAdpt);
+        ////lv.setAdapter(simpleAdpt);
         return v;
     }
 
