@@ -50,63 +50,65 @@ public class QuizView extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        int viewID = 0;
+        RelativeLayout layout;
         // Check if there is a bundle attached - otherwise show image
         if (getArguments() == null) {
             // Show just the image view
+            viewID = R.layout.activity_quiz_view_empty;
+            layout = (RelativeLayout) inflater.inflate(viewID, container, false);
         } else {
+            if (MCQuestion) {
+                viewID = R.layout.activity_quiz_view;
+            } else {
+                viewID = R.layout.activity_open_quiz_view;
+            }
+            layout = (RelativeLayout) inflater.inflate(viewID, container, false);
+
+            // Set the question text
+            TextView questionView = (TextView) layout.findViewById(R.id.questionText);
+            questionView.setText(question);
+
+            if (MCQuestion) {
+                Button optionA = (Button) layout.findViewById(R.id.optionA);
+                optionA.setText(button1);
+                optionA.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        pressed(v);
+                    }
+                });
+
+                Button optionB = (Button) layout.findViewById(R.id.optionB);
+                optionB.setText(button2);
+                optionB.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        pressed(v);
+                    }
+                });
+
+                Button optionC = (Button) layout.findViewById(R.id.optionC);
+                optionC.setText(button3);
+                optionC.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        pressed(v);
+                    }
+                });
+
+                Button optionD = (Button) layout.findViewById(R.id.optionD);
+                optionD.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        submit(v);
+                    }
+                });
+            } else {
+
+            }
 
         }
-        int viewID = 0;
-        if (MCQuestion) {
-            viewID = R.layout.activity_quiz_view;
-        }
-        else {
-            viewID = R.layout.activity_open_quiz_view;
-        }
-        RelativeLayout layout = (RelativeLayout) inflater.inflate(viewID, container, false);
-        TextView questionView = (TextView) layout.findViewById(R.id.questionText);
-        questionView.setText(question);
-
-        if (MCQuestion) {
-            Button optionA = (Button) layout.findViewById(R.id.optionA);
-            optionA.setText(button1);
-            optionA.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    pressed(v);
-                }
-            });
-
-            Button optionB = (Button) layout.findViewById(R.id.optionB);
-            optionB.setText(button2);
-            optionB.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    pressed(v);
-                }
-            });
-
-            Button optionC = (Button) layout.findViewById(R.id.optionC);
-            optionC.setText(button3);
-            optionC.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    pressed(v);
-                }
-            });
-
-            Button optionD = (Button) layout.findViewById(R.id.optionD);
-            optionD.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    submit(v);
-                }
-            });
-        } else {
-
-        }
-
-
         return layout;
     }
 

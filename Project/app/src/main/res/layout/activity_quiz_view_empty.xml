@@ -8,6 +8,6 @@
                 android:id="@+id/slideViewImage"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:src=""/>
+                android:src="@drawable/quizquestion"/>
 
 </FrameLayout>
