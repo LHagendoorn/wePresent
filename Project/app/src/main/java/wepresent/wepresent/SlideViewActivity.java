@@ -16,7 +16,7 @@ import wepresent.wepresent.mappers.AsyncTaskReport;
 import wepresent.wepresent.mappers.Mapper;
 import wepresent.wepresent.mappers.SingleSlideMapper;
 
-public class SlideViewActivity extends ActionBarActivity {
+public class SlideViewActivity extends ActionBarActivity implements AsyncTaskReport {
 
     private LinearLayout linLayout;
     private ImageView imageView;
