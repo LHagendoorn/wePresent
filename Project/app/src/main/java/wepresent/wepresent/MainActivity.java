@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 // Google Cloud Messaging
@@ -46,6 +47,7 @@ public class MainActivity extends Activity implements AsyncTaskReport {
     private EditText input_password;
     private Button loginButton;
     private String[] sessions;
+    public int selectedSession;
 
     // Google Cloud Messaging
     private GCMClientManager pushClientManager;
@@ -117,8 +119,15 @@ public class MainActivity extends Activity implements AsyncTaskReport {
                 sessions = new String[]{"shit is kapot yo"};
             }
 
-            ListView listSession = (ListView) findViewById(R.id.sessionList);
+            final ListView listSession = (ListView) findViewById(R.id.sessionList);
             ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sessions);
+            listSession.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                    TextView textView = (TextView) view.findViewById(R.id.list_content);
+//                    String text = textView.getText().toString();
+                    selectedSession = sessionMapper.getSessionIds()[position];
+                    System.out.println("sessionID: " + selectedSession);
+                }});
             listSession.setAdapter(itemsAdapter);
 
         }
