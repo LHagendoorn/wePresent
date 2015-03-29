@@ -1,20 +1,9 @@
 package wepresent.wepresent;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Point;
 import android.os.Bundle;
 
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Display;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,14 +12,11 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 
-import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
-import it.neokree.materialnavigationdrawer.elements.MaterialSection;
 import wepresent.wepresent.mappers.AsyncTaskReport;
 import wepresent.wepresent.mappers.Mapper;
 import wepresent.wepresent.mappers.SingleSlideMapper;
-import wepresent.wepresent.mappers.SlidesMapper;
 
-public class SlideViewActivity extends ActionBarActivity implements AsyncTaskReport {
+public class SlideViewActivity extends ActionBarActivity {
 
     private LinearLayout linLayout;
     private ImageView imageView;
@@ -47,7 +33,6 @@ public class SlideViewActivity extends ActionBarActivity implements AsyncTaskRep
         // Set title
         setTitle("Slide notes");
 
-        // Back button
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -93,10 +78,5 @@ public class SlideViewActivity extends ActionBarActivity implements AsyncTaskRep
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-
-    public void init(Bundle bundle) {
-
     }
 }

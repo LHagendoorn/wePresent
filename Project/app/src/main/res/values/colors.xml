@@ -1,8 +1,8 @@
 <resources>
 
     <color name="black_overlay">#66000000</color>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#8bc34a</color>
+    <color name="colorPrimaryDark">#558b2f</color>
     <color name="colorPrimaryLight">#C5CAE9</color>
     <color name="colorSecondary">#ffcf000f</color>
     <color name="colorSecondaryDark">#F50057</color>

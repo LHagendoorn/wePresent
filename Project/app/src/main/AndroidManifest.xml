@@ -13,7 +13,7 @@
 
     <uses-permission android:name="wepresent.wepresent.gcm.permission.C2D_MESSAGE" />
 
-    <activity android:name="LauncherHubThing" android:theme="@style/MyNavigationDrawerTheme" />
+    <!--<activity android:name="LauncherHubThing" android:theme="@style/MyNavigationDrawerTheme" />-->
 
     <application
         android:allowBackup="true"
@@ -53,10 +53,11 @@
         <!--</activity>-->
         <activity
             android:name=".LauncherHubThing"
-            android:label="LauncherHubThing" >
+            android:label="LauncherHubThing">
         </activity>
         <activity
             android:name=".SlideViewActivity"
+            android:theme="@style/AppTheme.Base.NoNavigation"
             android:label="SlideViewActivity" >
         </activity>
         <!--<activity-->
