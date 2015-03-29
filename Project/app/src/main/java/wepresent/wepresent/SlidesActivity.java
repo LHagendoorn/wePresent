@@ -65,9 +65,9 @@ public class SlidesActivity extends Fragment implements AsyncTaskReport {
     public void onResume(){
         super.onResume();
         //TODO zorg dat je al gecachede plaatjes displayed inplaats van alles gewoon weer opnieuw op te halen
-        Bundle b = getArguments();
-        sessionId = b.getInt("SessionID");
         if(slidesMapper == null) {
+            Bundle b = getArguments();
+            sessionId = b.getInt("SessionID");
             slidesMapper = new SlidesMapper(this);
             slidesMapper.start(sessionId);
         }
