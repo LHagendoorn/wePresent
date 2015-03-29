@@ -53,10 +53,12 @@ public class SlidesActivity extends Fragment implements AsyncTaskReport {
         //setContentView(R.layout.activity_slides);
 
         Bundle b = getArguments();
-        sessionId = b.getInt("SessionID");
-        System.out.println("In the slidesActivity my sessionID is: " + sessionId);
-        slidesMapper = new SlidesMapper(this);
-        slidesMapper.start(sessionId);
+
+        // Check if the bundle has content
+//        sessionId = b.getInt("SessionID");
+//        System.out.println("In the slidesActivity my sessionID is: " + sessionId);
+//        slidesMapper = new SlidesMapper(this);
+//        slidesMapper.start(sessionId);
     }
 
     @Override

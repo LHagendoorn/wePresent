@@ -14,13 +14,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
 public class QuizView extends Fragment {
 
     String Pressed = "";
-    private String question;
+    private String question, button1, button2, button3;
 
     boolean MCQuestion = true;
 
@@ -30,7 +31,10 @@ public class QuizView extends Fragment {
 
         Bundle b = getArguments();
         question = b.getString("Question");
-        Toast toast = Toast.makeText(getActivity().getApplicationContext(), question, Toast.LENGTH_SHORT);
+        button1 = b.getString("Button1");
+        button2 = b.getString("Button2");
+        button3 = b.getString("Button3");
+
 //        if (MCQuestion) {
 //            setContentView(R.layout.activity_quiz_view);
 //        }
@@ -49,9 +53,12 @@ public class QuizView extends Fragment {
             viewID = R.layout.activity_open_quiz_view;
         }
         RelativeLayout layout = (RelativeLayout) inflater.inflate(viewID, container, false);
+        TextView questionView = (TextView) layout.findViewById(R.id.questionText);
+        questionView.setText(question);
 
         if (MCQuestion) {
             Button optionA = (Button) layout.findViewById(R.id.optionA);
+            optionA.setText(button1);
             optionA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -60,6 +67,7 @@ public class QuizView extends Fragment {
             });
 
             Button optionB = (Button) layout.findViewById(R.id.optionB);
+            optionB.setText(button2);
             optionB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -68,6 +76,7 @@ public class QuizView extends Fragment {
             });
 
             Button optionC = (Button) layout.findViewById(R.id.optionC);
+            optionC.setText(button3);
             optionC.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
