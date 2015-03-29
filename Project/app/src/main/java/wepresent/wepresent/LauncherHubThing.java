@@ -29,6 +29,7 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
             case "slides":
                 int sessionID = in.getIntExtra("SessionID",0);
                 sessBundle.putInt("SessionID", sessionID);
+                sessBundle.putString("Tab", "slides");
                 break;
             case "quiz":
                 String question = in.getStringExtra("Question");

@@ -164,15 +164,9 @@ public class MainActivity extends Activity implements AsyncTaskReport {
     public void gotoSlides(View view) {
         Intent intent = new Intent(this, LauncherHubThing.class);
         ListView listSession = (ListView) findViewById(R.id.sessionList);
-        for(int i = 0; i < sessions.length; i++){
-            System.out.println("Blijkbaar heeft Jos dit verpest: " + listSession.getSelectedItem().toString());
-            if(listSession.getSelectedItem().toString().equals(sessions[i])){
-                System.out.println("Misschien heeft Jos dit verpest: " + sessionMapper.getSessionIds());
-                intent.putExtra("Tab", "slides");
-                intent.putExtra("SessionID", sessionMapper.getSessionIds()[i]);
-                System.out.println("SessionID = "+intent.getStringExtra("SessionID"));
-            }
-        }
+        intent.putExtra("SessionID", selectedSession);
+        intent.putExtra("Tab","slides");
+        System.out.println("SessionID = "+intent.getIntExtra("SessionID",0));
         startActivity(intent);
     }
 
