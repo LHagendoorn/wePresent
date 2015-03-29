@@ -48,20 +48,6 @@ public class SlidesActivity extends Fragment implements AsyncTaskReport {
     private ArrayList<Map<String, String>> slides;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_slides);
-
-        Bundle b = getArguments();
-
-        // Check if the bundle has content
-//        sessionId = b.getInt("SessionID");
-//        System.out.println("In the slidesActivity my sessionID is: " + sessionId);
-//        slidesMapper = new SlidesMapper(this);
-//        slidesMapper.start(sessionId);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.activity_slides, container, false);
     }
@@ -79,8 +65,12 @@ public class SlidesActivity extends Fragment implements AsyncTaskReport {
     public void onResume(){
         super.onResume();
         //TODO zorg dat je al gecachede plaatjes displayed inplaats van alles gewoon weer opnieuw op te halen
-        slidesMapper = new SlidesMapper(this);
-        slidesMapper.start(sessionId);
+        Bundle b = getArguments();
+        sessionId = b.getInt("SessionID");
+        if(slidesMapper == null) {
+            slidesMapper = new SlidesMapper(this);
+            slidesMapper.start(sessionId);
+        }
     }
 
     private void displaySlides() {
@@ -88,14 +78,14 @@ public class SlidesActivity extends Fragment implements AsyncTaskReport {
         // Get where the images should go
         linLayout = (LinearLayout) getView().findViewById(R.id.linearLayout);
 
-        //TODO Zorg ervoor dat de hele breedte van het scherm gebruikt wordt, wellicht ook nog een padding?
-        WindowManager wm = (WindowManager) getView().getContext().getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int width = size.x;
-        int height = (int) (width * 0.5625);
-        LayoutParams lpView = new LayoutParams(width, height);
+//        //TODO Zorg ervoor dat de hele breedte van het scherm gebruikt wordt, wellicht ook nog een padding?
+//        WindowManager wm = (WindowManager) getView().getContext().getSystemService(Context.WINDOW_SERVICE);
+//        Display display = wm.getDefaultDisplay();
+//        Point size = new Point();
+//        display.getSize(size);
+//        int width = size.x;
+//        int height = (int) (width * 0.5625);
+//        LayoutParams lpView = new LayoutParams(width, height);
 
         // For each slide
         for ( Map<String, String> slide : slides ) {
@@ -106,11 +96,11 @@ public class SlidesActivity extends Fragment implements AsyncTaskReport {
             //Set the image
             NetworkImageView image = new NetworkImageView(getView().getContext());
             image.setImageUrl(slide.get("SlideURL"), imageLoader);
-            image.setFitsSystemWindows(true);
             image.setId(Integer.parseInt(slide.get("id")));
+            image.setAdjustViewBounds(true);
 
             // Add it to the view
-            linLayout.addView(image, lpView);
+            linLayout.addView(image);
 
             // Add a listener
             image.setOnClickListener(new View.OnClickListener() {

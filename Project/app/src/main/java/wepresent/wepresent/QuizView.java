@@ -29,16 +29,16 @@ public class QuizView extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle b = getArguments();
-        question = b.getString("Question");
-        button1 = b.getString("Button1");
-        button2 = b.getString("Button2");
-        button3 = b.getString("Button3");
+//        Bundle b = getArguments();
+//        question = b.getString("Question");
+//        button1 = b.getString("Button1");
+//        button2 = b.getString("Button2");
+//        button3 = b.getString("Button3");
 
         // Determine multiple choice
-        if (b.getString("Type").equals("multiplechoice")) {
-            MCQuestion = true;
-        }
+//        if (b.getString("Type").equals("multiplechoice")) {
+//            MCQuestion = true;
+//        }
 
 //        if (MCQuestion) {
 //            setContentView(R.layout.activity_quiz_view);
@@ -50,6 +50,12 @@ public class QuizView extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // Check if there is a bundle attached - otherwise show image
+        if (getArguments() == null) {
+            // Show just the image view
+        } else {
+
+        }
         int viewID = 0;
         if (MCQuestion) {
             viewID = R.layout.activity_quiz_view;

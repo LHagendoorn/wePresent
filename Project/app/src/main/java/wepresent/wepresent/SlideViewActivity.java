@@ -60,7 +60,6 @@ public class SlideViewActivity extends ActionBarActivity implements AsyncTaskRep
 
             NetworkImageView image = (NetworkImageView) findViewById(R.id.slideViewImage);
             image.setImageUrl(slideUrl, imageLoader);
-            image.setFitsSystemWindows(true);
 
             TextView text = (TextView) findViewById(R.id.slideViewNotes);
             text.setText(slideNotes);
