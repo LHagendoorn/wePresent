@@ -15,7 +15,7 @@
             android:id="@+id/slideViewLayout">
 
             <com.android.volley.toolbox.NetworkImageView
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="250dip"
                 android:id="@+id/slideViewImage"
                 android:layout_gravity="center_horizontal|top"

@@ -16,7 +16,6 @@
         android:layout_centerHorizontal="true"
         android:textSize="25dp"
         android:fontFamily="@string/loginText"
-        android:background="#65A73A"
         android:textColor="#ff000000" />
 
     <Button
@@ -65,7 +64,7 @@
         android:id="@+id/optionD"
         android:background="#ff0f8c07"
         android:layout_below="@+id/optionC"
-        android:layout_centerH orizontal="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:textColor="#ff000000"
         android:textSize="25dp"

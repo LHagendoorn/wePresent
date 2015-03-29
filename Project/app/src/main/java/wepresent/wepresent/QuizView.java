@@ -23,7 +23,7 @@ public class QuizView extends Fragment {
     String Pressed = "";
     private String question, button1, button2, button3;
 
-    boolean MCQuestion = true;
+    boolean MCQuestion = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,11 @@ public class QuizView extends Fragment {
         button1 = b.getString("Button1");
         button2 = b.getString("Button2");
         button3 = b.getString("Button3");
+
+        // Determine multiple choice
+        if (b.getString("Type").equals("multiplechoice")) {
+            MCQuestion = true;
+        }
 
 //        if (MCQuestion) {
 //            setContentView(R.layout.activity_quiz_view);
