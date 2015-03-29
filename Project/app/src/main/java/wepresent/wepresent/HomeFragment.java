@@ -52,9 +52,18 @@ public class HomeFragment extends Fragment implements MaterialTabListener {
         //addButton = (AddFloatingActionButton)rootView.findViewById(R.id.add_button);
         Bundle b = getArguments();
         slidesAct = new SlidesActivity();
-        slidesAct.setArguments(b);
         questAct = new QuestionView();
         quizAct = new QuizView();
+
+        //Check where the arguments should go
+        switch (b.getString("Tab")) {
+            case "slides":
+                slidesAct.setArguments(b);
+                break;
+            case "quiz":
+                quizAct.setArguments(b);
+                break;
+        }
 
         return rootView;
     }

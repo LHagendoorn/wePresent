@@ -15,6 +15,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 public class GCMMessageHandler extends IntentService {
     public static final int MESSAGE_NOTIFICATION_ID = 435345;
+    private String button1, button2, button3, type, question;
 
     public GCMMessageHandler() {
         super("GCMMessageHandler");
@@ -31,6 +32,14 @@ public class GCMMessageHandler extends IntentService {
         // Keys in the data are shown as extras
         String title = extras.getString("title");
         String body = extras.getString("body");
+        type = extras.getString("type");
+        question = extras.getString("question");
+        // Check if type is multiple choice
+        if ( type.equals( "multiplechoice" ) ) {
+            button1 = extras.getString("button1");
+            button2 = extras.getString("button2");
+            button3 = extras.getString("button3");
+        }
         // Create notification or otherwise manage incoming push
         createNotification(56, R.drawable.notification_icon, title, body);
         // Notify receiver the intent is completed
@@ -40,7 +49,16 @@ public class GCMMessageHandler extends IntentService {
     // Creates notification based on title and body received
     private void createNotification(int nId, int iconRes, String title, String body) {
         //TODO: Go to quiz question stuff and get question enzo
-        Intent intent = new Intent(this, QuizView.class);
+        Intent intent = new Intent(this, LauncherHubThing.class);
+        intent.putExtra("Tab", "quiz");
+        intent.putExtra("Question", question);
+        intent.putExtra("Type", type);
+        // Check if multiple choice
+        if ( type.equals("multiplechoice") ) {
+            intent.putExtra("Button1", button1);
+            intent.putExtra("Button2", button2);
+            intent.putExtra("Button3", button3);
+        }
         int requestID = (int) System.currentTimeMillis();
         int flags = PendingIntent.FLAG_CANCEL_CURRENT;
         PendingIntent pIntent = PendingIntent.getActivity(this, requestID, intent, flags);

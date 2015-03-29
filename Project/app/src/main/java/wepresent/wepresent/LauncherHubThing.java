@@ -21,9 +21,36 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
     public void init(Bundle savedInstanceState) {
         // Create home fragment
         Intent in = getIntent();
-        int sessionID = in.getIntExtra("SessionID",0);
+        String tab = in.getStringExtra("Tab");
         Bundle sessBundle = new Bundle();
-        sessBundle.putInt("SessionID", sessionID);
+
+        // Determine for what tab it is
+        switch (tab) {
+            case "slides":
+                int sessionID = in.getIntExtra("SessionID",0);
+                sessBundle.putInt("SessionID", sessionID);
+                break;
+            case "quiz":
+                String question = in.getStringExtra("Question");
+                String type = in.getStringExtra("Type");
+
+                // Determine if multiple choice
+                if( type.equals("multiplechoice") ) {
+                    String button1 = in.getStringExtra("Button1");
+                    String button2 = in.getStringExtra("Button2");
+                    String button3 = in.getStringExtra("Button3");
+                    sessBundle.putString("Button1", button1);
+                    sessBundle.putString("Button2", button2);
+                    sessBundle.putString("Button3", button3);
+                }
+
+                // Add it to the bundle
+                sessBundle.putString("Question", question);
+                sessBundle.putString("Type", type);
+                sessBundle.putString("Tab", tab);
+                break;
+        }
+
         homeFragment = new HomeFragment();
         homeFragment.setArguments(sessBundle);
         setupNavigationDrawer();

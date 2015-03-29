@@ -20,12 +20,17 @@ import android.widget.Toast;
 public class QuizView extends Fragment {
 
     String Pressed = "";
+    private String question;
 
     boolean MCQuestion = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Bundle b = getArguments();
+        question = b.getString("Question");
+        Toast toast = Toast.makeText(getActivity().getApplicationContext(), question, Toast.LENGTH_SHORT);
 //        if (MCQuestion) {
 //            setContentView(R.layout.activity_quiz_view);
 //        }

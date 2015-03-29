@@ -159,6 +159,7 @@ public class MainActivity extends Activity implements AsyncTaskReport {
             System.out.println("Blijkbaar heeft Jos dit verpest: " + listSession.getSelectedItem().toString());
             if(listSession.getSelectedItem().toString().equals(sessions[i])){
                 System.out.println("Misschien heeft Jos dit verpest: " + sessionMapper.getSessionIds());
+                intent.putExtra("Tab", "slides");
                 intent.putExtra("SessionID", sessionMapper.getSessionIds()[i]);
                 System.out.println("SessionID = "+intent.getStringExtra("SessionID"));
             }
