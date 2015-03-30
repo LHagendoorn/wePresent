@@ -3,6 +3,7 @@ package wepresent.wepresent;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.pm.PackageInstaller;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -107,6 +108,10 @@ public class MainActivity extends Activity implements AsyncTaskReport {
         if(!mapper.equals(sessionMapper.getMapperSort())) {
             if (loginMapper.isLoginsuccesful()) {
                 Toast.makeText(getApplicationContext(), "Correct login data send", Toast.LENGTH_LONG).show();
+                Intent out = new Intent(this, SessionActivity.class);
+                out.putExtra("LoggedIn", true);
+                out.putExtra("AndroidID", uniqueDeviceId);
+                startActivity(out);
             } else {
                 Toast.makeText(getApplicationContext(), "Cannot login", Toast.LENGTH_LONG).show();
             }
@@ -114,8 +119,7 @@ public class MainActivity extends Activity implements AsyncTaskReport {
             if(sessionMapper.isGetSuccessful()){
                 sessions = sessionMapper.getSessionNames();
             } else {
-                System.out.println("shitsbrokenlol");
-                sessions = new String[]{"shit is kapot yo"};
+                sessions = new String[]{"No Sessions available"};
             }
 
             final ListView listSession = (ListView) findViewById(R.id.sessionList);
@@ -162,13 +166,13 @@ public class MainActivity extends Activity implements AsyncTaskReport {
 
     public void gotoSlides(View view) {
         Intent intent = new Intent(this, LauncherHubThing.class);
-        ListView listSession = (ListView) findViewById(R.id.sessionList);
         if(selectedSession == 0){
             Toast.makeText(getApplicationContext(), "Please select a session", Toast.LENGTH_LONG).show();
         } else {
             intent.putExtra("SessionID", selectedSession);
             intent.putExtra("Tab", "slides");
             intent.putExtra("AndroidID", uniqueDeviceId);
+            intent.putExtra("LoggedIn", false);
             System.out.println("SessionID = " + intent.getIntExtra("SessionID", 0));
             startActivity(intent);
         }
