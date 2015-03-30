@@ -63,13 +63,14 @@ public class GCMMessageHandler extends IntentService {
             intent.putExtra("Button3", button3);
         }
         int requestID = (int) System.currentTimeMillis();
-        int flags = PendingIntent.FLAG_UPDATE_CURRENT;
+        int flags = PendingIntent.FLAG_ONE_SHOT;
         PendingIntent pIntent = PendingIntent.getActivity(this, requestID, intent, flags);
 
         Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon);
         Notification mBuilder = new NotificationCompat.Builder(
                 this).setSmallIcon(iconRes)
                 .setContentTitle(title)
+                .setAutoCancel(true)
                 .setContentText(body)
                 .setLargeIcon(bm)
                 .setContentIntent(pIntent).build();

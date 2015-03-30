@@ -56,7 +56,6 @@ public class SlidesActivity extends Fragment implements AsyncTaskReport {
         if(slidesMapper.isSlidesSuccesful()) {
             slides = slidesMapper.getSlides();
             displaySlides();
-            Toast.makeText(getActivity().getApplicationContext(), "Slides retrieved", Toast.LENGTH_LONG).show();
         } else { //TODO hij kan ze heus wel vinden, hij moet gewoon niet zo zeuren
             Toast.makeText(getActivity().getApplicationContext(), "Slides not available for this session", Toast.LENGTH_LONG).show();
         }
