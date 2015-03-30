@@ -17,6 +17,7 @@ import java.util.List;
 public class SessionMapper extends Mapper{
     private String[] SessionNames;
     private int[] SessionIds;
+    private String UserID;
     private boolean getSuccessful;
 
     public SessionMapper(Activity activity) {
