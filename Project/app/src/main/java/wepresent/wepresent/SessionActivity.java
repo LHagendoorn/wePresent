@@ -1,22 +1,33 @@
 package wepresent.wepresent;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import wepresent.wepresent.mappers.AsyncTaskReport;
 import wepresent.wepresent.mappers.Mapper;
 import wepresent.wepresent.mappers.SessionMapper;
 
 
-public class SessionActivity extends ActionBarActivity {
+public class SessionActivity extends ActionBarActivity implements AsyncTaskReport {
     private SessionMapper sessionMapper;
+    private int uniqueDeviceId;
+    private int selectedSession;
+    private boolean loggedIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Intent in = getIntent();
+        uniqueDeviceId = in.getIntExtra("AndroidID", 0);
+        loggedIn = in.getBooleanExtra("LoggedIn", false);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
         sessionMapper = new SessionMapper(this);
@@ -28,13 +39,17 @@ public class SessionActivity extends ActionBarActivity {
         if(sessionMapper.isGetSuccessful()){
             sessions = sessionMapper.getSessionNames();
         } else {
-            System.out.println("shitsbrokenlol");
-            sessions = new String[]{"shit is kapot yo"};
+            sessions = new String[]{"No sessions available"};
         }
 
         ListView listSession = (ListView) findViewById(R.id.sessionList);
         ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sessions);
         listSession.setAdapter(itemsAdapter);
+        listSession.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedSession = sessionMapper.getSessionIds()[position];
+                System.out.println("sessionID: " + selectedSession);
+            }});
     }
 
     @Override
@@ -57,5 +72,19 @@ public class SessionActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void gotoSlides(View view) {
+        Intent intent = new Intent(this, LauncherHubThing.class);
+        if(selectedSession == 0){
+            Toast.makeText(getApplicationContext(), "Please select a session", Toast.LENGTH_LONG).show();
+        } else {
+            intent.putExtra("SessionID", selectedSession);
+            intent.putExtra("Tab", "slides");
+            intent.putExtra("AndroidID", uniqueDeviceId);
+            intent.putExtra("LoggedIn", loggedIn);
+            System.out.println("SessionID = " + intent.getIntExtra("SessionID", 0));
+            startActivity(intent);
+        }
     }
 }
