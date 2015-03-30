@@ -57,6 +57,7 @@ public class HomeFragment extends Fragment implements MaterialTabListener {
 
         // Always send to slides - needs slide ID
         slidesAct.setArguments(b);
+        questAct.setArguments(b);
 
         setupTabs();
 

@@ -38,10 +38,6 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
             case "quiz":
                 String question = in.getStringExtra("Question");
                 String type = in.getStringExtra("Type");
-
-                sessionID = in.getIntExtra("SessionID",0);
-                sessBundle.putInt("SessionID", sessionID);
-
                 // Determine if multiple choice
                 if( type.equals("multiplechoice") ) {
                     String button1 = in.getStringExtra("Button1");
@@ -56,6 +52,8 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
                 sessBundle.putString("Question", question);
                 sessBundle.putString("Type", type);
                 sessBundle.putString("Tab", tab);
+                sessionID = in.getIntExtra("SessionID",0);
+                sessBundle.putInt("SessionID", sessionID);
                 break;
         }
 

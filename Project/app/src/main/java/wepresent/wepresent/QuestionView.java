@@ -60,6 +60,7 @@ public class QuestionView extends Fragment implements AsyncTaskReport {
         if(questionsMapper == null) {
             Bundle b = getArguments();
             sessionId = b.getInt("SessionID");
+
             questionsMapper = new QuestionsMapper(this);
             questionsMapper.start(sessionId);
         }
@@ -96,12 +97,6 @@ public class QuestionView extends Fragment implements AsyncTaskReport {
             tv.setLayoutParams(params);
 
         }
-    }
-
-    public static Bundle createBundle(String s) {
-        Bundle bundle = new Bundle();
-        //bundle.putString( EXTRA_TITLE, title );
-        return bundle;
     }
 
 
