@@ -24,8 +24,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import wepresent.wepresent.mappers.AsyncTaskReport;
+import wepresent.wepresent.mappers.Mapper;
+import wepresent.wepresent.mappers.QuestionsMapper;
 
-public class QuestionView extends Fragment {
+
+public class QuestionView extends Fragment implements AsyncTaskReport {
+
+    private LinearLayout linLayout;
+    private QuestionsMapper questionsMapper;
+    private int sessionId;
+    private ArrayList<Map<String, String>> questions;
 
     // We get the ListView component from the layout
     ////ListView lv;// = (ListView) getView().findViewById(R.id.questionList);
@@ -33,27 +42,52 @@ public class QuestionView extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_question_view2, container, false);
-        ////lv = (ListView) v.findViewById(R.id.questionList);
-        initList();
-        LinearLayout ll = (LinearLayout) v.findViewById(R.id.linearLayout);
+        return inflater.inflate(R.layout.activity_question_view2, container, false);
+    }
 
-        //TODO Server communication with a mapper, functionality.
-        for (int i =0; i<5; i++){
-            RelativeLayout rv = new RelativeLayout(v.getContext());
-            ll.addView(rv);
+    public void done(Mapper.MapperSort mapper) {
+        if (questionsMapper.isQuestionsSuccesful()) {
+            questions = questionsMapper.getQuestions();
+            displayQuestions();
+            Toast.makeText(getActivity().getApplicationContext(), "Questions retrieved", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getActivity().getApplicationContext(), "Questions not available for this session", Toast.LENGTH_LONG).show();
+        }
+    }
 
-            ToggleButton tb = new ToggleButton(v.getContext());
+    public void onResume(){
+        super.onResume();
+        if(questionsMapper == null) {
+            Bundle b = getArguments();
+            sessionId = b.getInt("SessionID");
+            questionsMapper = new QuestionsMapper(this);
+            questionsMapper.start(sessionId);
+        }
+    }
+
+    //TODO Add question button
+    //TODO View Question Activity
+    //TODO Additional functionalities like amount of votes
+
+    private void displayQuestions() {
+        linLayout = (LinearLayout) getView().findViewById(R.id.linearLayout);
+
+        for ( Map<String, String> question : questions ) {
+
+            RelativeLayout rv = new RelativeLayout(getView().getContext());
+            linLayout.addView(rv);
+
+            ToggleButton tb = new ToggleButton(getView().getContext());
             rv.addView(tb);
-            tb.setText(Integer.toString(i));
-            tb.setTextOff(Integer.toString(i));
-            tb.setTextOn(Integer.toString(i));
+            //tb.setText(Integer.toString(i));
+            //tb.setTextOff(Integer.toString(i));
+            //tb.setTextOn(Integer.toString(i));
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) tb.getLayoutParams();
             params.addRule(RelativeLayout.ALIGN_PARENT_END);
             tb.setLayoutParams(params);
 
-            TextView tv = new TextView(v.getContext());
-            tv.setText("Question " + Integer.toString(i) +  " goes here");
+            TextView tv = new TextView(getView().getContext());
+            tv.setText(question.get("question"));
             rv.addView(tv);
             params = (RelativeLayout.LayoutParams) tv.getLayoutParams();
             params.addRule(RelativeLayout.ALIGN_PARENT_START);
@@ -62,71 +96,12 @@ public class QuestionView extends Fragment {
             tv.setLayoutParams(params);
 
         }
-
-
-
-
-        // This is a simple adapter that accepts as parameter
-        // Context
-        // Data list
-        // The row layout that is used during the row creation
-        // The keys used to retrieve the data
-        // The View id used to show the data. The key number and the view id must match
-        ////SimpleAdapter simpleAdpt = new SimpleAdapter(getActivity(), planetsList, android.R.layout.simple_list_item_1, new String[] {"planet"}, new int[] {android.R.id.text1});
-
-        ////lv.setAdapter(simpleAdpt);
-        return v;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_question_view);
-        }
-
-/*    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getActivity().getMenuInflater().inflate(R.menu.menu_question_view, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
-
-    // The data to show
-    List<Map<String, String>> planetsList = new ArrayList<Map<String,String>>();
-
-    private void initList() {
-        // We populate the planets
-
-        planetsList.add(createPlanet("planet", "Mercury"));
-        planetsList.add(createPlanet("planet", "Venus"));
-        planetsList.add(createPlanet("planet", "Mars"));
-        planetsList.add(createPlanet("planet", "Jupiter"));
-        planetsList.add(createPlanet("planet", "Saturn"));
-        planetsList.add(createPlanet("planet", "Uranus"));
-        planetsList.add(createPlanet("planet", "Neptune"));
-
-
-    }
-
-    private HashMap<String, String> createPlanet(String key, String name) {
-        HashMap<String, String> planet = new HashMap<String, String>();
-        planet.put(key, name);
-
-        return planet;
+    public static Bundle createBundle(String s) {
+        Bundle bundle = new Bundle();
+        //bundle.putString( EXTRA_TITLE, title );
+        return bundle;
     }
 
 
