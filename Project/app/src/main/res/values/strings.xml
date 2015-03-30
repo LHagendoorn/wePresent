@@ -21,5 +21,6 @@
     <string name="title_activity_crash">CrashActivity</string>
     <string name="oei">The app has crashed. Please check your internet connection and try again. If the problem persists, send an email to gaatjeniksaankut@hotmail.com</string>
     <string name="title_activity_session">SessionActivity</string>
+    <string name="service_name">This is a test!</string>
 
 </resources>
