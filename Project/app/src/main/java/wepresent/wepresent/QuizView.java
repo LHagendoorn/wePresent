@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,29 +27,11 @@ public class QuizView extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        Bundle b = getArguments();
-//        question = b.getString("Question");
-//        button1 = b.getString("Button1");
-//        button2 = b.getString("Button2");
-//        button3 = b.getString("Button3");
-
-        // Determine multiple choice
-//        if (b.getString("Type").equals("multiplechoice")) {
-//            MCQuestion = true;
-//        }
-
-//        if (MCQuestion) {
-//            setContentView(R.layout.activity_quiz_view);
-//        }
-//        else {
-//            setContentView(R.layout.activity_open_quiz_view);
-//        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        int viewID = 0;
+        int viewID;
         RelativeLayout layout;
         // Check if there is a bundle attached - otherwise show image
         if (getArguments() == null) {
@@ -58,6 +39,17 @@ public class QuizView extends Fragment {
             viewID = R.layout.activity_quiz_view_empty;
             layout = (RelativeLayout) inflater.inflate(viewID, container, false);
         } else {
+            Bundle b = getArguments();
+            question = b.getString("Question");
+            button1 = b.getString("Button1");
+            button2 = b.getString("Button2");
+            button3 = b.getString("Button3");
+
+            // Determine if it is a multiple choice question
+            if (b.getString("Type").equals("multiplechoice")) {
+                MCQuestion = true;
+            }
+
             if (MCQuestion) {
                 viewID = R.layout.activity_quiz_view;
             } else {
@@ -104,10 +96,7 @@ public class QuizView extends Fragment {
                         submit(v);
                     }
                 });
-            } else {
-
             }
-
         }
         return layout;
     }

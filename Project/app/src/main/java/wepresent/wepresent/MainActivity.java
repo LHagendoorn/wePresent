@@ -40,7 +40,6 @@ import wepresent.wepresent.mappers.SessionMapper;
 
 public class MainActivity extends Activity implements AsyncTaskReport {
     //TODO Check for uniqueDeviceId, otherwise ABORT, ABORT!!!
-    //TODO Lock in portrait mode
     private MainMapper loginMapper;
     private SessionMapper sessionMapper;
     private EditText input_username;
@@ -164,10 +163,15 @@ public class MainActivity extends Activity implements AsyncTaskReport {
     public void gotoSlides(View view) {
         Intent intent = new Intent(this, LauncherHubThing.class);
         ListView listSession = (ListView) findViewById(R.id.sessionList);
-        intent.putExtra("SessionID", selectedSession);
-        intent.putExtra("Tab","slides");
-        System.out.println("SessionID = "+intent.getIntExtra("SessionID",0));
-        startActivity(intent);
+        if(selectedSession == 0){
+            Toast.makeText(getApplicationContext(), "Please select a session", Toast.LENGTH_LONG).show();
+        } else {
+            intent.putExtra("SessionID", selectedSession);
+            intent.putExtra("Tab", "slides");
+            intent.putExtra("AndroidID", uniqueDeviceId);
+            System.out.println("SessionID = " + intent.getIntExtra("SessionID", 0));
+            startActivity(intent);
+        }
     }
 
 }
