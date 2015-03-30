@@ -16,12 +16,15 @@ import wepresent.wepresent.mappers.Mapper;
 public class LauncherHubThing extends MaterialNavigationDrawer implements MaterialSectionListener {
 
     HomeFragment homeFragment;
-
+    boolean loggedIn;
     @Override
     public void init(Bundle savedInstanceState) {
         // Create home fragment
         Intent in = getIntent();
         String tab = in.getStringExtra("Tab");
+        //loggedIn = in.getBooleanExtra("LoggedIn");
+        loggedIn = true;
+
         Bundle sessBundle = new Bundle();
         int sessionID;
 
@@ -59,7 +62,7 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
         homeFragment = new HomeFragment();
         homeFragment.setArguments(sessBundle);
         setupNavigationDrawer();
-        setDrawerHeaderImage(R.drawable.notification_icon);
+        setDrawerHeaderImage(R.drawable.menuthing);
     }
 
     /**
@@ -75,19 +78,47 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
 
         // The sections
         MaterialSection section = newSection(
-                "Home",
-                homeFragment
+            "Hub",
+            homeFragment
         );
-
         this.addSection(section);
 
-        // Bottom
         section = newSection(
-                "Settings",
-                this
+                "Switch Session",
+                new Intent(this, HomeFragment.class)
         );
+        this.addSection(section);
 
-        this.addBottomSection(section);
+        if (loggedIn){
+            Intent in = new Intent(this, MainActivity.class);
+            in.putExtra("LoggedOut", true);
+            section = newSection(
+                    "Logout",
+                    in
+            );
+            this.addBottomSection(section);
+            section = newSection(
+                    "Start new session",
+                    homeFragment
+            );
+            this.addSection(section);
+            section = newSection(
+                    "Manage Session",
+                    homeFragment
+            );
+            this.addSection(section);
+            section = newSection(
+                    "Pose Quiz Question",
+                    homeFragment
+            );
+            this.addSection(section);
+        } else {
+            section = newSection(
+                    "Login",
+                    new Intent(this, MainActivity.class)
+            );
+            this.addBottomSection(section);
+        }
     }
 
     @Override

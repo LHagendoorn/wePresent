@@ -92,7 +92,13 @@ public class MainActivity extends Activity implements AsyncTaskReport {
             }
 
         });
+
+        Intent in = getIntent();
+        boolean loggedOut = in.getBooleanExtra("LoggedOut", false);
+        if(loggedOut){
+            Toast.makeText(getApplicationContext(), "Pretend that I sent to the server that you are logged out", Toast.LENGTH_LONG).show();
         }
+    }
 
     private void proceedLogin() {
         if(input_username.getText().toString().equals("") || input_password.getText().toString().equals("")){
