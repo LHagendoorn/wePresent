@@ -55,13 +55,18 @@ public class HomeFragment extends Fragment implements MaterialTabListener {
         questAct = new QuestionView();
         quizAct = new QuizView();
 
+        // Always send to slides - needs slide ID
+        slidesAct.setArguments(b);
+
+        setupTabs();
+
+        pager.setOffscreenPageLimit(2);
+
         //Check where the arguments should go
         switch (b.getString("Tab")) {
-            case "slides":
-                slidesAct.setArguments(b);
-                break;
             case "quiz":
                 quizAct.setArguments(b);
+                pager.setCurrentItem(2);
                 break;
         }
 
@@ -71,7 +76,6 @@ public class HomeFragment extends Fragment implements MaterialTabListener {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setupTabs();
     }
 
     @Override

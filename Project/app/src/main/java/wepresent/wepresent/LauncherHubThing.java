@@ -23,17 +23,21 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
         Intent in = getIntent();
         String tab = in.getStringExtra("Tab");
         Bundle sessBundle = new Bundle();
+        int sessionID;
 
         // Determine for what tab it is
         switch (tab) {
             case "slides":
-                int sessionID = in.getIntExtra("SessionID",0);
+                sessionID = in.getIntExtra("SessionID",0);
                 sessBundle.putInt("SessionID", sessionID);
                 sessBundle.putString("Tab", "slides");
                 break;
             case "quiz":
                 String question = in.getStringExtra("Question");
                 String type = in.getStringExtra("Type");
+
+                sessionID = in.getIntExtra("SessionID",0);
+                sessBundle.putInt("SessionID", sessionID);
 
                 // Determine if multiple choice
                 if( type.equals("multiplechoice") ) {
