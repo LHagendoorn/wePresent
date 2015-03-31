@@ -38,7 +38,7 @@ public class QuestionsMapper extends Mapper {
     @Override
     public List<NameValuePair> createPostData() {
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-
+        System.out.println("The session ID I'm sending: " + getSessionId().toString());
         nameValuePairs.add(new BasicNameValuePair("SessionID", getSessionId().toString()));
 
         return nameValuePairs;

@@ -59,10 +59,14 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
                 sessBundle.putString("Question", question);
                 sessBundle.putString("Type", type);
                 sessBundle.putString("Tab", tab);
-                sessionID = in.getIntExtra("SessionID",0);
-                sessBundle.putInt("SessionID", sessionID);
                 break;
         }
+
+        sessionID = in.getIntExtra("SessionID",0);
+        sessBundle.putInt("SessionID", sessionID);
+        int userID = in.getIntExtra("UserID",0);
+        sessBundle.putInt("UserID", userID);
+        System.out.println("                     Dit is nu de userID: " + userID);
 
         homeFragment = new HomeFragment();
         homeFragment.setArguments(sessBundle);

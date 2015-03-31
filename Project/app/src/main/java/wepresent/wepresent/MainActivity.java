@@ -80,6 +80,7 @@ public class MainActivity extends Activity implements AsyncTaskReport {
         });
         // End Google Cloud Messaging
 
+        System.out.println("Altijd leuk om te weten: " + uniqueDeviceId);
 
         loginMapper = new MainMapper(this);
         loginMapper.start(null,null,uniqueDeviceId);
@@ -185,9 +186,12 @@ public class MainActivity extends Activity implements AsyncTaskReport {
         if(selectedSession == 0){
             Toast.makeText(getApplicationContext(), "Please select a session", Toast.LENGTH_LONG).show();
         } else {
+
             intent.putExtra("SessionID", selectedSession);
             intent.putExtra("Tab", "slides");
-            intent.putExtra("UserID", uniqueDeviceId);
+            intent.putExtra("AndroidID", uniqueDeviceId);
+            System.out.println("               Deze userID steek ik in de intent: " + UserID);
+            intent.putExtra("UserID", UserID);
             intent.putExtra("LoggedIn", false);
             System.out.println("SessionID = " + intent.getIntExtra("SessionID", 0));
             startActivity(intent);

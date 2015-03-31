@@ -1,6 +1,8 @@
 package wepresent.wepresent;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
@@ -14,6 +16,7 @@ public class NotificationService extends NotificationListenerService {
         super.onCreate();
         context = getApplicationContext();
     }
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
         String pack = sbn.getPackageName();

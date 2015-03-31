@@ -104,10 +104,11 @@ public abstract class Mapper extends AsyncTask<Object, Boolean, String> {
                     "application/x-www-form-urlencoded");
 
             httppost.setEntity(new UrlEncodedFormEntity(createPostData()));
+            System.out.println("It is posting this: " + httppost);
             HttpResponse response = httpclient.execute(httppost);
 
             return inputStreamToString(
-                    response.getEntity().getContent()).toString();
+            response.getEntity().getContent()).toString();
 
         } catch (IllegalStateException e) {
             e.printStackTrace();
