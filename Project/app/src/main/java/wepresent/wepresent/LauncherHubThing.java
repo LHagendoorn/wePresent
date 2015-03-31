@@ -72,8 +72,6 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
         homeFragment.setArguments(sessBundle);
         setupNavigationDrawer();
         setDrawerHeaderImage(R.drawable.menuthing);
-
-        LocalBroadcastManager.getInstance(this).registerReceiver(onNotice, new IntentFilter("Msg"));
     }
 
     private BroadcastReceiver onNotice= new BroadcastReceiver() {
