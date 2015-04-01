@@ -65,7 +65,12 @@
         <!-- </activity> -->
         <activity
             android:name=".SessionActivity"
-            android:label="@string/title_activity_session" >
+            android:label="@string/title_activity_session"
+            android:theme="@style/AppTheme.Base.NoNavigation">
+        </activity>
+        <activity
+            android:name=".SessionManagement"
+            android:label="@string/title_activity_session_management" >
         </activity>
     </application>
 
