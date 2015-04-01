@@ -66,7 +66,7 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
         sessBundle.putInt("SessionID", sessionID);
         int userID = in.getIntExtra("UserID",0);
         sessBundle.putInt("UserID", userID);
-        System.out.println("                     Dit is nu de userID: " + userID);
+        System.out.println("Dit is nu de userID: " + userID);
 
         homeFragment = new HomeFragment();
         homeFragment.setArguments(sessBundle);
@@ -110,8 +110,15 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
         );
         this.addSection(section);
 
+        Intent in = new Intent(this, MainActivity.class);
+        in.putExtra("Leaved", true);
+        section = newSection(
+                "Leave Session",
+                in
+        );
+
         if (loggedIn){
-            Intent in = new Intent(this, MainActivity.class);
+            in = new Intent(this, MainActivity.class);
             in.putExtra("LoggedOut", true);
             section = newSection(
                     "Logout",

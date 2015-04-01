@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class MainMapper extends Mapper {
     private String username, password, androidId;
-    private Integer userID;
+    private int userID;
     private boolean loginsuccesful;
 
     public MainMapper(Activity activity) {
