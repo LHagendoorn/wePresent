@@ -35,6 +35,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import java.util.UUID;
 
 import wepresent.wepresent.mappers.AsyncTaskReport;
+import wepresent.wepresent.mappers.JoinSessionMapper;
 import wepresent.wepresent.mappers.MainMapper;
 import wepresent.wepresent.mappers.Mapper;
 import wepresent.wepresent.mappers.SessionMapper;
@@ -50,7 +51,7 @@ public class MainActivity extends Activity implements AsyncTaskReport {
     private int selectedSession;
     private boolean onStartUpLogin = true;
     private int UserID;
-
+    private JoinSessionMapper joinSessionMapper;
 
     // Google Cloud Messaging
     private GCMClientManager pushClientManager;
@@ -186,7 +187,8 @@ public class MainActivity extends Activity implements AsyncTaskReport {
         if(selectedSession == 0){
             Toast.makeText(getApplicationContext(), "Please select a session", Toast.LENGTH_LONG).show();
         } else {
-
+            joinSessionMapper = new JoinSessionMapper(this);
+            joinSessionMapper.start(selectedSession, UserID);
             intent.putExtra("SessionID", selectedSession);
             intent.putExtra("Tab", "slides");
             intent.putExtra("AndroidID", uniqueDeviceId);
