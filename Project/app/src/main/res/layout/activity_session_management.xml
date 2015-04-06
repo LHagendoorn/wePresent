@@ -25,9 +25,9 @@
         android:height="50dp"
         android:layout_alignWithParentIfMissing="false"
         android:layout_marginRight="150dp"
-        android:layout_below="@+id/passWord"
-        android:layout_alignStart="@+id/passWord"
-        android:layout_marginTop="38dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/sName"
+        android:layout_marginBottom="34dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -39,23 +39,8 @@
         android:height="50dp"
         android:background="#ff0f8c07"
         android:textSize="20dp"
-        android:layout_alignBaseline="@+id/register"
-        android:layout_alignBottom="@+id/register"
-        android:layout_alignEnd="@+id/passWord" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Join Session"
-        android:onClick="gotoSlides"
-        android:id="@+id/button"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="45dp"
-        android:width="300dp"
-        android:background="#ff0f8c07"
-        android:height="50dp"
-        android:textSize="20dp" />
+        android:layout_alignTop="@+id/register"
+        android:layout_alignEnd="@+id/sessionList" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -71,46 +56,32 @@
         android:textColor="#ff000000"
         android:hint="Username"
         android:paddingLeft="15dp"
+        android:maxLines="1"
+        android:maxHeight="40dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="5dp"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/passWord"
-        android:layout_marginTop="40dp"
-        android:maxLines="1"
-        android:maxHeight="40dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="5dp" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/passWord"
-        android:background="#ffffff"
-        android:width="300dp"
-        android:textColor="#ff000000"
-        android:textColorHint="#8d7f7f7f"
-        android:hint="Password"
-        android:textSize="25dp"
-        android:fontFamily="@string/loginText"
-        android:paddingLeft="15dp"
-        android:layout_below="@+id/sName"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="36dp"
-        android:maxLines="1"
-        android:maxHeight="40dp"
-        android:height="50dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="5dp" />
+        android:layout_centerHorizontal="true" />
 
     <ListView
         android:layout_width="300dp"
         android:layout_height="150dp"
         android:id="@+id/sessionList"
-        android:layout_above="@+id/button"
-        android:layout_centerHorizontal="true"
         android:choiceMode="singleChoice"
         android:listSelector="#666666"
         android:background="#ffffff"
-        android:layout_marginBottom="40dp" />
+        android:layout_above="@+id/listView"
+        android:layout_alignStart="@+id/sName" />
+
+    <ListView
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:id="@+id/listView"
+        android:choiceMode="singleChoice"
+        android:listSelector="#666666"
+        android:background="#ffffff"
+        android:layout_above="@+id/register"
+        android:layout_alignEnd="@+id/login"
+        android:layout_marginBottom="39dp" />
 
 </RelativeLayout>

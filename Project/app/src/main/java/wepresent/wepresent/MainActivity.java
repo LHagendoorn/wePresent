@@ -1,13 +1,6 @@
 package wepresent.wepresent;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.pm.PackageInstaller;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.Build;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,21 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 // Google Cloud Messaging
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
 // End Google Cloud Messaging
-
-import java.util.UUID;
 
 import wepresent.wepresent.mappers.AsyncTaskReport;
 import wepresent.wepresent.mappers.JoinSessionMapper;
@@ -88,7 +71,7 @@ public class MainActivity extends Activity implements AsyncTaskReport {
         sessionMapper = new SessionMapper(this);
         sessionMapper.start();
 
-        input_username = (EditText) findViewById(R.id.userName);
+        input_username = (EditText) findViewById(R.id.sName);
         input_password = (EditText) findViewById(R.id.passWord);
 
         loginButton = (Button) findViewById(R.id.login);
