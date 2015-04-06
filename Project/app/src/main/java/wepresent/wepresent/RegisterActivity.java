@@ -61,7 +61,7 @@ public class RegisterActivity extends Activity implements AsyncTaskReport {
      * Moves message to other text unit
      */
     public void register(View view){
-        TextView username = (TextView) findViewById(R.id.sName);
+        TextView username = (TextView) findViewById(R.id.title);
         TextView email = (TextView) findViewById(R.id.email);
         TextView password = (TextView) findViewById(R.id.passWord);
         TextView verification = (TextView) findViewById(R.id.verPass);

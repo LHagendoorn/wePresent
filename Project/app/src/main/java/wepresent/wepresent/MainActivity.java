@@ -73,7 +73,7 @@ public class MainActivity extends Activity implements AsyncTaskReport {
         sessionMapper = new SessionMapper(this);
         sessionMapper.start();
 
-        input_username = (EditText) findViewById(R.id.sName);
+        input_username = (EditText) findViewById(R.id.title);
         input_password = (EditText) findViewById(R.id.passWord);
 
         loginButton = (Button) findViewById(R.id.login);

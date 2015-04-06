@@ -23,4 +23,5 @@
     <string name="title_activity_session">SessionActivity</string>
     <string name="service_name">This is a test!</string>
     <string name="title_activity_session_management">SessionManagement</string>
+    <string name="updateSessionButton">Update Session</string>
 </resources>
