@@ -49,6 +49,7 @@ public class UpdateMapper extends Mapper {
         nameValuePairs.add(new BasicNameValuePair("UserID", getUserID().toString()));
         nameValuePairs.add(new BasicNameValuePair("PresentationID", getPresentationID().toString()));
         nameValuePairs.add(new BasicNameValuePair("QuizID", getQuesSetID().toString()));
+        nameValuePairs.add(new BasicNameValuePair("Title", getTitle()));
 
         return nameValuePairs;
     }
@@ -120,5 +121,8 @@ public class UpdateMapper extends Mapper {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+    public String getTitle() {
+        return title;
     }
 }
