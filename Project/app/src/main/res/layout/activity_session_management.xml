@@ -36,6 +36,17 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="20dp" />
 
+    <EditText
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/hintSlide"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:hint="Enter a title"
+        android:textColorHint="#8d7f7f7f" />
+
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,7 +63,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Select a Slide Set"
         android:id="@+id/textView2"
-        android:layout_marginTop="51dp"
+        android:layout_marginTop="31dp"
+        android:layout_below="@+id/hintSlide"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="20dp"
         android:textColor="#000000"
