@@ -82,11 +82,6 @@
             android:theme="@style/AppTheme.Base.NoNavigation"
             android:label="addQuestionActivity" >
         </activity>
-        <activity
-            android:name=".SingleQuestionView"
-            android:theme="@style/AppTheme.Base.NoNavigation"
-            android:label="SingleQuestionView" >
-        </activity>
     </application>
 
 </manifest>

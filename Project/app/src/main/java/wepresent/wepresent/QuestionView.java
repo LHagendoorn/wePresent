@@ -80,6 +80,7 @@ public class QuestionView extends Fragment implements AsyncTaskReport {
     }
 
     public void onResume(){
+        refresh = true;
         super.onResume();
             Bundle b = getArguments();
             sessionId = b.getInt("SessionID");
@@ -112,7 +113,6 @@ public class QuestionView extends Fragment implements AsyncTaskReport {
             tb.setTextOff(question.get("upvotes"));
             tb.setTextOn(Integer.toString(Integer.parseInt(question.get("upvotes"))+1));
             for (int i = 0; i < upvotes.length; i++) {
-                System.out.println("Checking upvote" + Integer.toString(upvotes[i]) + " against questionID" + Integer.toString(questionID));
                 if (questionID == upvotes[i]) {
                     tb.setTextOn(question.get("upvotes"));
                     tb.setTextOff(Integer.toString(Integer.parseInt(question.get("upvotes"))-1));
