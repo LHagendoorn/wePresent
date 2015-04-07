@@ -46,6 +46,11 @@
             android:name=".RegisterActivity"
             android:label="@string/title_activity_register" >
         </activity>
+        <activity
+            android:name=".SingleQuestionView"
+            android:label="SingleQuestionViewActivity"
+            android:theme="@style/AppTheme.Base.NoNavigation" >
+        </activity>
         <!-- <activity -->
         <!-- android:name=".QuizView" -->
         <!-- android:label="@string/title_activity_quiz_view" > -->

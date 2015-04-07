@@ -20,8 +20,8 @@ import java.util.Map;
  * Created by Jos on 6-Apr-15.
  */
 public class PresentationMapper extends Mapper {
-    private Integer userId;
-    private Integer errorCode;
+    private int userId;
+    private int errorCode;
     private String[] PresentationNames;
     private int[] PresentationIds;
     private boolean presSuccesful;
@@ -34,7 +34,7 @@ public class PresentationMapper extends Mapper {
         super(frag);
     }
 
-    public void start(Integer userId) {
+    public void start(int userId) {
         setUserId(userId);
         execute();
     }
@@ -43,7 +43,7 @@ public class PresentationMapper extends Mapper {
     public List<NameValuePair> createPostData() {
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 
-        nameValuePairs.add(new BasicNameValuePair("userID", getUserId().toString()));
+        nameValuePairs.add(new BasicNameValuePair("UserID", getUserId().toString()));
 
         return nameValuePairs;
     }
@@ -69,7 +69,7 @@ public class PresentationMapper extends Mapper {
                 PresentationIds = new int[Sessions.length()];
 
                 for (int i = 0; i < Sessions.length(); i++){
-                    PresentationIds[i] = Sessions.getJSONObject(i).getInt("ID");
+                    PresentationIds[i] = Sessions.getJSONObject(i).getInt("SetID");
                     PresentationNames[i] = Sessions.getJSONObject(i).getString("Name");
                 }
             }

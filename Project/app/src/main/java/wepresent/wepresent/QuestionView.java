@@ -108,7 +108,7 @@ public class QuestionView extends Fragment implements AsyncTaskReport {
             ToggleButton tb = new ToggleButton(getView().getContext());
             rv.addView(tb);
             tb.setText(question.get("upvotes"));
-            int questionID = Integer.parseInt(question.get("QuestionID"));
+            final int questionID = Integer.parseInt(question.get("QuestionID"));
             tb.setTextOff(question.get("upvotes"));
             tb.setTextOn(Integer.toString(Integer.parseInt(question.get("upvotes"))+1));
             for (int i = 0; i < upvotes.length; i++) {
@@ -124,7 +124,7 @@ public class QuestionView extends Fragment implements AsyncTaskReport {
                 @Override
 
                 public void onClick(View v) {
-                        upVote(Integer.parseInt(question.get("QuestionID")));
+                        upVote(questionID);
                 }
             });
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) tb.getLayoutParams();
@@ -144,7 +144,7 @@ public class QuestionView extends Fragment implements AsyncTaskReport {
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), SingleQuestionView.class);
                     intent.putExtra("SessionID", sessionId);
-                    intent.putExtra("QuestionID", question.get("QuestionID"));
+                    intent.putExtra("QuestionID", questionID);
                     intent.putExtra("UserID", userId);
                     startActivity(intent);
                 }
