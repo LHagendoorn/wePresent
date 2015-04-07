@@ -16,6 +16,7 @@ import java.util.List;
  */
 public class MainMapper extends Mapper {
     private String username, password, androidId;
+    private int userID;
     private boolean loginsuccesful;
 
     public MainMapper(Activity activity) {
@@ -54,6 +55,7 @@ public class MainMapper extends Mapper {
         try {
             JSONObject loginObject = new JSONObject(result);
             setLoginsuccesful(loginObject.getBoolean("Successful"));
+            userID = loginObject.getInt("UserID");
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -68,6 +70,14 @@ public class MainMapper extends Mapper {
 
     public String getPassword() {
         return password;
+    }
+
+    public Integer getUserID() {
+        return userID;
+    }
+
+    public void setUserID(Integer userID) {
+        this.userID = userID;
     }
 
     public void setPassword(String password) {

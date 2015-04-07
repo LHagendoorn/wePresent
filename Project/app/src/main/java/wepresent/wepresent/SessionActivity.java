@@ -18,18 +18,27 @@ import wepresent.wepresent.mappers.SessionMapper;
 
 public class SessionActivity extends ActionBarActivity implements AsyncTaskReport {
     private SessionMapper sessionMapper;
-    private int uniqueDeviceId;
+    private String uniqueDeviceId;
     private int selectedSession;
     private boolean loggedIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         Intent in = getIntent();
-        uniqueDeviceId = in.getIntExtra("AndroidID", 0);
+        uniqueDeviceId = in.getStringExtra("AndroidID");
         loggedIn = in.getBooleanExtra("LoggedIn", false);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
+
+        // Set title
+        setTitle("Switch Session");
+
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         sessionMapper = new SessionMapper(this);
         sessionMapper.start();
     }

@@ -1,13 +1,6 @@
 package wepresent.wepresent;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.pm.PackageInstaller;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.Build;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,23 +11,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 // Google Cloud Messaging
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
 // End Google Cloud Messaging
 
-import java.util.UUID;
-
 import wepresent.wepresent.mappers.AsyncTaskReport;
+import wepresent.wepresent.mappers.JoinSessionMapper;
+import wepresent.wepresent.mappers.LeaveSessionMapper;
 import wepresent.wepresent.mappers.MainMapper;
 import wepresent.wepresent.mappers.Mapper;
 import wepresent.wepresent.mappers.SessionMapper;
@@ -47,7 +32,11 @@ public class MainActivity extends Activity implements AsyncTaskReport {
     private EditText input_password;
     private Button loginButton;
     private String[] sessions;
-    public int selectedSession;
+    private int selectedSession;
+    private boolean onStartUpLogin = true;
+    private int UserID;
+    private JoinSessionMapper joinSessionMapper;
+    private LeaveSessionMapper leaveSessionMapper;
 
     // Google Cloud Messaging
     private GCMClientManager pushClientManager;
@@ -77,10 +66,14 @@ public class MainActivity extends Activity implements AsyncTaskReport {
         });
         // End Google Cloud Messaging
 
+        System.out.println("Altijd leuk om te weten: " + uniqueDeviceId);
+
+        loginMapper = new MainMapper(this);
+        loginMapper.start(null,null,uniqueDeviceId);
         sessionMapper = new SessionMapper(this);
         sessionMapper.start();
 
-        input_username = (EditText) findViewById(R.id.userName);
+        input_username = (EditText) findViewById(R.id.title);
         input_password = (EditText) findViewById(R.id.passWord);
 
         loginButton = (Button) findViewById(R.id.login);
@@ -94,9 +87,10 @@ public class MainActivity extends Activity implements AsyncTaskReport {
         });
 
         Intent in = getIntent();
-        boolean loggedOut = in.getBooleanExtra("LoggedOut", false);
-        if(loggedOut){
-            Toast.makeText(getApplicationContext(), "Pretend that I sent to the server that you are logged out", Toast.LENGTH_LONG).show();
+        boolean leaved = in.getBooleanExtra("Leaved", false);
+        if(leaved){
+            leaveSessionMapper = new LeaveSessionMapper(this);
+            leaveSessionMapper.start(UserID);
         }
     }
 
@@ -111,17 +105,23 @@ public class MainActivity extends Activity implements AsyncTaskReport {
 
 
     public void done(Mapper.MapperSort mapper) {
-        if(!mapper.equals(sessionMapper.getMapperSort())) {
-            if (loginMapper.isLoginsuccesful()) {
+        System.out.println(mapper);
+        if(mapper.equals(loginMapper.getMapperSort())) {
+            if (loginMapper.isLoginsuccesful() && !onStartUpLogin) {
                 Toast.makeText(getApplicationContext(), "Correct login data send", Toast.LENGTH_LONG).show();
+                UserID = loginMapper.getUserID();
                 Intent out = new Intent(this, SessionActivity.class);
                 out.putExtra("LoggedIn", true);
-                out.putExtra("AndroidID", uniqueDeviceId);
+                out.putExtra("UserID", loginMapper.getUsername());
                 startActivity(out);
+            } else if (onStartUpLogin) {
+                UserID = loginMapper.getUserID();
+                System.out.println("Chris maakte veel lawaai en toen schrok ik en dit is mijn userID:" + loginMapper.getUserID());
+                onStartUpLogin = false;
             } else {
                 Toast.makeText(getApplicationContext(), "Cannot login", Toast.LENGTH_LONG).show();
             }
-        } else {
+        } else if (mapper.equals(sessionMapper.getMapperSort())) {
             if(sessionMapper.isGetSuccessful()){
                 sessions = sessionMapper.getSessionNames();
             } else {
@@ -139,7 +139,7 @@ public class MainActivity extends Activity implements AsyncTaskReport {
                 }});
             listSession.setAdapter(itemsAdapter);
 
-        }
+        }// else if (mapper.equals(log)) {
     }
 
     @Override
@@ -175,9 +175,13 @@ public class MainActivity extends Activity implements AsyncTaskReport {
         if(selectedSession == 0){
             Toast.makeText(getApplicationContext(), "Please select a session", Toast.LENGTH_LONG).show();
         } else {
+            joinSessionMapper = new JoinSessionMapper(this);
+            joinSessionMapper.start(selectedSession, UserID);
             intent.putExtra("SessionID", selectedSession);
             intent.putExtra("Tab", "slides");
             intent.putExtra("AndroidID", uniqueDeviceId);
+            System.out.println("Deze userID steek ik in de intent: " + UserID);
+            intent.putExtra("UserID", UserID);
             intent.putExtra("LoggedIn", false);
             System.out.println("SessionID = " + intent.getIntExtra("SessionID", 0));
             startActivity(intent);

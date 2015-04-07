@@ -2,15 +2,12 @@ package wepresent.wepresent;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.UUID;
 
 import wepresent.wepresent.mappers.AsyncTaskReport;
 import wepresent.wepresent.mappers.Mapper;
@@ -64,7 +61,7 @@ public class RegisterActivity extends Activity implements AsyncTaskReport {
      * Moves message to other text unit
      */
     public void register(View view){
-        TextView username = (TextView) findViewById(R.id.userName);
+        TextView username = (TextView) findViewById(R.id.title);
         TextView email = (TextView) findViewById(R.id.email);
         TextView password = (TextView) findViewById(R.id.passWord);
         TextView verification = (TextView) findViewById(R.id.verPass);

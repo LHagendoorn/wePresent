@@ -14,18 +14,22 @@ import java.util.List;
 /**
  * Created by Jos on 23-3-2015.
  */
-public class SessionMapper extends Mapper{
+public class JoinSessionMapper extends Mapper{
     private String[] SessionNames;
     private int[] SessionIds;
     private String UserID;
     private boolean getSuccessful;
 
-    public SessionMapper(Activity activity) {
+    public JoinSessionMapper(Activity activity) {
         super(activity);
     }
 
+    int sessionID;
+    int userID;
 
-    public void start() {
+    public void start(int sessionId, int userID) {
+        this.sessionID = sessionId;
+        this.userID = userID;
         execute();
     }
 
@@ -33,13 +37,14 @@ public class SessionMapper extends Mapper{
     @Override
     public List<NameValuePair> createPostData() {
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-        nameValuePairs.add(new BasicNameValuePair("SessionID", "HOIHOI"));
+        nameValuePairs.add(new BasicNameValuePair("SessionID", sessionID + ""));
+        nameValuePairs.add(new BasicNameValuePair("UserID", userID + ""));
         return nameValuePairs;
     }
 
     @Override
     public String getUrl() {
-        return "http://wepresent.tk/api/getSessions";
+        return "http://wepresent.tk/api/joinSession";
     }
 
     public boolean isGetSuccessful() {
@@ -59,19 +64,6 @@ public class SessionMapper extends Mapper{
         try {
             JSONObject SessionObject = new JSONObject(result);
             setGetSuccessful(SessionObject.getBoolean("Successful"));
-
-            if ( isGetSuccessful() ) {
-                JSONArray Sessions = SessionObject.getJSONArray("ActiveSessions");
-                SessionNames = new String[Sessions.length()];
-                SessionIds = new int[Sessions.length()];
-
-                for (int i = 0; i < Sessions.length(); i++){
-                    SessionIds[i] = Sessions.getJSONObject(i).getInt("SessionID");
-                    SessionNames[i] = Sessions.getJSONObject(i).getString("Name");
-                }
-            }
-
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
