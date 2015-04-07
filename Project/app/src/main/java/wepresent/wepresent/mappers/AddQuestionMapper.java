@@ -113,8 +113,8 @@ public class AddQuestionMapper extends Mapper {
 
     public String getImage() {return this.encodedimage;}
 
-    public void setTitle(String image) {
-        this.title = image;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getTitle() {return this.title;}

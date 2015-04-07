@@ -77,15 +77,13 @@ public class QuestionView extends Fragment implements AsyncTaskReport {
 
     public void onResume(){
         super.onResume();
-        if(questionsMapper == null) {
-            Bundle b = getArguments();
-            sessionId = b.getInt("SessionID");
-            userId = b.getInt("UserID");
+        Bundle b = getArguments();
+        sessionId = b.getInt("SessionID");
+        userId = b.getInt("UserID");
 
 
-            questionsMapper = new QuestionsMapper(this);
-            questionsMapper.start(sessionId, userId);
-        }
+        questionsMapper = new QuestionsMapper(this);
+        questionsMapper.start(sessionId, userId);
     }
 
     public void upVote(Integer questionId) {
