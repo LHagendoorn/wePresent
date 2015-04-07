@@ -42,6 +42,7 @@ public class QuestionView extends Fragment implements AsyncTaskReport {
     private Button button;
     private int[] upvotes;
     private int sesID, useID;
+    private boolean refresh = true;
 
     // We get the ListView component from the layout
     ////ListView lv;// = (ListView) getView().findViewById(R.id.questionList);
@@ -56,7 +57,10 @@ public class QuestionView extends Fragment implements AsyncTaskReport {
         if (questionsMapper.isQuestionsSuccesful()) {
             questions = questionsMapper.getQuestions();
             upvotes = questionsMapper.getUpvotes();
-            displayQuestions();
+            if (refresh == true) {
+                refresh = false;
+                displayQuestions();
+            }
         } else {
             if (sessionId>0) {
                 Toast.makeText(getActivity().getApplicationContext(), "Questions not available for this session", Toast.LENGTH_LONG).show();
@@ -77,12 +81,12 @@ public class QuestionView extends Fragment implements AsyncTaskReport {
 
     public void onResume(){
         super.onResume();
-        Bundle b = getArguments();
-        sessionId = b.getInt("SessionID");
-        userId = b.getInt("UserID");
+            Bundle b = getArguments();
+            sessionId = b.getInt("SessionID");
+            userId = b.getInt("UserID");
 
-        questionsMapper = new QuestionsMapper(this);
-        questionsMapper.start(sessionId, userId);
+            questionsMapper = new QuestionsMapper(this);
+            questionsMapper.start(sessionId, userId);
     }
 
     public void upVote(Integer questionId) {
@@ -108,6 +112,7 @@ public class QuestionView extends Fragment implements AsyncTaskReport {
             tb.setTextOff(question.get("upvotes"));
             tb.setTextOn(Integer.toString(Integer.parseInt(question.get("upvotes"))+1));
             for (int i = 0; i < upvotes.length; i++) {
+                System.out.println("Checking upvote" + Integer.toString(upvotes[i]) + " against questionID" + Integer.toString(questionID));
                 if (questionID == upvotes[i]) {
                     tb.setTextOn(question.get("upvotes"));
                     tb.setTextOff(Integer.toString(Integer.parseInt(question.get("upvotes"))-1));

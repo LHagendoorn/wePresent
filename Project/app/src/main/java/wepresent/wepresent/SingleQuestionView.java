@@ -39,7 +39,7 @@ public class SingleQuestionView extends ActionBarActivity implements AsyncTaskRe
         // Get the extras
         Bundle intentInfo = getIntent().getExtras();
         sessionId = intentInfo.getInt("SessionID");
-        questionId = intentInfo.getInt("QuestionID");
+        questionId = Integer.parseInt(intentInfo.getString("QuestionID"));
         userId = intentInfo.getInt("UserID");
 
         // Start the mapper
