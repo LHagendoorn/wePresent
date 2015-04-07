@@ -79,7 +79,7 @@ public class SessionManagement extends ActionBarActivity implements AsyncTaskRep
         }
     }
 
-    public void update(){
+    public void update(View view){
         int quesID, presID;
         Spinner listPres = (Spinner) findViewById(R.id.sSpinner);
         Spinner listQues = (Spinner) findViewById(R.id.qSpinner);
