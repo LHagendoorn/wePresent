@@ -103,7 +103,7 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
         );
 
         if (loggedIn){
-            Intent in = new Intent(this, MainActivity.class);
+            in = new Intent(this, MainActivity.class);
             in.putExtra("LoggedOut", true);
             section = newSection(
                     "Logout",
