@@ -23,6 +23,8 @@ public class UpdateMapper extends Mapper {
     private Integer quesSetID;
     private boolean sendSuccesful;
     private JSONArray questionsRetrieved;
+    private String title;
+
 
     public UpdateMapper(Activity activity) {
         super(activity);
@@ -32,10 +34,11 @@ public class UpdateMapper extends Mapper {
         super(frag);
     }
 
-    public void start(Integer sessionId, Integer presID, Integer quesID) {
+    public void start(Integer sessionId, Integer presID, Integer quesID, String title) {
         setSessionId(sessionId);
         setPresentationID(presID);
         setQuesSetID(quesID);
+        setTitle(title);
         execute();
     }
 
@@ -113,5 +116,9 @@ public class UpdateMapper extends Mapper {
 
     public void setSendSuccesful(boolean sendSuccesful) {
         this.sendSuccesful = sendSuccesful;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

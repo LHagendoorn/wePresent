@@ -32,6 +32,7 @@ public class SessionManagement extends ActionBarActivity implements AsyncTaskRep
     protected void onCreate(Bundle savedInstanceState) {
         Intent in = getIntent();
         userID = in.getIntExtra("UserID", 0);
+        System.out.println("USER INDUSTRIAL DESIGN: " + userID);
         sessionID = in.getIntExtra("sessionID", 0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session_management);
@@ -46,25 +47,32 @@ public class SessionManagement extends ActionBarActivity implements AsyncTaskRep
 
     public void done(Mapper.MapperSort mapper) {
         String[] presentations, questionSets;
+        System.out.println("dingen enzo");
         if(presMap.isPresSuccesful()){
             presentations = presMap.getPresentationNames();
+            if(presentations!=null) {
+                System.out.println("SUCCESVOL HOOR! " + presentations[0]);
+                Spinner listPres = (Spinner) findViewById(R.id.sSpinner);
+                ArrayAdapter<String> presAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, presentations);
+                presAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                listPres.setAdapter(presAdapter);
+            }
         } else {
             presentations = new String[]{"No sessions available"};
+            System.out.println("*In a dark, manly voice:* YOU HAVE FAILED THIS CITY!");
         }
         if(quesMap.isQuesSuccesful()){
             questionSets = quesMap.getQuestionNames();
+            if(questionSets!=null) {
+                System.out.println("SUCCESVOL HOOR Q! " + questionSets[0]);
+                Spinner listQues = (Spinner) findViewById(R.id.qSpinner);
+                ArrayAdapter<String> quesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, questionSets);
+                quesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                listQues.setAdapter(quesAdapter);
+            }
         } else {
             questionSets = new String[]{"No questionsets available"};
-        }
-        if(presMap.isPresSuccesful() && quesMap.isQuesSuccesful() && !mapper.equals(updMap.getMapperSort())) {
-            Spinner listPres = (Spinner) findViewById(R.id.sSpinner);
-            Spinner listQues = (Spinner) findViewById(R.id.qSpinner);
-            ArrayAdapter<String> presAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, presentations);
-            ArrayAdapter<String> quesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, questionSets);
-            presAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            quesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            listPres.setAdapter(presAdapter);
-            listQues.setAdapter(quesAdapter);
+            System.out.println("*In a dark, manly voice:* YOU HAVE FAILED THIS CITY!");
         }
         if(mapper.equals(updMap.getMapperSort())){
             Toast.makeText(getApplicationContext(), "Session updated", Toast.LENGTH_LONG).show();
@@ -77,7 +85,7 @@ public class SessionManagement extends ActionBarActivity implements AsyncTaskRep
         Spinner listQues = (Spinner) findViewById(R.id.qSpinner);
         quesID = quesMap.getQuestionIds()[Arrays.asList(quesMap.getQuestionNames()).indexOf(listQues.getSelectedItem())];
         presID = presMap.getPresentationIds()[Arrays.asList(presMap.getPresentationNames()).indexOf(listPres.getSelectedItem())];
-        updMap.start(sessionID, presID, quesID);
+        updMap.start(sessionID, presID, quesID, findViewById(R.id.hintSlide).toString());
     }
 
     @Override

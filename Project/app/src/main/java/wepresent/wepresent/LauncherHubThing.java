@@ -110,7 +110,7 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
                     in
             );
             in = new Intent(this, SessionManagement.class);
-            in.putExtra("UserdID", userID);
+            in.putExtra("UserID", userID);
             in.putExtra("SessionID", 0);
             this.addBottomSection(section);
             section = newSection(
@@ -119,7 +119,7 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
             );
 
             in = new Intent(this, SessionManagement.class);
-            in.putExtra("UserdID", userID);
+            in.putExtra("UserID", userID);
             in.putExtra("SessionID", sessionID);
             this.addSection(section);
             section = newSection(

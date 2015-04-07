@@ -16,8 +16,8 @@ import java.util.List;
  * Created by Jos on 6-Apr-15.
  */
 public class QuestionSetMapper extends Mapper {
-    private Integer userId;
-    private Integer errorCode;
+    private int userId;
+    private int errorCode;
     private String[] questionNames;
     private int[] questionIds;
     private boolean quesSuccesful;
@@ -39,7 +39,7 @@ public class QuestionSetMapper extends Mapper {
     public List<NameValuePair> createPostData() {
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 
-        nameValuePairs.add(new BasicNameValuePair("userID", getUserId().toString()));
+        nameValuePairs.add(new BasicNameValuePair("UserID", getUserId().toString()));
 
         return nameValuePairs;
     }
@@ -60,12 +60,12 @@ public class QuestionSetMapper extends Mapper {
             quesSuccesful = presObject.getBoolean("Successful");
 
             if ( isQuesSuccesful() ) {
-                JSONArray Sessions = presObject.getJSONArray("QuizQuestionSets");
+                JSONArray Sessions = presObject.getJSONArray("QuizQuestionsSet");
                 questionNames = new String[Sessions.length()];
                 questionIds = new int[Sessions.length()];
 
                 for (int i = 0; i < Sessions.length(); i++){
-                    questionIds[i] = Sessions.getJSONObject(i).getInt("ID");
+                    questionIds[i] = Sessions.getJSONObject(i).getInt("SetID");
                     questionNames[i] = Sessions.getJSONObject(i).getString("Name");
                 }
             }
@@ -85,7 +85,7 @@ public class QuestionSetMapper extends Mapper {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
