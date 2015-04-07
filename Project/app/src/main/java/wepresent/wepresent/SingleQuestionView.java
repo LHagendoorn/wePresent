@@ -61,6 +61,7 @@ public class SingleQuestionView extends ActionBarActivity implements AsyncTaskRe
 
             NetworkImageView image = (NetworkImageView) findViewById(R.id.questionImage);
             image.setImageUrl(questionURL, imageLoader);
+            image.setAdjustViewBounds(true);
 
             titleView = (TextView) findViewById(R.id.titleText);
             titleView.setText(questionTitle);
