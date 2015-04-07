@@ -81,7 +81,6 @@ public class QuestionView extends Fragment implements AsyncTaskReport {
         sessionId = b.getInt("SessionID");
         userId = b.getInt("UserID");
 
-
         questionsMapper = new QuestionsMapper(this);
         questionsMapper.start(sessionId, userId);
     }
