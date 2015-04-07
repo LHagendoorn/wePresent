@@ -51,7 +51,9 @@ public class QuestionView extends Fragment implements AsyncTaskReport {
             displayQuestions();
             Toast.makeText(getActivity().getApplicationContext(), "Questions retrieved", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(getActivity().getApplicationContext(), "Questions not available for this session", Toast.LENGTH_LONG).show();
+            if (sessionId>0) {
+                Toast.makeText(getActivity().getApplicationContext(), "Questions not available for this session", Toast.LENGTH_LONG).show();
+            }
         }
     }
 

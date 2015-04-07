@@ -24,16 +24,17 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
 
     HomeFragment homeFragment;
     boolean loggedIn;
+    int userID;
+    int sessionID;
     @Override
     public void init(Bundle savedInstanceState) {
         // Create home fragment
         Intent in = getIntent();
         String tab = in.getStringExtra("Tab");
-        //loggedIn = in.getBooleanExtra("LoggedIn");
-        loggedIn = true;
+        loggedIn = in.getBooleanExtra("LoggedIn",false);
+        //loggedIn = true;
 
         Bundle sessBundle = new Bundle();
-        int sessionID;
 
         // Determine for what tab it is
         switch (tab) {
@@ -64,7 +65,7 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
 
         sessionID = in.getIntExtra("SessionID",0);
         sessBundle.putInt("SessionID", sessionID);
-        int userID = in.getIntExtra("UserID",0);
+        userID = in.getIntExtra("UserID",0);
         sessBundle.putInt("UserID", userID);
         System.out.println("Dit is nu de userID: " + userID);
 
@@ -104,13 +105,16 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
         );
         this.addSection(section);
 
+        Intent in = new Intent(this, SessionActivity.class);
+        in.putExtra("LoggedIn", true);
+        in.putExtra("UserID", userID);
         section = newSection(
                 "Switch Session",
-                new Intent(this, HomeFragment.class)
+                in
         );
         this.addSection(section);
 
-        Intent in = new Intent(this, MainActivity.class);
+        in = new Intent(this, MainActivity.class);
         in.putExtra("Leaved", true);
         section = newSection(
                 "Leave Session",
@@ -124,16 +128,24 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
                     "Logout",
                     in
             );
+            in = new Intent(this, SessionManagement.class);
+            in.putExtra("UserdID", userID);
+            in.putExtra("SessionID", 0);
             this.addBottomSection(section);
             section = newSection(
                     "Start new session",
-                    homeFragment
+                    in
             );
+
+            in = new Intent(this, SessionManagement.class);
+            in.putExtra("UserdID", userID);
+            in.putExtra("SessionID", sessionID);
             this.addSection(section);
             section = newSection(
                     "Manage Session",
-                    homeFragment
+                    in
             );
+
             this.addSection(section);
             section = newSection(
                     "Pose Quiz Question",

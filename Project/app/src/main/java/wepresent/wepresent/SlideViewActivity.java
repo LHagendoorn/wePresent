@@ -61,6 +61,11 @@ public class SlideViewActivity extends ActionBarActivity implements AsyncTaskRep
             NetworkImageView image = (NetworkImageView) findViewById(R.id.slideViewImage);
             image.setImageUrl(slideUrl, imageLoader);
 
+            //System.out.println(slideNotes);
+            if (slideNotes == null || slideNotes.equals("null") || slideNotes.equals(null)){
+                slideNotes = "";
+            }
+
             TextView text = (TextView) findViewById(R.id.slideViewNotes);
             text.setText(slideNotes);
         } else {
@@ -69,7 +74,7 @@ public class SlideViewActivity extends ActionBarActivity implements AsyncTaskRep
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+      public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();

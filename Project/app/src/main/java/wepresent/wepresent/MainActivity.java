@@ -110,9 +110,15 @@ public class MainActivity extends Activity implements AsyncTaskReport {
             if (loginMapper.isLoginsuccesful() && !onStartUpLogin) {
                 Toast.makeText(getApplicationContext(), "Correct login data send", Toast.LENGTH_LONG).show();
                 UserID = loginMapper.getUserID();
-                Intent out = new Intent(this, SessionActivity.class);
+                //Intent out = new Intent(this, SessionActivity.class);
+                //out.putExtra("LoggedIn", true);
+                //out.putExtra("UserID", loginMapper.getUsername());
+                Intent out = new Intent(this, LauncherHubThing.class);
+                out.putExtra("SessionID", 0);
+                out.putExtra("Tab", "slides");
+                out.putExtra("AndroidID", uniqueDeviceId);
+                out.putExtra("UserID", UserID);
                 out.putExtra("LoggedIn", true);
-                out.putExtra("UserID", loginMapper.getUsername());
                 startActivity(out);
             } else if (onStartUpLogin) {
                 UserID = loginMapper.getUserID();
