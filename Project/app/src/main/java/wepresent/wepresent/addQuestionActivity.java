@@ -36,6 +36,8 @@ public class addQuestionActivity extends ActionBarActivity implements AsyncTaskR
     private Button addquestionButton;
     private Integer userId, sessionId = null;
 
+    private static final int SELECT_PICTURE = 1;
+
     private Uri currImageURI;
 
     private AddQuestionMapper addQuestionMapper;
@@ -67,7 +69,14 @@ public class addQuestionActivity extends ActionBarActivity implements AsyncTaskR
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select image to add"), 1);
+
+                Intent photoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+                String pickTitle = "Select or take a new photo";
+                Intent chooseIntent = Intent.createChooser(intent, pickTitle);
+                chooseIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] { photoIntent});
+
+                startActivityForResult(chooseIntent, SELECT_PICTURE);
             }
         });
 

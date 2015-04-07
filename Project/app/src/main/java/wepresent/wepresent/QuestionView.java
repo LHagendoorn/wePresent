@@ -2,6 +2,9 @@ package wepresent.wepresent;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -59,6 +62,7 @@ public class QuestionView extends Fragment implements AsyncTaskReport {
             upvotes = questionsMapper.getUpvotes();
             if (refresh == true) {
                 refresh = false;
+                //TODO This function has to be called to draw the entire question list.
                 displayQuestions();
             }
         } else {
@@ -101,12 +105,13 @@ public class QuestionView extends Fragment implements AsyncTaskReport {
     private void displayQuestions() {
         linLayout = (LinearLayout) getView().findViewById(R.id.linearLayout);
         linLayout.removeAllViews();
+
         for (final Map<String, String> question : questions ) {
 
             RelativeLayout rv = new RelativeLayout(getView().getContext());
             linLayout.addView(rv);
 
-            ToggleButton tb = new ToggleButton(getView().getContext());
+            final ToggleButton tb = new ToggleButton(getView().getContext());
             rv.addView(tb);
             tb.setText(question.get("upvotes"));
             final int questionID = Integer.parseInt(question.get("QuestionID"));
@@ -124,7 +129,7 @@ public class QuestionView extends Fragment implements AsyncTaskReport {
                 @Override
 
                 public void onClick(View v) {
-                        upVote(questionID);
+                    upVote(questionID);
                 }
             });
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) tb.getLayoutParams();
