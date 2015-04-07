@@ -34,21 +34,22 @@ public class UpdateMapper extends Mapper {
         super(frag);
     }
 
-    public void start(Integer sessionId, Integer presID, Integer quesID, String title) {
+    public void start(Integer sessionId, Integer presID, Integer quesID, String title, int userID) {
         setSessionId(sessionId);
         setPresentationID(presID);
         setQuesSetID(quesID);
         setTitle(title);
+        setUserID(userID);
         execute();
     }
 
     @Override
     public List<NameValuePair> createPostData() {
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-        nameValuePairs.add(new BasicNameValuePair("SessionID", getSessionId().toString()));
-        nameValuePairs.add(new BasicNameValuePair("UserID", getUserID().toString()));
-        nameValuePairs.add(new BasicNameValuePair("PresentationID", getPresentationID().toString()));
-        nameValuePairs.add(new BasicNameValuePair("QuizID", getQuesSetID().toString()));
+        nameValuePairs.add(new BasicNameValuePair("SessionID", getSessionId() + ""));
+        nameValuePairs.add(new BasicNameValuePair("UserID", getUserID() + ""));
+        nameValuePairs.add(new BasicNameValuePair("PresentationID", getPresentationID() + ""));
+        nameValuePairs.add(new BasicNameValuePair("QuizID", getQuesSetID() + ""));
         nameValuePairs.add(new BasicNameValuePair("Title", getTitle()));
 
         return nameValuePairs;
