@@ -1,6 +1,7 @@
 package wepresent.wepresent.mappers;
 
 import android.app.Activity;
+import android.support.v4.app.Fragment;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -14,18 +15,24 @@ import java.util.List;
  * Created by Chris on 16-Mar-15.
  */
 public class AddQuestionMapper extends Mapper {
-    private String question, androidId;
-    private Integer errorCode, userId;
+    private String question, encodedimage, title;
+    private Integer userId, questionId, sessionId;
     private boolean AddedSuccesful;
 
     public AddQuestionMapper(Activity activity) {
         super(activity);
     }
 
-    //TODO Allow images to be set and send
+    public AddQuestionMapper(Fragment frag) {
+        super(frag);
+    }
 
-    public void start(String question) {
+    public void start(String title, String question, Integer userID, Integer sessionID, String image) {
+        setTitle(title);
+        setUserId(userID);
         setQuestion(question);
+        setSessionId(sessionID);
+        setImage(image);
         execute();
     }
 
@@ -33,16 +40,19 @@ public class AddQuestionMapper extends Mapper {
     public List<NameValuePair> createPostData() {
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 
+        nameValuePairs.add(new BasicNameValuePair("Title", getTitle()));
+        nameValuePairs.add(new BasicNameValuePair("UserID", Integer.toString(getUserId())));
         nameValuePairs.add(new BasicNameValuePair("Question", getQuestion()));
+        nameValuePairs.add(new BasicNameValuePair("SessionID", Integer.toString(getSessionId())));
+        nameValuePairs.add(new BasicNameValuePair("Photo", getImage()));
 
         return nameValuePairs;
     }
 
     @Override
     public String getUrl() {
-        return "http://wepresent.tk/api/addQuestion";
+        return "http://wepresent.tk/api/createQuestion";
     }
-    // TODO Ensure this is set up to accept and add new questions to the list of questions
 
     /**
      *
@@ -55,9 +65,7 @@ public class AddQuestionMapper extends Mapper {
             setAddedSuccesfull(registerObject.getBoolean("Successful"));
 
             if ( isAddedSuccesful() ) {
-                setUserId(registerObject.getInt("UserID"));
-            } else {
-                setErrorCode(registerObject.getInt("Errorcode"));
+                setQuestionID(registerObject.getInt("QuestionID"));
             }
 
         } catch (JSONException e) {
@@ -75,8 +83,8 @@ public class AddQuestionMapper extends Mapper {
         return question;
     }
 
-    public void setQuestion(String username) {
-        this.question = username;
+    public void setQuestion(String question) {
+        this.question = question;
     }
 
     public boolean isAddedSuccesful() {
@@ -87,11 +95,28 @@ public class AddQuestionMapper extends Mapper {
         this.AddedSuccesful = addedSuccesfull;
     }
 
-    public int getErrorCode() { return this.errorCode; }
-
-    public void setErrorCode(Integer errorCode) { this.errorCode = errorCode; }
-
     public int getUserId() { return this.userId; }
 
     public void setUserId(Integer userId) { this.userId = userId; }
+
+    public int getSessionId() { return this.sessionId; }
+
+    public void setSessionId(Integer sessionId) { this.sessionId = sessionId; }
+
+    public void setQuestionID(Integer questionID) {this.questionId = questionID;}
+
+    public int getQuestionId() {return this.questionId;}
+
+    public void setImage(String image) {
+        this.encodedimage = image;
+    }
+
+    public String getImage() {return this.encodedimage;}
+
+    public void setTitle(String image) {
+        this.title = image;
+    }
+
+    public String getTitle() {return this.title;}
+
 }

@@ -21,25 +21,6 @@
         android:height="50dp"
         android:textSize="20dp" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/question"
-        android:background="#ffffff"
-        android:width="300dp"
-        android:height="50dp"
-        android:textSize="25dp"
-        android:textColorHint="#8d7f7f7f"
-        android:textColor="#ff000000"
-        android:hint="Question"
-        android:paddingLeft="15dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_above="@+id/addQuestionImage" />
-
     <ImageButton
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -48,6 +29,38 @@
         android:layout_above="@+id/button"
         android:layout_centerHorizontal="true" />
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/question"
+        android:background="#ffffff"
+        android:hint="Question"
+        android:gravity="top|left"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/textView"
+        android:layout_above="@+id/addQuestionImage" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/title"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/question"
+        android:background="#ffffffff"
+        android:layout_alignParentTop="true"
+        android:hint="Title" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/title" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,8 +68,7 @@
         android:id="@+id/addQuestionError"
         android:textColor="#ffff2711"
         android:textSize="25dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

@@ -72,6 +72,11 @@
             android:name=".SessionManagement"
             android:label="@string/title_activity_session_management" >
         </activity>
+        <activity
+            android:name=".addQuestionActivity"
+            android:theme="@style/AppTheme.Base.NoNavigation"
+            android:label="addQuestionActivity" >
+        </activity>
     </application>
 
 </manifest>

@@ -16,11 +16,12 @@ import java.util.Map;
 
 
 public class QuestionsMapper extends Mapper {
-    private Integer sessionId;
+    private Integer sessionId, userId;
     private Integer errorCode;
     private ArrayList<Map<String, String>> questions;
+    private int[] upvotes;
     private boolean questionsSuccesful;
-    private JSONArray questionsRetrieved;
+    private JSONArray questionsRetrieved, upvotesRetrieved;
 
     public QuestionsMapper(Activity activity) {
         super(activity);
@@ -30,8 +31,9 @@ public class QuestionsMapper extends Mapper {
         super(frag);
     }
 
-    public void start(Integer sessionId) {
+    public void start(Integer sessionId, Integer userId) {
         setSessionId(sessionId);
+        setUserId(userId);
         execute();
     }
 
@@ -40,6 +42,7 @@ public class QuestionsMapper extends Mapper {
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         System.out.println("The session ID I'm sending: " + getSessionId().toString());
         nameValuePairs.add(new BasicNameValuePair("SessionID", getSessionId().toString()));
+        nameValuePairs.add(new BasicNameValuePair("UserID", getUserId().toString()));
 
         return nameValuePairs;
     }
@@ -62,7 +65,9 @@ public class QuestionsMapper extends Mapper {
             if ( isQuestionsSuccesful() ) {
                 // For each slide, add it to the slides
                 questionsRetrieved = questionsObject.getJSONArray("Questions");
+                upvotesRetrieved = questionsObject.getJSONArray("Upvotes");
                 processQuestions();
+                processUpvotes();
             }
 
         } catch (JSONException e) {
@@ -72,8 +77,8 @@ public class QuestionsMapper extends Mapper {
     }
 
     public void processQuestions() {
-        Integer tmpQuestionId;
-        String tmpQuestionTitle;
+        Integer tmpQuestionId, tmpQuestionUpvotes;
+        String tmpQuestionTitle, tmpQuestionquestion;
         Integer arrayLength = questionsRetrieved.length();
         JSONObject tmpQuestion;
         questions = new ArrayList<>();
@@ -87,15 +92,38 @@ public class QuestionsMapper extends Mapper {
                 tmpQuestion = questionsRetrieved.getJSONObject(i);
 
                 // Get the slide info
-                tmpQuestionId = tmpQuestion.getInt("id");
-                tmpQuestionTitle = tmpQuestion.getString("question");
+                tmpQuestionquestion = tmpQuestion.getString("question");
+                tmpQuestionId = tmpQuestion.getInt("QuestionID");
+                tmpQuestionTitle = tmpQuestion.getString("Title");
+                tmpQuestionUpvotes = tmpQuestion.getInt("upvotes");
 
                 // Add it to the slideInfo array
-                questionInfo.put("id", tmpQuestionId.toString());
-                questionInfo.put("question", tmpQuestionTitle);
+                questionInfo.put("QuestionID", tmpQuestionId.toString());
+                questionInfo.put("question", tmpQuestionquestion);
+                questionInfo.put("upvotes", tmpQuestionUpvotes.toString());
+                questionInfo.put("Title", tmpQuestionTitle);
 
                 // Add it to the ArrayList<ID, SlideURL>
                 questions.add(questionInfo);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void processUpvotes() {
+        Integer arrayLength = upvotesRetrieved.length();
+        System.out.println("Length is: " + arrayLength);
+        String tmpQuestion;
+        upvotes = new int[arrayLength];
+
+        for ( int i = 0; i < arrayLength; i++ ) {
+            try {
+
+                // Split it in parts
+                tmpQuestion = upvotesRetrieved.getString(i);
+                upvotes[i] = Integer.parseInt(tmpQuestion.toString());
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -115,6 +143,10 @@ public class QuestionsMapper extends Mapper {
         this.sessionId = sessionId;
     }
 
+    public void setUserId(Integer userID) {this.userId = userID; }
+
+    public Integer getUserId() {return userId; }
+
     public boolean isQuestionsSuccesful() {
         return questionsSuccesful;
     }
@@ -126,5 +158,7 @@ public class QuestionsMapper extends Mapper {
     public ArrayList<Map<String, String>> getQuestions() {
         return questions;
     }
+
+    public int[] getUpvotes() { return upvotes; }
 
 }

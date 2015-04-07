@@ -1,18 +1,11 @@
 package wepresent.wepresent;
 
-import android.accessibilityservice.AccessibilityService;
-import android.accessibilityservice.AccessibilityServiceInfo;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.accessibility.AccessibilityEvent;
 
 import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 import it.neokree.materialnavigationdrawer.elements.MaterialSection;
@@ -60,9 +53,9 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
                 sessBundle.putString("Question", question);
                 sessBundle.putString("Type", type);
                 sessBundle.putString("Tab", tab);
+
                 break;
         }
-
         sessionID = in.getIntExtra("SessionID",0);
         sessBundle.putInt("SessionID", sessionID);
         userID = in.getIntExtra("UserID",0);
@@ -74,18 +67,6 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
         setupNavigationDrawer();
         setDrawerHeaderImage(R.drawable.menuthing);
     }
-
-    private BroadcastReceiver onNotice= new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-//            String pack = intent.getStringExtra("package");
-//            String title = intent.getStringExtra("title");
-//            String text = intent.getStringExtra("text");
-            System.out.println("package: " + intent.getStringExtra("package"));
-            System.out.println("title: " + intent.getStringExtra("title"));
-            System.out.println("text: " + intent.getStringExtra("text"));
-        }
-    };
 
     /**
      * Sets up the items for the navigation drawer
@@ -122,7 +103,7 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
         );
 
         if (loggedIn){
-            in = new Intent(this, MainActivity.class);
+            Intent in = new Intent(this, MainActivity.class);
             in.putExtra("LoggedOut", true);
             section = newSection(
                     "Logout",
