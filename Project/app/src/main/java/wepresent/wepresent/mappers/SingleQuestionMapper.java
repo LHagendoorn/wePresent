@@ -15,16 +15,17 @@ import java.util.List;
  */
 public class SingleQuestionMapper extends Mapper {
     private String questionTitle, questionDesc, questionURL;
-    private Integer errorCode, sessionId, questionId;
+    private Integer errorCode, sessionId, questionId, userId;
     private boolean questionSuccesful;
 
     public SingleQuestionMapper(Activity activity) {
         super(activity);
     }
 
-    public void start(Integer sessionId, Integer questionId) {
+    public void start(Integer sessionId, Integer questionId, Integer userId) {
         setSessionId(sessionId);
         setQuestionId(questionId);
+        setUserId(userId);
         execute();
     }
 
@@ -34,6 +35,7 @@ public class SingleQuestionMapper extends Mapper {
 
         nameValuePairs.add(new BasicNameValuePair("QuestionID", getQuestionId().toString()));
         nameValuePairs.add(new BasicNameValuePair("SessionID", getSessionId().toString()));
+        nameValuePairs.add(new BasicNameValuePair("UserID", getUserId().toString()));
 
         return nameValuePairs;
     }
@@ -98,6 +100,14 @@ public class SingleQuestionMapper extends Mapper {
 
     public void setQuestionId(Integer questionId) {
         this.questionId = questionId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public boolean isQuestionSuccesful() {

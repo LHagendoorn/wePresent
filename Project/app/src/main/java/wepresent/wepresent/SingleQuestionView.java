@@ -22,7 +22,7 @@ public class SingleQuestionView extends ActionBarActivity implements AsyncTaskRe
     private ImageView imageView;
     private TextView titleView, questionView;
     private SingleQuestionMapper questionMapper;
-    private int sessionId, questionId;
+    private int sessionId, questionId, userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +40,11 @@ public class SingleQuestionView extends ActionBarActivity implements AsyncTaskRe
         Bundle intentInfo = getIntent().getExtras();
         sessionId = intentInfo.getInt("SessionID");
         questionId = intentInfo.getInt("QuestionID");
+        userId = intentInfo.getInt("UserID");
 
         // Start the mapper
         questionMapper = new SingleQuestionMapper(this);
-        questionMapper.start(sessionId, questionId);
+        questionMapper.start(sessionId, questionId, userId);
     }
 
     public void done(Mapper.MapperSort mapper) {

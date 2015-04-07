@@ -141,6 +141,7 @@ public class QuestionView extends Fragment implements AsyncTaskReport {
                     Intent intent = new Intent(getActivity(), SingleQuestionView.class);
                     intent.putExtra("SessionID", sessionId);
                     intent.putExtra("QuestionID", question.get("QuestionID"));
+                    intent.putExtra("UserID", userId);
                     startActivity(intent);
                 }
             });
