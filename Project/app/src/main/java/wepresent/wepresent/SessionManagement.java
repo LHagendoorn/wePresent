@@ -14,13 +14,14 @@ import android.widget.Toast;
 
 import java.util.Arrays;
 
+import wepresent.wepresent.mappers.AsyncTaskReport;
 import wepresent.wepresent.mappers.Mapper;
 import wepresent.wepresent.mappers.PresentationMapper;
 import wepresent.wepresent.mappers.QuestionSetMapper;
 import wepresent.wepresent.mappers.UpdateMapper;
 
 
-public class SessionManagement extends ActionBarActivity {
+public class SessionManagement extends ActionBarActivity implements AsyncTaskReport {
     private PresentationMapper presMap;
     private QuestionSetMapper quesMap;
     private UpdateMapper updMap;
@@ -30,8 +31,8 @@ public class SessionManagement extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent in = getIntent();
-        userID = Integer.valueOf(in.getStringExtra("UserID"));
-        sessionID = Integer.valueOf(in.getStringExtra("sessionID"));
+        userID = in.getIntExtra("UserID", 0);
+        sessionID = in.getIntExtra("sessionID", 0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session_management);
 
