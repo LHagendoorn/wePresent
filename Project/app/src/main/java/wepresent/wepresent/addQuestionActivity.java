@@ -39,6 +39,7 @@ public class addQuestionActivity extends ActionBarActivity implements AsyncTaskR
     private static final int SELECT_PICTURE = 1;
 
     private Uri currImageURI;
+    private boolean imageUsed = false;
 
     private AddQuestionMapper addQuestionMapper;
 
@@ -91,9 +92,19 @@ public class addQuestionActivity extends ActionBarActivity implements AsyncTaskR
     public void onActivityResult(int reqCode, int resCode, Intent data) {
         if (resCode == RESULT_OK) {
             if (reqCode == 1) {
-                imageButton.setBackground(null);
-                currImageURI = data.getData();
-                imageButton.setImageURI(currImageURI);
+                System.out.println(data.getData());
+                System.out.println(data.getExtras());
+                if (data.getData() == null) {
+                    imageButton.setBackground(null);
+                    Bitmap photo = (Bitmap) data.getExtras().get("data");
+                    imageButton.setImageBitmap(photo);
+                    imageUsed = true;
+                } else {
+                    imageButton.setBackground(null);
+                    currImageURI = data.getData();
+                    imageButton.setImageURI(currImageURI);
+                    imageUsed = true;
+                }
             }
         }
     }
@@ -108,11 +119,11 @@ public class addQuestionActivity extends ActionBarActivity implements AsyncTaskR
         String yourQuestion = question.getText().toString();
         String yourTitle = title.getText().toString();
         String encodedImage = null;
-        if (yourQuestion.equals("")){
-            showErrorMessage("Please fill in a question");
+        if (yourTitle.equals("") || yourQuestion.equals("")){
+            showErrorMessage("Please fill in a title and question");
         } else {
 
-            if (currImageURI != null) {
+            if (imageUsed == true) {
                 Bitmap bm = ((BitmapDrawable)imageButton.getDrawable()).getBitmap();
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 bm.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
