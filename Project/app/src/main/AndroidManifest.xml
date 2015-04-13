@@ -14,6 +14,7 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="wepresent.wepresent.gcm.permission.C2D_MESSAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <!-- <activity android:name="LauncherHubThing" android:theme="@style/MyNavigationDrawerTheme" /> -->
     <application

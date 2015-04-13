@@ -71,10 +71,13 @@ public class addQuestionActivity extends ActionBarActivity implements AsyncTaskR
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
 
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+
                 Intent photoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
                 String pickTitle = "Select or take a new photo";
-                Intent chooseIntent = Intent.createChooser(intent, pickTitle);
+                Intent chooseIntent = Intent.createChooser(photoPickerIntent, pickTitle);
                 chooseIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] { photoIntent});
 
                 startActivityForResult(chooseIntent, SELECT_PICTURE);

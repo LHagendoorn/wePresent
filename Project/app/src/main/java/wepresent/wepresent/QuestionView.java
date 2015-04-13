@@ -143,10 +143,10 @@ public class QuestionView extends Fragment implements AsyncTaskReport {
             params.addRule(RelativeLayout.START_OF, tb.getId());
             params.addRule(RelativeLayout.CENTER_IN_PARENT, 2);
             tv.setLayoutParams(params);
-            tv.setOnClickListener(new View.OnClickListener() {
+            rv.setOnClickListener(new View.OnClickListener() {
                 @Override
-
                 public void onClick(View v) {
+                    v.setBackgroundColor(Color.GRAY);
                     Intent intent = new Intent(getActivity(), SingleQuestionView.class);
                     intent.putExtra("SessionID", sessionId);
                     intent.putExtra("QuestionID", questionID);
