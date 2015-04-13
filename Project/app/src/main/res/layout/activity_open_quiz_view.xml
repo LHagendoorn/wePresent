@@ -6,7 +6,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
         android:id="@+id/questionText"
         android:textSize="25dp"
         android:fontFamily="@string/loginText"
@@ -15,9 +14,9 @@
         android:layout_centerHorizontal="true"
         android:paddingTop="10dp"
         android:paddingLeft="10dp"
-        android:background="#ffffff" />
+        android:layout_marginTop="10dp" />
 
-    <EditText
+    <TextView
         android:layout_width="350dp"
         android:layout_height="350dp"
         android:id="@+id/openAnswerText"
@@ -28,7 +27,8 @@
         android:textColorHint="#8d7f7f7f"
         android:textColor="#ff000000"
         android:textSize="25dp"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:background="#ffffff" />
 
     <Button
         android:layout_width="150dp"
