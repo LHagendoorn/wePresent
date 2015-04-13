@@ -23,8 +23,7 @@
                 android:text="dwjs"
                 android:textSize="35dp"
                 android:paddingLeft="7dp"
-                android:layout_marginTop="10dp"
-                android:background="#ffffff" />
+                android:layout_marginTop="10dp" />
 
             <TextView
                 android:layout_width="350dp"
@@ -32,15 +31,14 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/questionText"
                 android:textColor="#ff000000"
-                android:layout_gravity="left"
                 android:text="cdsdc"
                 android:textSize="20dp"
                 android:paddingLeft="7dp"
                 android:paddingTop="4dp"
                 android:layout_marginTop="10dp"
-                android:background="#ffffff"
-                android:layout_marginLeft="10dp"
-                android:minHeight="100dp" />
+                android:minHeight="100dp"
+                android:layout_gravity="center_horizontal"
+                android:background="#dddddd" />
 
             <com.android.volley.toolbox.NetworkImageView
                 android:layout_width="match_parent"

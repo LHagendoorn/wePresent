@@ -18,17 +18,16 @@
 
     <EditText
         android:layout_width="350dp"
-        android:layout_height="350dp"
+        android:layout_height="300dp"
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/openAnswerText"
         android:layout_below="@+id/questionText"
         android:layout_centerHorizontal="true"
         android:hint="Enter your answer here..."
-        android:paddingBottom="300dp"
         android:textColorHint="#8d7f7f7f"
         android:textColor="#ff000000"
-        android:textSize="25dp"
+        android:gravity="top|left"
         android:layout_marginTop="20dp"
         android:background="#ffffff" />
 

@@ -16,7 +16,7 @@
     <Button
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="Create Session"
+        android:text="Create New Session"
         android:id="@+id/uSession"
         android:onClick="update"
         android:width="100dp"

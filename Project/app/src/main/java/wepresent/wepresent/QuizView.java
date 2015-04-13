@@ -16,12 +16,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.zip.Inflater;
+
 
 public class QuizView extends Fragment {
 
     String Pressed = "";
     private String question, button1, button2, button3;
-
+    LayoutInflater saveItForLater;
+    ViewGroup vasthouder;
     boolean MCQuestion = false;
 
     @Override
@@ -33,6 +36,8 @@ public class QuizView extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         int viewID;
         RelativeLayout layout;
+        saveItForLater = inflater;
+        vasthouder = container;
         // Check if there is a bundle attached - otherwise show image
         if (getArguments() == null) {
             // Show just the image view
@@ -96,6 +101,13 @@ public class QuizView extends Fragment {
                         submit(v);
                     }
                 });
+            } else {
+                final Button submitOpen = (Button) layout.findViewById(R.id.submitOpen);
+                submitOpen.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        submit(v);
+                    }
+                });
             }
         }
         return layout;
@@ -150,5 +162,10 @@ public class QuizView extends Fragment {
         //Button buttonOK = (Button) getView().findViewById(R.id.optionD);
         Toast toast = Toast.makeText(getActivity().getApplicationContext(), Pressed, Toast.LENGTH_SHORT);
         toast.show();
+
+        ((ViewGroup) this.getView().getParent()).la;
+
+        this.getLayoutInflater(new Bundle()).inflate(R.layout.activity_quiz_view_empty, (ViewGroup) this.getView());
+
     }
 }
