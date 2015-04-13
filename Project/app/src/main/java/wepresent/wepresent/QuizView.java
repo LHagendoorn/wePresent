@@ -147,7 +147,7 @@ public class QuizView extends Fragment {
     }
 
     public void submit(View view) {
-        Button buttonOK = (Button) getView().findViewById(R.id.optionD);
+        //Button buttonOK = (Button) getView().findViewById(R.id.optionD);
         Toast toast = Toast.makeText(getActivity().getApplicationContext(), Pressed, Toast.LENGTH_SHORT);
         toast.show();
     }
