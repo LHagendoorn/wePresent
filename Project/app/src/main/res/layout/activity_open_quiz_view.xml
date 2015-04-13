@@ -19,6 +19,8 @@
     <EditText
         android:layout_width="350dp"
         android:layout_height="350dp"
+        android:inputType="textMultiLine"
+        android:ems="10"
         android:id="@+id/openAnswerText"
         android:layout_below="@+id/questionText"
         android:layout_centerHorizontal="true"
