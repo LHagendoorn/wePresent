@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -33,8 +35,11 @@ public class QuizView extends Fragment implements AsyncTaskReport {
     String Pressed = "";
     private String question, button1, button2, button3;
     private int userId, questionId;
-    LayoutInflater saveItForLater;
-    ViewGroup vasthouder;
+//    LayoutInflater saveItForLater;
+//    ViewGroup vasthouder;
+    private int viewID;
+    private RelativeLayout layout;
+
     boolean MCQuestion = false;
     private AnswerQuiz quizMapper;
     private EditText openAnswerText;
@@ -48,10 +53,10 @@ public class QuizView extends Fragment implements AsyncTaskReport {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        int viewID;
-        RelativeLayout layout;
-        saveItForLater = inflater;
-        vasthouder = container;
+//        int viewID;
+//        RelativeLayout layout;
+//        saveItForLater = inflater;
+//        vasthouder = container;
         // Check if there is a bundle attached - otherwise show image
         if (getArguments() == null) {
             // Show just the image view
@@ -178,8 +183,6 @@ public class QuizView extends Fragment implements AsyncTaskReport {
         userId = sharedpreferences.getInt("UserID", 0);
 
         // Submit answer
-
-        this.getLayoutInflater(new Bundle()).inflate(R.layout.activity_quiz_view_empty, (ViewGroup) this.getView());
         quizMapper = new AnswerQuiz(this);
         if(MCQuestion) {
             quizMapper.start(userId, questionId, Pressed);
@@ -192,10 +195,10 @@ public class QuizView extends Fragment implements AsyncTaskReport {
 
     public void done(Mapper.MapperSort mapper) {
         if(quizMapper.isSuccesful()) {
-            // TODO Refresh scherm met geen vraag
-
-        } else { //TODO error
-
+            ((FrameLayout) layout.getParent()).removeAllViewsInLayout();
+            this.getLayoutInflater(new Bundle()).inflate(R.layout.activity_quiz_view_empty, (ViewGroup) this.getView());
+        } else {
+            Toast.makeText(this.getActivity().getApplicationContext(), "We had an oopsie, try again!", Toast.LENGTH_LONG).show();
         }
     }
 }

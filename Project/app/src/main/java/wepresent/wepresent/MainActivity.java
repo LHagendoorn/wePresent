@@ -187,12 +187,12 @@ public class MainActivity extends Activity implements AsyncTaskReport {
     public void gotoSlides(View view) {
         Intent intent = new Intent(this, LauncherHubThing.class);
         if(selectedSession == 0){
-//            intent = new Intent(this, LauncherHubThing.class);
-//            intent.putExtra("Tab", "quiz");
-//            intent.putExtra("Question", "Dit is een vraag?");
-//            intent.putExtra("Type", "open");
-//            intent.putExtra("SessionID", "1");
-//            startActivity(intent);
+            intent = new Intent(this, LauncherHubThing.class);
+            intent.putExtra("Tab", "quiz");
+            intent.putExtra("Question", "Dit is een vraag?");
+            intent.putExtra("Type", "open");
+            intent.putExtra("SessionID", "1");
+            startActivity(intent);
             Toast.makeText(getApplicationContext(), "Please select a session", Toast.LENGTH_LONG).show();
         } else {
             joinSessionMapper = new JoinSessionMapper(this);
