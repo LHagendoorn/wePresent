@@ -15,7 +15,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 public class GCMMessageHandler extends IntentService {
     public static final int MESSAGE_NOTIFICATION_ID = 435345;
-    private int sessionId;
+    private int questionId;
     private String button1, button2, button3, type, question;
 
     public GCMMessageHandler() {
@@ -33,7 +33,7 @@ public class GCMMessageHandler extends IntentService {
         // Keys in the data are shown as extras
         String title = extras.getString("title");
         String body = extras.getString("body");
-        sessionId = Integer.parseInt(extras.getString("sessionId"));
+        questionId = Integer.parseInt(extras.getString("questionId"));
         type = extras.getString("type");
         question = extras.getString("question");
         // Check if type is multiple choice
@@ -55,7 +55,7 @@ public class GCMMessageHandler extends IntentService {
         intent.putExtra("Tab", "quiz");
         intent.putExtra("Question", question);
         intent.putExtra("Type", type);
-        intent.putExtra("SessionID", sessionId);
+        intent.putExtra("QuestionID", questionId);
         // Check if multiple choice
         if ( type.equals("multiplechoice") ) {
             intent.putExtra("Button1", button1);

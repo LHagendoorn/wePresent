@@ -77,6 +77,11 @@
             android:theme="@style/AppTheme.Base.NoNavigation">
         </activity>
         <activity
+            android:name=".PoseQuestion"
+            android:label="Pose question"
+            android:theme="@style/AppTheme.Base.NoNavigation">
+        </activity>
+        <activity
             android:name=".SessionManagement"
             android:label="@string/title_activity_session_management" >
         </activity>

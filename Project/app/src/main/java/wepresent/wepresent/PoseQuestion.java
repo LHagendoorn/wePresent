@@ -3,8 +3,8 @@ package wepresent.wepresent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,56 +15,55 @@ import android.widget.Toast;
 
 import wepresent.wepresent.mappers.AsyncTaskReport;
 import wepresent.wepresent.mappers.Mapper;
+import wepresent.wepresent.mappers.PoseQuestionMapper;
+import wepresent.wepresent.mappers.PoseQuizQuestion;
 import wepresent.wepresent.mappers.SessionMapper;
 
 
-public class SessionActivity extends ActionBarActivity implements AsyncTaskReport {
-    private SessionMapper sessionMapper;
-    private String uniqueDeviceId;
+public class PoseQuestion extends ActionBarActivity implements AsyncTaskReport {
+    private PoseQuizQuestion questionMapper;
+    private PoseQuestionMapper poseQuestionMapper;
+    private int sessionId;
     private int selectedSession;
     private boolean loggedIn;
     SharedPreferences sharedpreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Get the shared preferences
-        sharedpreferences = getSharedPreferences("appData", Context.MODE_PRIVATE);
-
-        Intent in = getIntent();
-        uniqueDeviceId = in.getStringExtra("AndroidID");
-        loggedIn = in.getBooleanExtra("LoggedIn", false);
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_session);
+        setContentView(R.layout.activity_pose_question);
 
         // Set title
-        setTitle("Switch Session");
+        setTitle("Pose quiz question");
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        sessionMapper = new SessionMapper(this);
-        sessionMapper.start();
+        // Get the shared preferences
+        sharedpreferences = getSharedPreferences("appData", Context.MODE_PRIVATE);
+
+        // Get the current session ID
+        sessionId = sharedpreferences.getInt("SessionID", 0);
+
+        questionMapper = new PoseQuizQuestion(this);
+        questionMapper.start( sessionId );
     }
 
     public void done(Mapper.MapperSort mapper) {
         String[] sessions;
-        if(sessionMapper.isGetSuccessful()){
-            sessions = sessionMapper.getSessionNames();
+        if(questionMapper.isGetSuccessful()){
+            sessions = questionMapper.getSessionNames();
         } else {
             sessions = new String[]{"No sessions available"};
         }
 
-        ListView listSession = (ListView) findViewById(R.id.sessionList);
+        ListView listSession = (ListView) findViewById(R.id.questionsList);
         ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sessions);
         listSession.setAdapter(itemsAdapter);
         listSession.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectedSession = sessionMapper.getSessionIds()[position];
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putInt("SessionID", selectedSession);
-                editor.commit();
+                selectedSession = questionMapper.getSessionIds()[position];
                 System.out.println("sessionID: " + selectedSession);
             }});
     }
@@ -92,17 +91,14 @@ public class SessionActivity extends ActionBarActivity implements AsyncTaskRepor
         return super.onOptionsItemSelected(item);
     }
 
-    public void gotoSlides(View view) {
+    public void poseQuestion(View view) {
         Intent intent = new Intent(this, LauncherHubThing.class);
         if(selectedSession == 0){
-            Toast.makeText(getApplicationContext(), "Please select a session", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Please select a question", Toast.LENGTH_LONG).show();
         } else {
-            intent.putExtra("SessionID", selectedSession);
-            intent.putExtra("Tab", "slides");
-            intent.putExtra("AndroidID", uniqueDeviceId);
-            intent.putExtra("LoggedIn", loggedIn);
-            System.out.println("SessionID = " + intent.getIntExtra("SessionID", 0));
-            startActivity(intent);
+            poseQuestionMapper = new PoseQuestionMapper( this );
+            poseQuestionMapper.start(selectedSession, sessionId);
+            Toast.makeText(getApplicationContext(), "Question posed", Toast.LENGTH_LONG).show();
         }
     }
 

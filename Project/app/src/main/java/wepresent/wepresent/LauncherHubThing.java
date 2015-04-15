@@ -33,10 +33,11 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
 
         Bundle sessBundle = new Bundle();
 
+        sessionID = sharedpreferences.getInt("SessionID", 0);
+
         // Determine for what tab it is
         switch (tab) {
             case "slides":
-                sessionID = in.getIntExtra("SessionID",0);
                 sessBundle.putInt("SessionID", sessionID);
                 sessBundle.putString("Tab", "slides");
                 break;
@@ -55,6 +56,7 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
 
                 // Add it to the bundle
                 sessBundle.putString("Question", question);
+                sessBundle.putInt("QuestionID", in.getIntExtra("QuestionID", 0));
                 sessBundle.putString("Type", type);
                 sessBundle.putString("Tab", tab);
 
@@ -134,7 +136,7 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
             this.addSection(section);
             section = newSection(
                     "Pose Quiz Question",
-                    homeFragment
+                    new Intent(this, PoseQuestion.class)
             );
             this.addSection(section);
         } else {

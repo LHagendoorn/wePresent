@@ -1,7 +1,10 @@
 package wepresent.wepresent;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -11,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,18 +22,28 @@ import android.widget.Toast;
 
 import java.util.zip.Inflater;
 
+import wepresent.wepresent.mappers.AnswerQuiz;
+import wepresent.wepresent.mappers.AsyncTaskReport;
+import wepresent.wepresent.mappers.Mapper;
+import wepresent.wepresent.mappers.QuizMapper;
 
-public class QuizView extends Fragment {
+
+public class QuizView extends Fragment implements AsyncTaskReport {
 
     String Pressed = "";
     private String question, button1, button2, button3;
+    private int userId, questionId;
     LayoutInflater saveItForLater;
     ViewGroup vasthouder;
     boolean MCQuestion = false;
+    private AnswerQuiz quizMapper;
+    private EditText openAnswerText;
+    SharedPreferences sharedpreferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedpreferences = this.getActivity().getSharedPreferences("appData", Context.MODE_PRIVATE);
     }
 
     @Override
@@ -49,6 +63,7 @@ public class QuizView extends Fragment {
             button1 = b.getString("Button1");
             button2 = b.getString("Button2");
             button3 = b.getString("Button3");
+            questionId = b.getInt("QuestionID");
 
             // Determine if it is a multiple choice question
             if (b.getString("Type").equals("multiplechoice")) {
@@ -159,13 +174,28 @@ public class QuizView extends Fragment {
     }
 
     public void submit(View view) {
-        //Button buttonOK = (Button) getView().findViewById(R.id.optionD);
-        Toast toast = Toast.makeText(getActivity().getApplicationContext(), Pressed, Toast.LENGTH_SHORT);
-        toast.show();
+        // Get values
+        userId = sharedpreferences.getInt("UserID", 0);
 
-        //((ViewGroup) this.getView().getParent()).la;
+        // Submit answer
 
         this.getLayoutInflater(new Bundle()).inflate(R.layout.activity_quiz_view_empty, (ViewGroup) this.getView());
+        quizMapper = new AnswerQuiz(this);
+        if(MCQuestion) {
+            quizMapper.start(userId, questionId, Pressed);
+        }else {
+            // Get value of text field
+            openAnswerText = (EditText) getActivity().findViewById(R.id.openAnswerText);
+            quizMapper.start(userId, questionId, openAnswerText.getText().toString());
+        }
+    }
 
+    public void done(Mapper.MapperSort mapper) {
+        if(quizMapper.isSuccesful()) {
+            // TODO Refresh scherm met geen vraag
+
+        } else { //TODO error
+
+        }
     }
 }
