@@ -1,7 +1,9 @@
 package wepresent.wepresent;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -46,6 +48,7 @@ public class QuestionView extends Fragment implements AsyncTaskReport {
     private int[] upvotes;
     private int sesID, useID;
     private boolean refresh = true;
+    SharedPreferences sharedpreferences;
 
     // We get the ListView component from the layout
     ////ListView lv;// = (ListView) getView().findViewById(R.id.questionList);
@@ -84,19 +87,18 @@ public class QuestionView extends Fragment implements AsyncTaskReport {
     }
 
     public void onResume(){
+        sharedpreferences = this.getActivity().getSharedPreferences("appData", Context.MODE_PRIVATE);
         refresh = true;
         super.onResume();
-            Bundle b = getArguments();
-            sessionId = b.getInt("SessionID");
-            userId = b.getInt("UserID");
+            sessionId = sharedpreferences.getInt("SessionID", 0);
+            userId = sharedpreferences.getInt("UserID", 0);
 
             questionsMapper = new QuestionsMapper(this);
             questionsMapper.start(sessionId, userId);
     }
 
     public void upVote(Integer questionId) {
-        Bundle b = getArguments();
-        userId = b.getInt("UserID");
+        userId = sharedpreferences.getInt("UserID", 0);
 
         upvoteMapper = new UpVoteMapper(this);
         upvoteMapper.start(userId, questionId);

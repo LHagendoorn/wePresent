@@ -1,6 +1,8 @@
 package wepresent.wepresent;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,6 +39,7 @@ public class MainActivity extends Activity implements AsyncTaskReport {
     private int UserID;
     private JoinSessionMapper joinSessionMapper;
     private LeaveSessionMapper leaveSessionMapper;
+    SharedPreferences sharedpreferences;
 
     // Google Cloud Messaging
     private GCMClientManager pushClientManager;
@@ -50,6 +53,9 @@ public class MainActivity extends Activity implements AsyncTaskReport {
         super.onCreate(savedInstanceState);
         //Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         setContentView(R.layout.activity_main);
+
+        // Get the shared preferences
+        sharedpreferences = getSharedPreferences("appData", Context.MODE_PRIVATE);
 
         // Google Cloud Messaging
         pushClientManager = new GCMClientManager(this, PROJECT_NUMBER);
@@ -108,17 +114,19 @@ public class MainActivity extends Activity implements AsyncTaskReport {
         System.out.println(mapper);
         if(mapper.equals(loginMapper.getMapperSort())) {
             if (loginMapper.isLoginsuccesful() && !onStartUpLogin) {
-                Toast.makeText(getApplicationContext(), "Correct login data send", Toast.LENGTH_LONG).show();
                 UserID = loginMapper.getUserID();
+
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putInt("UserID", UserID);
+                editor.putString("AndroidID", uniqueDeviceId);
+                editor.putBoolean("LoggedIn", true);
+                editor.putInt("SessionID", 0);
+                editor.commit();
                 //Intent out = new Intent(this, SessionActivity.class);
                 //out.putExtra("LoggedIn", true);
                 //out.putExtra("UserID", loginMapper.getUsername());
                 Intent out = new Intent(this, LauncherHubThing.class);
-                out.putExtra("SessionID", 0);
                 out.putExtra("Tab", "slides");
-                out.putExtra("AndroidID", uniqueDeviceId);
-                out.putExtra("UserID", UserID);
-                out.putExtra("LoggedIn", true);
                 startActivity(out);
             } else if (onStartUpLogin) {
                 UserID = loginMapper.getUserID();
@@ -179,23 +187,25 @@ public class MainActivity extends Activity implements AsyncTaskReport {
     public void gotoSlides(View view) {
         Intent intent = new Intent(this, LauncherHubThing.class);
         if(selectedSession == 0){
-            intent = new Intent(this, LauncherHubThing.class);
-            intent.putExtra("Tab", "quiz");
-            intent.putExtra("Question", "Dit is een vraag?");
-            intent.putExtra("Type", "open");
-            intent.putExtra("SessionID", "1");
-            startActivity(intent);
+//            intent = new Intent(this, LauncherHubThing.class);
+//            intent.putExtra("Tab", "quiz");
+//            intent.putExtra("Question", "Dit is een vraag?");
+//            intent.putExtra("Type", "open");
+//            intent.putExtra("SessionID", "1");
+//            startActivity(intent);
             Toast.makeText(getApplicationContext(), "Please select a session", Toast.LENGTH_LONG).show();
         } else {
             joinSessionMapper = new JoinSessionMapper(this);
             joinSessionMapper.start(selectedSession, UserID);
-            intent.putExtra("SessionID", selectedSession);
+
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putInt("UserID", UserID);
+            editor.putString("AndroidID", uniqueDeviceId);
+            editor.putInt("SessionID", selectedSession);
+            editor.putBoolean("LoggedIn", false);
+            editor.commit();
+
             intent.putExtra("Tab", "slides");
-            intent.putExtra("AndroidID", uniqueDeviceId);
-            System.out.println("Deze userID steek ik in de intent: " + UserID);
-            intent.putExtra("UserID", UserID);
-            intent.putExtra("LoggedIn", false);
-            System.out.println("SessionID = " + intent.getIntExtra("SessionID", 0));
             startActivity(intent);
         }
     }

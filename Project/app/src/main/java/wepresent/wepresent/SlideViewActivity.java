@@ -1,5 +1,7 @@
 package wepresent.wepresent;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.support.v7.app.ActionBarActivity;
@@ -24,11 +26,14 @@ public class SlideViewActivity extends ActionBarActivity implements AsyncTaskRep
     private SingleSlideMapper slideMapper;
     private int value = 0;
     private int sessionId, slideId;
+    SharedPreferences sharedpreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slide_view);
+
+        sharedpreferences = getSharedPreferences("appData", Context.MODE_PRIVATE);
 
         // Set title
         setTitle("Slide notes");
@@ -39,7 +44,7 @@ public class SlideViewActivity extends ActionBarActivity implements AsyncTaskRep
 
         // Get the extras
         Bundle intentInfo = getIntent().getExtras();
-        sessionId = intentInfo.getInt("SessionID");
+        sessionId = sharedpreferences.getInt("SessionID", 0);
         slideId = intentInfo.getInt("SlideID");
 
         // Start the mapper

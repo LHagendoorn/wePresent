@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.Point;
@@ -46,6 +47,7 @@ public class SlidesActivity extends Fragment implements AsyncTaskReport {
     private SlidesMapper slidesMapper;
     private int sessionId;
     private ArrayList<Map<String, String>> slides;
+    SharedPreferences sharedpreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -64,11 +66,13 @@ public class SlidesActivity extends Fragment implements AsyncTaskReport {
     }
 
     public void onResume(){
+        sharedpreferences = this.getActivity().getSharedPreferences("appData", Context.MODE_PRIVATE);
+
         super.onResume();
         //TODO zorg dat je al gecachede plaatjes displayed inplaats van alles gewoon weer opnieuw op te halen
         if(slidesMapper == null) {
             Bundle b = getArguments();
-            sessionId = b.getInt("SessionID");
+            sessionId = sharedpreferences.getInt("SessionID", 0);
             slidesMapper = new SlidesMapper(this);
             slidesMapper.start(sessionId);
         }
@@ -78,15 +82,6 @@ public class SlidesActivity extends Fragment implements AsyncTaskReport {
         //TODO Misschien niet het geheugen van de telefoon gebruiken om de slides te cachen, but then again; I DON'T CARE
         // Get where the images should go
         linLayout = (LinearLayout) getView().findViewById(R.id.linearLayout);
-
-//        //TODO Zorg ervoor dat de hele breedte van het scherm gebruikt wordt, wellicht ook nog een padding?
-//        WindowManager wm = (WindowManager) getView().getContext().getSystemService(Context.WINDOW_SERVICE);
-//        Display display = wm.getDefaultDisplay();
-//        Point size = new Point();
-//        display.getSize(size);
-//        int width = size.x;
-//        int height = (int) (width * 0.5625);
-//        LayoutParams lpView = new LayoutParams(width, height);
 
         // For each slide
         for ( Map<String, String> slide : slides ) {
@@ -109,7 +104,6 @@ public class SlidesActivity extends Fragment implements AsyncTaskReport {
                 public void onClick(View v) {
                     // Go to the slideView activity
                     Intent intent = new Intent(getActivity(), SlideViewActivity.class);
-                    intent.putExtra("SessionID", sessionId);
                     intent.putExtra("SlideID", v.getId());
                     startActivity(intent);
                 }

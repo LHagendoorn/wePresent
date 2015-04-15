@@ -163,7 +163,7 @@ public class QuizView extends Fragment {
         Toast toast = Toast.makeText(getActivity().getApplicationContext(), Pressed, Toast.LENGTH_SHORT);
         toast.show();
 
-        ((ViewGroup) this.getView().getParent()).la;
+        //((ViewGroup) this.getView().getParent()).la;
 
         this.getLayoutInflater(new Bundle()).inflate(R.layout.activity_quiz_view_empty, (ViewGroup) this.getView());
 

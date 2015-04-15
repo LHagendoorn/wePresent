@@ -1,6 +1,8 @@
 package wepresent.wepresent;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
@@ -19,13 +21,15 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
     boolean loggedIn;
     int userID;
     int sessionID;
+    SharedPreferences sharedpreferences;
+
     @Override
     public void init(Bundle savedInstanceState) {
         // Create home fragment
         Intent in = getIntent();
         String tab = in.getStringExtra("Tab");
         loggedIn = in.getBooleanExtra("LoggedIn",false);
-        //loggedIn = true;
+        sharedpreferences = getSharedPreferences("appData", Context.MODE_PRIVATE);
 
         Bundle sessBundle = new Bundle();
 
@@ -56,9 +60,9 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
 
                 break;
         }
-        sessionID = in.getIntExtra("SessionID",0);
+        sessionID = sharedpreferences.getInt("SessionID", 0);
         sessBundle.putInt("SessionID", sessionID);
-        userID = in.getIntExtra("UserID",0);
+        userID = sharedpreferences.getInt("UserID", 0);
         sessBundle.putInt("UserID", userID);
         System.out.println("Dit is nu de userID: " + userID);
 
