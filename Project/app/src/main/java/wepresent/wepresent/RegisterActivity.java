@@ -1,7 +1,9 @@
 package wepresent.wepresent;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,19 +12,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import wepresent.wepresent.mappers.AsyncTaskReport;
+import wepresent.wepresent.mappers.MainMapper;
 import wepresent.wepresent.mappers.Mapper;
 import wepresent.wepresent.mappers.RegisterMapper;
 
 public class RegisterActivity extends Activity implements AsyncTaskReport {
 
     private String errorMessage, androidId;
+    SharedPreferences sharedpreferences;
 
     private RegisterMapper registerMapper;
+    private MainMapper loginMapper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        sharedpreferences = getSharedPreferences("appData", Context.MODE_PRIVATE);
+        loginMapper = new MainMapper(this);
 
         // Get the unique device ID
         Bundle intentInfo = getIntent().getExtras();
@@ -31,6 +39,7 @@ public class RegisterActivity extends Activity implements AsyncTaskReport {
             androidId = intentInfo.getString( "AndroidID" );
         } else {
             // TODO: Prevent from registering without unique ID
+            //dat ga ik nou niet doen he
         }
     }
 
@@ -86,32 +95,63 @@ public class RegisterActivity extends Activity implements AsyncTaskReport {
         Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
     }
 
-    public void done(Mapper.MapperSort mapper) {
-        if(registerMapper.isRegisterSuccesful()) {
-            // TODO: Redirect to hub
-            int registeredID = registerMapper.getUserId();
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("UserID", registeredID);
-            startActivity(intent);
-        } else {
-            // Check what error message occurs
-            switch (registerMapper.getErrorCode()) {
-                case 1:
-                    this.errorMessage = "This username is already in use";
-                    break;
-                case 2:
-                    this.errorMessage = "This emailaddress is already in use";
-                    break;
-                case 3:
-                    this.errorMessage = "There was an internal error, please try again later";
-                    break;
-                default:
-                    this.errorMessage = "Unknown error";
-                    break;
-            }
+    private void proceedLogin(String userName, String password, String deviceID){
+        loginMapper = new MainMapper(this);
+        loginMapper.start(userName, password, deviceID);
+    }
 
-            // Show the error message
-            showErrorMessage(this.errorMessage);
+    public void done(Mapper.MapperSort mapper) {
+        if (mapper.equals(loginMapper.getMapperSort())){
+            if (loginMapper.isLoginsuccesful()) {
+                int UserID = loginMapper.getUserID();
+
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putInt("UserID", UserID);
+                editor.putString("AndroidID", loginMapper.getAndroidId());
+                editor.putBoolean("LoggedIn", true);
+                editor.putInt("SessionID", 0);
+                editor.commit();
+                //Intent out = new Intent(this, SessionActivity.class);
+                //out.putExtra("LoggedIn", true);
+                //out.putExtra("UserID", loginMapper.getUsername());
+                Intent out = new Intent(this, LauncherHubThing.class);
+                out.putExtra("Tab", "slides");
+                startActivity(out);
+            } else {
+                Toast.makeText(getApplicationContext(), "Cannot login", Toast.LENGTH_LONG).show();
+                int registeredID = registerMapper.getUserId();
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.putExtra("UserID", registeredID);
+                startActivity(intent);
+            }
+        } else {
+            if (registerMapper.isRegisterSuccesful()) {
+                // TODO: Redirect to hub
+                //            int registeredID = registerMapper.getUserId();
+                //            Intent intent = new Intent(this, MainActivity.class);
+                //            intent.putExtra("UserID", registeredID);
+                //            startActivity(intent);
+                proceedLogin(registerMapper.getUsername(), registerMapper.getPassword(), registerMapper.getAndroidId());
+            } else {
+                // Check what error message occurs
+                switch (registerMapper.getErrorCode()) {
+                    case 1:
+                        this.errorMessage = "This username is already in use";
+                        break;
+                    case 2:
+                        this.errorMessage = "This emailaddress is already in use";
+                        break;
+                    case 3:
+                        this.errorMessage = "There was an internal error, please try again later";
+                        break;
+                    default:
+                        this.errorMessage = "Unknown error";
+                        break;
+                }
+
+                // Show the error message
+                showErrorMessage(this.errorMessage);
+            }
         }
     }
 }

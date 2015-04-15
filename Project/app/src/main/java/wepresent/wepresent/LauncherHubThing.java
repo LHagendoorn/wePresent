@@ -34,6 +34,7 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
         Bundle sessBundle = new Bundle();
 
         sessionID = sharedpreferences.getInt("SessionID", 0);
+        loggedIn = sharedpreferences.getBoolean("LoggedIn", false);
 
         // Determine for what tab it is
         switch (tab) {
@@ -72,6 +73,9 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
         homeFragment.setArguments(sessBundle);
         setupNavigationDrawer();
         setDrawerHeaderImage(R.drawable.menuthing);
+        if (loggedIn) {
+            this.openDrawer();
+        }
     }
 
     /**
@@ -91,23 +95,39 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
             homeFragment
         );
         this.addSection(section);
+        Intent in;
 
-        Intent in = new Intent(this, SessionActivity.class);
-        in.putExtra("LoggedIn", true);
-        in.putExtra("UserID", userID);
-        section = newSection(
-                "Switch Session",
-                in
-        );
-        this.addSection(section);
+        System.out.println("sessionID: " + sessionID);
+        System.out.println("loggedIn: " + loggedIn);
 
-        in = new Intent(this, MainActivity.class);
-        in.putExtra("Leaved", true);
-        section = newSection(
-                "Leave Session",
-                in
-        );
+        if(sessionID!=0) {
+            in = new Intent(this, SessionActivity.class);
+            in.putExtra("LoggedIn", true);
+            in.putExtra("UserID", userID);
+            section = newSection(
+                    "Switch Session",
+                    in
+            );
+            this.addSection(section);
 
+            in = new Intent(this, MainActivity.class);
+            in.putExtra("Leaved", true);
+            section = newSection(
+                    "Leave Session",
+                    in
+            );
+            this.addSection(section);
+
+        } else {
+            in = new Intent(this, SessionActivity.class);
+            in.putExtra("LoggedIn", true);
+            in.putExtra("UserID", userID);
+            section = newSection(
+                    "Join Session",
+                    in
+            );
+            this.addSection(section);
+        }
         if (loggedIn){
             in = new Intent(this, MainActivity.class);
             in.putExtra("LoggedOut", true);
@@ -119,26 +139,28 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
             in.putExtra("UserID", userID);
             in.putExtra("SessionID", 0);
             this.addBottomSection(section);
+
             section = newSection(
                     "Start new session",
                     in
             );
-
             in = new Intent(this, SessionManagement.class);
             in.putExtra("UserID", userID);
             in.putExtra("SessionID", sessionID);
             this.addSection(section);
-            section = newSection(
-                    "Manage Session",
-                    in
-            );
+            if (sessionID!=0) {
+                section = newSection(
+                        "Manage Session",
+                        in
+                );
 
-            this.addSection(section);
-            section = newSection(
-                    "Pose Quiz Question",
-                    new Intent(this, PoseQuestion.class)
-            );
-            this.addSection(section);
+                this.addSection(section);
+                section = newSection(
+                        "Pose Quiz Question",
+                        new Intent(this, PoseQuestion.class)
+                );
+                this.addSection(section);
+            }
         } else {
             section = newSection(
                     "Login",
