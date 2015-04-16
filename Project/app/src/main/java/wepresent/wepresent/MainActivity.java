@@ -35,6 +35,7 @@ public class MainActivity extends Activity implements AsyncTaskReport {
     private Button loginButton;
     private String[] sessions;
     private int selectedSession;
+    private String selSessTit;
     private boolean onStartUpLogin = true;
     private int UserID;
     private JoinSessionMapper joinSessionMapper;
@@ -74,6 +75,13 @@ public class MainActivity extends Activity implements AsyncTaskReport {
 
         System.out.println("Altijd leuk om te weten: " + uniqueDeviceId);
 
+        Intent in = getIntent();
+        boolean leaved = in.getBooleanExtra("Leaved", false);
+        if(leaved){
+            leaveSessionMapper = new LeaveSessionMapper(this);
+            leaveSessionMapper.start(in.getIntExtra("OlderUserID",0));
+        }
+
         loginMapper = new MainMapper(this);
         loginMapper.start(null,null,uniqueDeviceId);
         sessionMapper = new SessionMapper(this);
@@ -91,13 +99,6 @@ public class MainActivity extends Activity implements AsyncTaskReport {
             }
 
         });
-
-        Intent in = getIntent();
-        boolean leaved = in.getBooleanExtra("Leaved", false);
-        if(leaved){
-            leaveSessionMapper = new LeaveSessionMapper(this);
-            leaveSessionMapper.start(UserID);
-        }
     }
 
     private void proceedLogin() {
@@ -148,6 +149,7 @@ public class MainActivity extends Activity implements AsyncTaskReport {
 //                    TextView textView = (TextView) view.findViewById(R.id.list_content);
 //                    String text = textView.getText().toString();
                     selectedSession = sessionMapper.getSessionIds()[position];
+                    selSessTit = sessionMapper.getSessionNames()[position];
                     System.out.println("sessionID: " + selectedSession);
                 }});
             listSession.setAdapter(itemsAdapter);
@@ -202,6 +204,7 @@ public class MainActivity extends Activity implements AsyncTaskReport {
             editor.putString("AndroidID", uniqueDeviceId);
             editor.putInt("SessionID", selectedSession);
             editor.putBoolean("LoggedIn", false);
+            editor.putString("SessionName", selSessTit);
             editor.commit();
 
             intent.putExtra("Tab", "slides");

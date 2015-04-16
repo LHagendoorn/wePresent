@@ -57,6 +57,7 @@ public class LeaveSessionMapper extends Mapper{
      */
     @Override
     public void processData(String result) {
+        System.out.println("Leaved! " + result);
         try {
             JSONObject SessionObject = new JSONObject(result);
             setGetSuccessful(SessionObject.getBoolean("Successful"));

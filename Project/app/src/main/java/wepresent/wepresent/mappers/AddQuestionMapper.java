@@ -60,6 +60,7 @@ public class AddQuestionMapper extends Mapper {
      */
     @Override
     public void processData(String result) {
+        System.out.println("Lookie here! " + result);
         try {
             JSONObject registerObject = new JSONObject(result);
             setAddedSuccesfull(registerObject.getBoolean("Successful"));

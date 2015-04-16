@@ -10,17 +10,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class UpdateMapper extends Mapper {
-    private Integer sessionId;
-    private Integer errorCode;
-    private Integer userID;
-    private Integer presentationID;
-    private Integer quesSetID;
+    private int sessionId;
+    private int errorCode;
+    private int userID;
+    private int presentationID;
+    private int quesSetID;
     private boolean sendSuccesful;
     private JSONArray questionsRetrieved;
     private String title;
@@ -66,13 +64,19 @@ public class UpdateMapper extends Mapper {
      */
     @Override
     public void processData(String result) {
+        System.out.println(result);
         try {
             JSONObject questionsObject = new JSONObject(result);
             sendSuccesful = questionsObject.getBoolean("Successful");
+            System.out.println("CAN ANYBODY HEAR ME? " + this.sessionId);
+            if (this.sessionId==0){
+                System.out.println("IS IT PRINTING THIS?");
+                this.sessionId = questionsObject.getInt("SessionID");
+                System.out.println("in: " + questionsObject.getInt("SessionID") + " - uit: " + getSessionId());
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -84,7 +88,7 @@ public class UpdateMapper extends Mapper {
         return sessionId;
     }
 
-    public void setSessionId(Integer sessionId) {
+    public void setSessionId(int sessionId) {
         this.sessionId = sessionId;
     }
 

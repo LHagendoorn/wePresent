@@ -4,24 +4,26 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 
 import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 import it.neokree.materialnavigationdrawer.elements.MaterialSection;
 import it.neokree.materialnavigationdrawer.elements.listeners.MaterialSectionListener;
 import wepresent.wepresent.mappers.AsyncTaskReport;
+import wepresent.wepresent.mappers.LeaveSessionMapper;
 import wepresent.wepresent.mappers.Mapper;
 
-public class LauncherHubThing extends MaterialNavigationDrawer implements MaterialSectionListener {
+public class LauncherHubThing extends MaterialNavigationDrawer implements MaterialSectionListener, AsyncTaskReport {
 
     HomeFragment homeFragment;
     boolean loggedIn;
     int userID;
     int sessionID;
+    private LeaveSessionMapper leaveSessionMapper;
     SharedPreferences sharedpreferences;
+    boolean owner;
+    String sessName;
 
     @Override
     public void init(Bundle savedInstanceState) {
@@ -31,10 +33,28 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
         loggedIn = in.getBooleanExtra("LoggedIn",false);
         sharedpreferences = getSharedPreferences("appData", Context.MODE_PRIVATE);
 
+        boolean leaved = in.getBooleanExtra("Leaved", false);
+        userID = sharedpreferences.getInt("UserID", 0);
+        if(leaved){
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putBoolean("LoggedIn", true);
+            editor.putInt("SessionID", 0);
+            editor.commit();
+
+            leaveSessionMapper = new LeaveSessionMapper(this);
+            leaveSessionMapper.start(userID);
+        }
+
         Bundle sessBundle = new Bundle();
 
         sessionID = sharedpreferences.getInt("SessionID", 0);
         loggedIn = sharedpreferences.getBoolean("LoggedIn", false);
+        owner = sharedpreferences.getBoolean("Owner", false);
+        if (sessionID>0) {
+            sessName = sharedpreferences.getString("SessionName", "Session");
+        } else {
+            sessName = "Not in a session";
+        }
 
         // Determine for what tab it is
         switch (tab) {
@@ -65,7 +85,7 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
         }
         sessionID = sharedpreferences.getInt("SessionID", 0);
         sessBundle.putInt("SessionID", sessionID);
-        userID = sharedpreferences.getInt("UserID", 0);
+        //userID = sharedpreferences.getInt("UserID", 0);
         sessBundle.putInt("UserID", userID);
         System.out.println("Dit is nu de userID: " + userID);
 
@@ -73,7 +93,7 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
         homeFragment.setArguments(sessBundle);
         setupNavigationDrawer();
         setDrawerHeaderImage(R.drawable.menuthing);
-        if (loggedIn) {
+        if (sessionID==0) {
             this.openDrawer();
         }
     }
@@ -91,7 +111,7 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
 
         // The sections
         MaterialSection section = newSection(
-            "Hub",
+            sessName,
             homeFragment
         );
         this.addSection(section);
@@ -110,7 +130,8 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
             );
             this.addSection(section);
 
-            in = new Intent(this, MainActivity.class);
+            in = new Intent(this, LauncherHubThing.class);
+            in.putExtra("Tab", "slides");
             in.putExtra("Leaved", true);
             section = newSection(
                     "Leave Session",
@@ -131,35 +152,43 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
         if (loggedIn){
             in = new Intent(this, MainActivity.class);
             in.putExtra("LoggedOut", true);
+            in.putExtra("Leaved", true);
+            in.putExtra("OlderUserID", userID);
             section = newSection(
                     "Logout",
                     in
             );
+            this.addBottomSection(section);
+
+            in = new Intent(this, SessionManagement.class);
             in = new Intent(this, SessionManagement.class);
             in.putExtra("UserID", userID);
             in.putExtra("SessionID", 0);
-            this.addBottomSection(section);
-
+            in.putExtra("upd", false);
             section = newSection(
                     "Start new session",
                     in
             );
-            in = new Intent(this, SessionManagement.class);
-            in.putExtra("UserID", userID);
-            in.putExtra("SessionID", sessionID);
             this.addSection(section);
-            if (sessionID!=0) {
-                section = newSection(
-                        "Manage Session",
-                        in
-                );
 
-                this.addSection(section);
-                section = newSection(
-                        "Pose Quiz Question",
-                        new Intent(this, PoseQuestion.class)
-                );
-                this.addSection(section);
+            if (owner) {
+                if (sessionID != 0) {
+                    in = new Intent(this, SessionManagement.class);
+                    in.putExtra("UserID", userID);
+                    in.putExtra("SessionID", sessionID);
+                    in.putExtra("upd", true);
+                    section = newSection(
+                            "Manage Session",
+                            in
+                    );
+                    this.addSection(section);
+
+                    section = newSection(
+                            "Pose Quiz Question",
+                            new Intent(this, PoseQuestion.class)
+                    );
+                    this.addSection(section);
+                }
             }
         } else {
             section = newSection(
@@ -177,6 +206,11 @@ public class LauncherHubThing extends MaterialNavigationDrawer implements Materi
         inflater.inflate(R.menu.main_menu, menu);
 
         return true;
+    }
+
+    @Override
+    public void done(Mapper.MapperSort mapper) {
+
     }
 
     /*@Override

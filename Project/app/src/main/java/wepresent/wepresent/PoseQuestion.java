@@ -17,7 +17,6 @@ import wepresent.wepresent.mappers.AsyncTaskReport;
 import wepresent.wepresent.mappers.Mapper;
 import wepresent.wepresent.mappers.PoseQuestionMapper;
 import wepresent.wepresent.mappers.PoseQuizQuestion;
-import wepresent.wepresent.mappers.SessionMapper;
 
 
 public class PoseQuestion extends ActionBarActivity implements AsyncTaskReport {
@@ -35,7 +34,6 @@ public class PoseQuestion extends ActionBarActivity implements AsyncTaskReport {
 
         // Set title
         setTitle("Pose quiz question");
-
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
