@@ -1,14 +1,11 @@
 package wepresent.wepresent;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,18 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.zip.Inflater;
-
 import wepresent.wepresent.mappers.AnswerQuiz;
 import wepresent.wepresent.mappers.AsyncTaskReport;
 import wepresent.wepresent.mappers.Mapper;
-import wepresent.wepresent.mappers.QuizMapper;
 
 
 public class QuizView extends Fragment implements AsyncTaskReport {
@@ -195,7 +187,7 @@ public class QuizView extends Fragment implements AsyncTaskReport {
 
     public void done(Mapper.MapperSort mapper) {
         if(quizMapper.isSuccesful()) {
-            ((FrameLayout) layout.getParent()).removeAllViewsInLayout();
+            layout.removeAllViewsInLayout();
             this.getLayoutInflater(new Bundle()).inflate(R.layout.activity_quiz_view_empty, (ViewGroup) this.getView());
         } else {
             Toast.makeText(this.getActivity().getApplicationContext(), "We had an oopsie, try again!", Toast.LENGTH_LONG).show();

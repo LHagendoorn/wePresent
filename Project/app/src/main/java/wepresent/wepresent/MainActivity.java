@@ -190,9 +190,13 @@ public class MainActivity extends Activity implements AsyncTaskReport {
         if(selectedSession == 0){
 //            intent = new Intent(this, LauncherHubThing.class);
 //            intent.putExtra("Tab", "quiz");
-//            intent.putExtra("Question", "Dit is een vraag?");
-//            intent.putExtra("Type", "open");
+//            intent.putExtra("Question", "What did you think of this app?");
+//            intent.putExtra("Type", "multiplechoice");
+//            intent.putExtra("Button1", "Fun");
+//            intent.putExtra("Button2", "Super Fun");
+//            intent.putExtra("Button3", "Super Mega Fun");
 //            intent.putExtra("SessionID", "1");
+//            intent.putExtra("QuestionID","1");
 //            startActivity(intent);
             Toast.makeText(getApplicationContext(), "Please select a session", Toast.LENGTH_LONG).show();
         } else {
